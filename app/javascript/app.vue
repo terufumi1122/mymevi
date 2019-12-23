@@ -1,8 +1,6 @@
 <template>
   <v-app id="app">
     <Header/>
-    <h1>This is app.vue</h1>
-    <p>{{ message }}</p>
     <Top/>
   </v-app>
 </template>
@@ -14,7 +12,6 @@ import Header from "./components/Header";
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
     }
   },
   components: {
@@ -24,9 +21,8 @@ export default {
 }
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
+<style>
+#app {
+  background: #f0efe2;
 }
 </style>
