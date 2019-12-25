@@ -3,6 +3,7 @@
     <Header/>
     <Top/>
     <Footer/>
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -11,7 +12,22 @@ import Top from "./components/Top";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import Users from './components/Users.vue'
+
+const router = new VueRouter({
+  routes: [
+    { path: '/',
+      component: Users }
+  ]
+})
+
+Vue.use(VueRouter)
+
 export default {
+  router,
   data: function () {
     return {
     }

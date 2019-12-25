@@ -6,7 +6,7 @@
         <th>name</th>
         <th>email</th>
         <th>age</th>
-        <th>genter</th>
+        <th>gender</th>
       </tr>
       <tr v-for="user in users" :key="user.id">
         <td>{{ user.id }}</td>
@@ -23,7 +23,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'Users',
+  name: 'UsersIndex',
   data() {
     return {
       users: []
