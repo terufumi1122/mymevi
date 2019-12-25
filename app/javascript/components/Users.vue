@@ -23,7 +23,7 @@
 import axios from 'axios';
 
 export default {
-  name: "Users",
+  name: 'Users',
   data() {
     return {
       users: []
