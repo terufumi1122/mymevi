@@ -17,15 +17,20 @@ import VueRouter from 'vue-router'
 
 import UsersIndex from './components/UsersIndex.vue'
 import UserDetail from './components/UserDetail.vue'
+import UserNew from './components/UserNew.vue'
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/',
+      name: 'UsersIndex',
       component: UsersIndex },
     { path: '/users/:id(\\d+)',
       name: 'UserDetail',
-      component: UserDetail }
+      component: UserDetail },
+    { path: '/users/new',
+      name: 'UserNew',
+      component: UserNew }
   ]
 })
 

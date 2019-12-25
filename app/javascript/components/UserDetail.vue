@@ -1,16 +1,19 @@
 <template>
-  <dl>
-    <dt>ID</dt>
-    <dd>{{ user.id }}</dd>
-    <dt>Name</dt>
-    <dd>{{ user.name }}</dd>
-    <dt>Email</dt>
-    <dd>{{ user.email }}</dd>
-    <dt>Age</dt>
-    <dd>{{ user.age }}</dd>
-    <dt>Gender</dt>
-    <dd>{{ user.gender }}</dd>
-  </dl>
+  <div>
+    <dl>
+      <dt>ID</dt>
+      <dd>{{ user.id }}</dd>
+      <dt>Name</dt>
+      <dd>{{ user.name }}</dd>
+      <dt>Email</dt>
+      <dd>{{ user.email }}</dd>
+      <dt>Age</dt>
+      <dd>{{ user.age }}</dd>
+      <dt>Gender</dt>
+      <dd>{{ user.gender }}</dd>
+    </dl>
+    <router-link :to="{ name: 'UserIndex' }">UserIndexへ</router-link>
+  </div>
 </template>
 
 <script>
