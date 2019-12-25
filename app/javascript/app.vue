@@ -15,12 +15,15 @@ import Footer from "./components/Footer";
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Users from './components/Users.vue'
+import UsersIndex from './components/UsersIndex.vue'
+import UserDetail from './components/UserDetail.vue'
 
 const router = new VueRouter({
   routes: [
     { path: '/',
-      component: Users }
+      component: UsersIndex },
+    { path: '/users/:id(\\d+)',
+      component: UserDetail }
   ]
 })
 

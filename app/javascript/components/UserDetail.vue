@@ -17,7 +17,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'UsersDetail',
+  name: 'UserDetail',
   data() {
     return {
       user: {}

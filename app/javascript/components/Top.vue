@@ -9,7 +9,6 @@
       </v-row>
     </v-container>
     <v-container>
-      <Users/>
     </v-container>
   </v-content>
 </template>
@@ -19,7 +18,6 @@
 import About from "./About.vue"
 import Demo from "./Demo.vue"
 import BestItem from "./BestItem.vue"
-import Users from "./Users.vue"
 
   export default {
     name: 'Top',
@@ -27,7 +25,6 @@ import Users from "./Users.vue"
       About,
       Demo,
       BestItem,
-      Users,
     }
   }
 </script>
