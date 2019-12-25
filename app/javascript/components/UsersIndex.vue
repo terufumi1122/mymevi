@@ -9,7 +9,7 @@
         <th>gender</th>
       </tr>
       <tr v-for="user in users" :key="user.id">
-        <td>{{ user.id }}</td>
+        <td><router-link :to="{ name: 'UserDetail', params: { id: user.id } }">{{ user.id }}</router-link></td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.age }}</td>
