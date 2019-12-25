@@ -12,7 +12,7 @@
       <dt>Gender</dt>
       <dd>{{ user.gender }}</dd>
     </dl>
-    <router-link :to="{ name: 'UserIndex' }">UserIndexへ</router-link>
+    <router-link :to="{ name: 'UsersIndex' }">UsersIndexへ</router-link>
   </div>
 </template>
 
