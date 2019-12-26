@@ -16,6 +16,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.age }}</td>
           <td>{{ user.gender }}</td>
+          <td><router-link :to="{ name: 'UserEdit', params: { id: user.id } }">Edit</router-link></td>
         </tr>
       </tbody>
     </table>

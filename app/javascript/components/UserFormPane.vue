@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="$emit('submit')">
     <div v-if="errors.length != 0">
-      <ul v-for="error in errors" :key="e">
+      <ul v-for="error in errors" :key="error">
         <li><font color="red">{{ error }}</font></li>
       </ul>
     </div>

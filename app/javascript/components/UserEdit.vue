@@ -20,7 +20,7 @@ export default {
   mounted() {
     axios
       .get(`/api/v1/users/${this.$route.params.id}.json`)
-      .then(response => (this.employee = response.data))
+      .then(response => (this.user = response.data))
   },
   methods: {
     updateUser() {
