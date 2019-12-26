@@ -18,6 +18,7 @@ import VueRouter from 'vue-router'
 import UsersIndex from './components/UsersIndex.vue'
 import UserDetail from './components/UserDetail.vue'
 import UserNew from './components/UserNew.vue'
+import UserEdit from './components/UserEdit.vue'
 import NotFound from './components/NotFound.vue'
 
 const router = new VueRouter({
@@ -32,6 +33,9 @@ const router = new VueRouter({
     { path: '/users/new',
       name: 'UserNew',
       component: UserNew },
+    { path: '/users/:id(\\d+)/edit',
+      name: 'UserEdit',
+      component: UserEdit },
     { path: '*',
       name: 'NotFound',
       component: NotFound },
