@@ -3,9 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   rescue_from Exception, with: :render_status_500
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: { error: '404 not found' }, status: 404
-  end
+  rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
 
   def index
     users = User.select(:id, :name, :email, :age, :gender)

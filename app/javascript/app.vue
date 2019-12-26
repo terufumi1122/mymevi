@@ -18,6 +18,7 @@ import VueRouter from 'vue-router'
 import UsersIndex from './components/UsersIndex.vue'
 import UserDetail from './components/UserDetail.vue'
 import UserNew from './components/UserNew.vue'
+import NotFound from './components/NotFound.vue'
 
 const router = new VueRouter({
   mode: 'history',
@@ -30,7 +31,10 @@ const router = new VueRouter({
       component: UserDetail },
     { path: '/users/new',
       name: 'UserNew',
-      component: UserNew }
+      component: UserNew },
+    { path: '*',
+      name: 'NotFound',
+      component: NotFound },
   ]
 })
 
