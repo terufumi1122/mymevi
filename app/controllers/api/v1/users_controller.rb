@@ -1,8 +1,8 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:show, :update, :destroy]
 
-  rescue_from Exception, with: :render_status_500
+  # rescue_from Exception, with: :render_status_500
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
 
