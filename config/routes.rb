@@ -29,11 +29,15 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  
   root to: 'home#index'
-
+  
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :users, only: [:index, :show, :create, :update, :destroy]
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        registrations: 'api/v1/auth/registrations'
+      }
     end
   end
 end
