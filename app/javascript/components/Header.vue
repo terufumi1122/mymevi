@@ -52,15 +52,41 @@
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item>
         </v-list>
-
       </v-menu>
     </v-app-bar>
   </header>
 </template>
 
 <script>
+import axios from 'axios'
+import UsersIndex from './UsersIndex.vue'
+import UserDetail from './UserDetail.vue'
+import UsersEdit from './UserEdit.vue'
+
   export default {
     name: 'Header',
+    data() {
+      user: {}
+    },
+    components: {
+      UsersIndex,
+      UserDetail,
+      UsersEdit
+    },
+    data() {
+      return {
+        links: [
+          {id: '1', name: 'UserIndex', displayName: 'ユーザー一覧'},
+          {id: '2', name: 'UserDetail', displayName: 'ユーザー詳細'},
+          {id: '3', name: 'UserEdit', displayName: 'ユーザー編集'}
+        ]
+      }
+    },
+    mounted() {
+      axios
+        .get(`/api/v1/users/${this.$route.params.id}.json`)
+        .then(response => (this.user = response.data))
+    },
   }
 </script>
 
