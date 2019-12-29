@@ -3,9 +3,11 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  age                    :integer
 #  allow_password_change  :boolean          default(FALSE)
 #  email                  :string(255)
 #  encrypted_password     :string(255)      default(""), not null
+#  gender                 :integer
 #  image                  :string(255)
 #  name                   :string(255)
 #  nickname               :string(255)
