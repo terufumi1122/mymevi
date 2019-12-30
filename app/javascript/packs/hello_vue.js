@@ -8,9 +8,12 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify' //追加
 import "vuetify/dist/vuetify.min.css" //追加
+import 'babel-polyfill'
+import Vuex from 'vuex'
 import App from '../app.vue'
 
 Vue.use(Vuetify) //追加
+Vue.use(Vuex)
 
 const vuetify = new Vuetify(); //追加
 
