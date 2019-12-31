@@ -13,11 +13,15 @@
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-        <Button/>
+        <router-link :to="{ name: 'LoginForm' }">
+          <Button/>
+        </router-link>
         <v-spacer></v-spacer>
-        <Button
-          buttonName="サインアップ"
-        />
+        <router-link :to="{ name: 'SignUpForm' }">
+          <Button
+            buttonName="サインアップ"
+          />
+        </router-link>
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
