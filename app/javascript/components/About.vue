@@ -15,7 +15,9 @@
         <v-spacer></v-spacer>
         <Button/>
         <v-spacer></v-spacer>
-        <Button/>
+        <Button
+          buttonName="サインアップ"
+        />
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
@@ -27,10 +29,6 @@
 
   export default {
     name: 'About',
-    data() {
-      return {
-      }
-    },
     components: {
       Button,
     }

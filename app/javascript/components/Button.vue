@@ -1,19 +1,20 @@
 <template>
   <v-btn>
-    <p>Button.vue</p>
+    {{ buttonName }}
   </v-btn>
 </template>
 
 <script>
   export default {
     name: 'Button',
-    data() {
-      return {
+    props: {
+      'buttonName': {
+        type: String,
+        default: 'ログイン'
       }
-    },
+    }
   }
 </script>
 
 <style scoped>
-
 </style>
