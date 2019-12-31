@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // Components for router
+import Root from '../components/Root'
 import UsersIndex from '../components/UsersIndex.vue'
 import UserDetail from '../components/UserDetail.vue'
 import UserNew from '../components/UserNew.vue'
@@ -15,8 +16,8 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'UsersIndex',
-      component: UsersIndex
+      name: 'Root',
+      component: Root
     },
     {
       path: '/users/:id(\\d+)',
