@@ -44,7 +44,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.fetch(:user, {}).permit(:name, :email, :age, :gender)
+    params.fetch(:user, {}).permit(:name, :email, :age, :gender, :password, :password_confirmation)
   end
 
   def render_status_404(exception)
