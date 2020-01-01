@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
         <router-link :to="{ name: 'SignUpForm' }">
           <Button
-            buttonName="サインアップ"
+            buttonName="新規登録"
           />
         </router-link>
         <v-spacer></v-spacer>
