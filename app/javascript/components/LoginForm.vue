@@ -8,7 +8,7 @@
             md="4"
           >
             <v-text-field
-              v-model="name"
+              v-model="user.name"
               :rules="nameRules"
               :counter="20"
               label="名前"
@@ -20,7 +20,7 @@
             md="4"
           >
             <v-text-field
-              v-model="email"
+              v-model="user.email"
               :rules="emailRules"
               label="メールアドレス"
               required
@@ -30,8 +30,37 @@
             cols="12"
             md="4"
           >
+            <v-select
+              v-model="user.age"
+              :items="items"
+              label="年齢"
+            ></v-select>
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+          <v-radio-group label="性別" v-model="radioGroup" row>
+            <v-radio
+              :label="`男性`"
+              :value="1"
+            ></v-radio>
+            <v-radio
+              :label="`女性`"
+              :value="2"
+            ></v-radio>
+            <v-radio
+              :label="`その他`"
+              :value="3"
+            ></v-radio>
+          </v-radio-group>
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
             <v-text-field
-              v-model="password"
+              v-model="user.password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="passwordRules"
               :type="show1 ? 'text' : 'password'"
@@ -46,7 +75,7 @@
             md="4"
           >
             <v-text-field
-              v-model="password_confirmation"
+              v-model="user.password_confirmation"
               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="passwordRules"
               :type="show2 ? 'text' : 'password'"
@@ -58,26 +87,29 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-form>
-    <v-row>
-      <v-spacer></v-spacer>
-      <Button
-        buttonName="戻る"
-      />
-      <v-spacer></v-spacer>
-      <Button
-        buttonName="リセット"
-      />
-      <v-spacer></v-spacer>
-      <Button
-        buttonName="送信"
-      />
-      <v-spacer></v-spacer>
-    </v-row>
+      <v-row>
+        <v-spacer></v-spacer>
+        <Button
+          buttonName="戻る"
+        />
+        <v-spacer></v-spacer>
+        <Button
+          buttonName="リセット"
+        />
+        <v-spacer></v-spacer>
+        <Button
+          buttonName="送信"
+        />
+        <v-spacer></v-spacer>
+      </v-row>
+      </v-form>
   </div>
 </template>
 
 <script>
+  const maxAge = 117;
+  const ageRange = [...Array(maxAge).keys()]
+
   import Button from './Button'
 
   export default {
@@ -90,18 +122,24 @@
         valid: false,
         show1: false,
         show2: false,
-        name: '',
+        radioGroup: 1,
+        items: ageRange,
+        user: {
+          name: '',
+          email: '',
+          age: '',
+          gender: '',
+          password: '',
+          password_confirmation: '',
+        },
         nameRules: [
           v => !!v || '名前の入力は必須です',
           v => v.length <= 10 || '名前は20文字以内で入力して下さい'
         ],
-        email: '',
         emailRules: [
           v => !!v || 'メールアドレスの入力は必須です',
           v => /.+@.+/.test(v) || '有効なメールアドレスを入力して下さい'
         ],
-        password: '',
-        password_confirmation: '',
         passwordRules: [
           v => !!v || 'パスワードの入力は必須です',
           v => v.length >= 8 || 'パスワードは8文字以上16文字以内で入力して下さい',
