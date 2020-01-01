@@ -156,7 +156,7 @@
           .post('/api/v1/auth', this.user)
           .then(response => {
             let user = response.data;
-            this.$router.push({ name: 'UserDetail', params: { id: user.id } });
+            this.$router.push({ name: 'Top', params: { id: user.id } });
           })
           .catch(error => {
             console.error(error);
