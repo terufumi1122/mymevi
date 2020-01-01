@@ -3,12 +3,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // Components for router
-import Root from '../components/Root'
+import Top from '../components/Top'
 import UsersIndex from '../components/UsersIndex.vue'
 import UserDetail from '../components/UserDetail.vue'
 import UserNew from '../components/UserNew.vue'
 import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
+
+import LoginForm from '../components/LoginForm.vue'
+import SignUpForm from '../components/SignUpForm.vue'
 
 // Routing
 const router = new VueRouter({
@@ -16,8 +19,13 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Root',
-      component: Root
+      name: 'Top',
+      component: Top
+    },
+    {
+      path: '/users',
+      name: 'UsersIndex',
+      component: UsersIndex
     },
     {
       path: '/users/:id(\\d+)',
@@ -38,6 +46,16 @@ const router = new VueRouter({
       path: '*',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/login',
+      name: 'LoginForm',
+      component: LoginForm
+    },
+    {
+      path: '/signup',
+      name: 'SignUpForm',
+      component: SignUpForm
     },
   ]
 })
