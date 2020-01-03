@@ -152,18 +152,28 @@
     },
     methods: {
       createUser: function() {
-        axios
-          .post('/api/v1/auth', this.user)
-          .then(response => {
-            let user = response.data;
-            this.$router.push({ name: 'Top', params: { id: user.id } });
-          })
-          .catch(error => {
-            console.error(error);
-            if (error.response.data && error.response.data.errors) {
-              this.errors = error.response.data.errors;
-            }
-          });
+        const userParams = {
+          "name": this.user.name,
+          "email": this.user.email,
+          "age": this.user.age,
+          "gender": this.user.gender,
+          "password": this.user.password,
+          "password_confirmation": this.user.password_confirmation,
+        }
+        this.$store.dispatch('signUp', userParams)
+        this.$router.push({ name: 'Top' });
+        // axios
+        //   .post('/api/v1/auth', this.user)
+        //   .then(response => {
+        //     let user = response.data;
+        //     this.$router.push({ name: 'Top', params: { id: user.id } });
+        //   })
+        //   .catch(error => {
+        //     console.error(error);
+        //     if (error.response.data && error.response.data.errors) {
+        //       this.errors = error.response.data.errors;
+        //     }
+        //   });
       }
     }
   }

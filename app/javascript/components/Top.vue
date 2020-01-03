@@ -8,8 +8,6 @@
         <v-col><Demo/></v-col>
       </v-row>
     </v-container>
-    <v-container>
-    </v-container>
   </v-content>
 </template>
 
@@ -17,14 +15,12 @@
 
 import About from "./About.vue"
 import Demo from "./Demo.vue"
-import BestItem from "./BestItem.vue"
 
   export default {
     name: 'Top',
     components: {
       About,
       Demo,
-      BestItem,
     }
   }
 </script>

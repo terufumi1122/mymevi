@@ -23,7 +23,7 @@
         </v-menu>        
       </v-app-bar-nav-icon>
 
-      <v-toolbar-title>Mymevi</v-toolbar-title>
+      <v-toolbar-title><router-link :to="{ name: 'Top' }">Mymevi</router-link></v-toolbar-title>
       <v-spacer></v-spacer>
       
       <v-btn icon>
@@ -34,6 +34,9 @@
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-help-circle</v-icon>
+      </v-btn>
+      <v-btn @click="signOut">
+        ログアウト
       </v-btn>
 
       <v-menu>
@@ -82,11 +85,20 @@ import UsersEdit from './UserEdit.vue'
         ]
       }
     },
-    mounted() {
-      axios
-        .get(`/api/v1/users/${this.$route.params.id}.json`)
-        .then(response => (this.user = response.data))
-    },
+    methods: {
+      signOut: function() {
+        axios
+          .delete('/api/v1/auth/sign_out',
+                  { headers: { "access-token": token, "client": client, "uid": uid} })
+          .then(this.$router.push({ name: 'Top'}))
+          .catch(error => {
+            console.error(error);
+            if (error.response.data && error.response.data.errors) {
+              this.errors = error.response.data.errors;
+            }
+          });
+      },
+    }
   }
 </script>
 
