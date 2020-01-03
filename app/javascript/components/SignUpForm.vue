@@ -89,18 +89,6 @@
       </v-container>
       <v-row>
         <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="戻る"
-        /> -->
-        <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="リセット"
-        /> -->
-        <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="送信"
-          @click="createUser"
-        /> -->
         <v-btn @click="createUser">新規ユーザー登録</v-btn>
         <v-spacer></v-spacer>
       </v-row>
@@ -112,14 +100,10 @@
   const maxAge = 117;
   const ageRange = [...Array(maxAge).keys()]
 
-  // import Button from './Button'
   import axios from 'axios'
 
   export default {
     name: 'SignUpForm',
-    components: {
-      // Button,
-    },
     data() {
       return {
         valid: false,
@@ -162,18 +146,6 @@
         }
         this.$store.dispatch('signUp', userParams)
         this.$router.push({ name: 'Top' });
-        // axios
-        //   .post('/api/v1/auth', this.user)
-        //   .then(response => {
-        //     let user = response.data;
-        //     this.$router.push({ name: 'Top', params: { id: user.id } });
-        //   })
-        //   .catch(error => {
-        //     console.error(error);
-        //     if (error.response.data && error.response.data.errors) {
-        //       this.errors = error.response.data.errors;
-        //     }
-        //   });
       }
     }
   }

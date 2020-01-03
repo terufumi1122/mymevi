@@ -35,9 +35,6 @@
       <v-btn icon>
         <v-icon>mdi-help-circle</v-icon>
       </v-btn>
-      <v-btn @click="signOut">
-        ログアウト
-      </v-btn>
 
       <v-menu>
         <template v-slot:activator="{ on }">
@@ -86,18 +83,6 @@ import UsersEdit from './UserEdit.vue'
       }
     },
     methods: {
-      signOut: function() {
-        axios
-          .delete('/api/v1/auth/sign_out',
-                  { headers: { "access-token": token, "client": client, "uid": uid} })
-          .then(this.$router.push({ name: 'Top'}))
-          .catch(error => {
-            console.error(error);
-            if (error.response.data && error.response.data.errors) {
-              this.errors = error.response.data.errors;
-            }
-          });
-      },
     }
   }
 </script>

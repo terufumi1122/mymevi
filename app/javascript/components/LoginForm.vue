@@ -33,39 +33,30 @@
       </v-container>
       <v-row>
         <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="戻る"
-        /> -->
-        <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="リセット"
-        /> -->
-        <v-spacer></v-spacer>
-        <!-- <Button
-          buttonName="送信"
-          @click="createUser"
-        /> -->
         <v-btn @click="signInUser">ログイン</v-btn>
         <v-spacer></v-spacer>
         <v-btn @click="signOut">ログアウト</v-btn>
+        <v-spacer></v-spacer>
       </v-row>
       </v-form>
   </div>
 </template>
 
 <script>
+  import Errors from './Errors'
   import axios from 'axios'
 
   export default {
     name: 'LoginForm',
     components: {
-      // Button,
+      Errors,
     },
     data() {
       return {
         valid: false,
         show1: false,
         radioGroup: 1,
+        errors: '',
         user: {
           email: '',
           password: '',
@@ -81,12 +72,6 @@
         ],
       }
     },
-    // computed: {
-    //   user: {
-    //     email: '',
-    //     password: '',
-    //   }
-    // },
     methods: {
       signInUser() {
         const userParams = {
@@ -94,43 +79,11 @@
           "password": this.user.password
         }
         this.$store.dispatch('signIn', userParams);
-        // axios
-        //   .post('/api/v1/auth/sign_in', this.user)
-        //   .then(response => {
-        //     let user = response.data;
-        //     this.$store.state.headers = {
-        //       "uid": response.headers['uid'],
-        //       "access-token": response.headers['access-token'],
-        //       "client": response.headers['client']
-        //     };
-        //     console.log(response.data);
-        //     console.log(response.headers);
-        //     console.log(this.$store.state.headers.uid);
-        //     console.log(this.$store.state.headers.accessToken);
-        //     console.log(this.$store.state.headers.client);
-            this.$router.push({ name: 'Top' });
-            // this.$router.push({ name: 'Top', params: { id: user.id } });
-        //   })
-        //   .catch(error => {
-        //     console.error(error);
-        //     if (error.response.data && error.response.data.errors) {
-        //       this.errors = error.response.data.errors;
-        //     }
-        //   });
+        this.$router.push({ name: 'Top' });
       },
       signOut() {
         this.$store.dispatch('signOut')
         this.$router.push({ name: 'Top'})
-        // let headers = this.$store.state.headers
-        // axios
-        //   .delete('/api/v1/auth/sign_out',
-        //           { headers: headers })
-          // .catch(error => {
-          //   console.error(error);
-          //   if (error.response.data && error.response.data.errors) {
-          //     this.errors = error.response.data.errors;
-          //   }
-          // });
       }
     }
   }

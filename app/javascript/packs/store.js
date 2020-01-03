@@ -46,6 +46,11 @@ const store = new Vuex.Store({
         .then(function (response) {
           context.commit('currentUser', { user: response.data });
           context.commit('signIn', response.headers)
+        })
+        .catch(function (error) {
+          console.error(error);
+          // context.commit('currentUser', { user: error });
+          alert(error);
         });
     },
     signIn(context, userParams) {
@@ -54,6 +59,11 @@ const store = new Vuex.Store({
         .then(function (response) {
           context.commit('currentUser', { user: response.data });
           context.commit('signIn', response.headers)
+        })
+        .catch(function (error) {
+          console.error(error);
+          // context.commit('currentUser', { user: error });
+          alert(error)
         });
     },
     signOut(context) {
@@ -61,6 +71,9 @@ const store = new Vuex.Store({
         .delete('/api/v1/auth/sign_out', { headers: context.state.headers })
         .then(function () {
           context.commit('signOut')
+        })
+        .catch(function (error) {
+          alert(error);
         })
     }
   },
