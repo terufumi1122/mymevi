@@ -5,7 +5,7 @@
 
         private
         def sign_up_params
-          params.permit(:name, :email, :password, :password_confirmation)
+          params.permit(:name, :email, :age, :gender, :password, :password_confirmation)
         end
 
         def account_update_params

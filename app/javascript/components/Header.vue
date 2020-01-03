@@ -30,6 +30,11 @@
         <v-icon>mdi-heart</v-icon>
       </v-btn>
       <v-btn icon>
+        <router-link :to="{ name: 'UserDetail' }">
+          <v-icon>mdi-account-circle</v-icon>
+        </router-link>
+      </v-btn>
+      <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <v-btn icon>
@@ -58,28 +63,13 @@
 </template>
 
 <script>
-import axios from 'axios'
-import UsersIndex from './UsersIndex.vue'
-import UserDetail from './UserDetail.vue'
-import UsersEdit from './UserEdit.vue'
-
   export default {
     name: 'Header',
     data() {
       user: {}
     },
-    components: {
-      UsersIndex,
-      UserDetail,
-      UsersEdit
-    },
     data() {
       return {
-        links: [
-          {id: '1', name: 'UserIndex', displayName: 'ユーザー一覧'},
-          {id: '2', name: 'UserDetail', displayName: 'ユーザー詳細'},
-          {id: '3', name: 'UserEdit', displayName: 'ユーザー編集'}
-        ]
       }
     },
     methods: {

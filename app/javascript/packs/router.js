@@ -28,7 +28,8 @@ const router = new VueRouter({
       component: UsersIndex
     },
     {
-      path: '/users/:id(\\d+)',
+      path: '/user',
+      // path: '/users/:id(\\d+)',
       name: 'UserDetail',
       component: UserDetail
     },
