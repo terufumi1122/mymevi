@@ -40,7 +40,7 @@
             cols="12"
             md="4"
           >
-          <v-radio-group label="性別" v-model="radioGroup" row>
+          <v-radio-group label="性別" v-model="user.gender" row>
             <v-radio
               :label="`男性`"
               :value="1"

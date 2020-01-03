@@ -43,14 +43,10 @@
 </template>
 
 <script>
-  import Errors from './Errors'
   import axios from 'axios'
 
   export default {
     name: 'LoginForm',
-    components: {
-      Errors,
-    },
     data() {
       return {
         valid: false,
