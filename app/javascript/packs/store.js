@@ -68,6 +68,9 @@ const store = new Vuex.Store({
         "message": "アカウントを削除しました",
       };
     },
+    deleteFlash(state) {
+      state.flash = null;
+    }
   },
 
   actions: {

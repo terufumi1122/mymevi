@@ -26,7 +26,7 @@ import Flash from "./Flash.vue"
       Flash,
     },
     destroyed() {
-      this.$store.state.flash = '';
+      this.$store.commit('deleteFlash');
     }
   }
 </script>
