@@ -1,12 +1,10 @@
 <template>
   <div>
     <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="user" @clickButton="updateUser">入力の通りに更新する</user-form>
-    <v-btn
-      icon
-      @click="deleteUser"
-    >
-      <v-icon>mdi-trash-can</v-icon>
-    </v-btn>
+    <Dialog @clickDialogButton="deleteUser">
+        <v-icon>mdi-trash-can</v-icon>
+        アカウントを削除する
+    </Dialog>
   </div>
 </template>
 
@@ -14,10 +12,12 @@
 import axios from "axios";
 
 import UserForm from "./UserForm.vue"
+import Dialog from "./Dialog.vue"
 
 export default {
   components: {
-    UserForm
+    UserForm,
+    Dialog,
   },
   data() {
     return {
@@ -43,19 +43,6 @@ export default {
       this.$store.dispatch('updateUser', userParams)
       this.$router.push({ name: 'Top' });
     },
-    // updateUser() {
-    //   axios
-    //     .put(`/api/v1/auth`, this.user)
-    //     .then(response => {
-    //       this.$router.push({ name: 'UserDetail' });
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //       if (error.response.data && error.response.data.errors) {
-    //         this.errors = error.response.data.errors;
-    //       }
-    //     });
-    // },
     deleteUser() {
       this.$store.dispatch('deleteUser')
       this.$router.push({ name: 'Top' })
