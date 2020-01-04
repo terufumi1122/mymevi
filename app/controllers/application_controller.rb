@@ -2,17 +2,18 @@ class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   #   before_action :skip_session
-    # before_action :configure_permitted_parameters, if: :devise_controller?
+    before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # protected
+  protected
 
   #   def skip_session
   #     request.session_options[:skip] = true
   #   end
 
-    # def configure_permitted_parameters
+    def configure_permitted_parameters
   #     # devise_parameter_sanitizer.permit(許可したいアクション, keys: [許可したいパラメータ])
     #   devise_parameter_sanitizer.permit(:sign_up, keys: [:age, :gender, :format])
-    # end
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :age, :gender, :format])
+    end
 
 end

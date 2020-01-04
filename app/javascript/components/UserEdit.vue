@@ -1,6 +1,6 @@
 <template>
   <div>
-    <user-form :errors="errors" :user="user" @submit="updateUser"></user-form>
+    <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="user" @clickButton="updateUser">入力の通りに更新する</user-form>
     <v-btn
       icon
       @click="deleteUser"
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       user: {},
-      errors: ''
+      errors: '',
     }
   },
   mounted() {
@@ -31,19 +31,31 @@ export default {
     //   .then(response => (this.user = response.data))
   },
   methods: {
-    updateUser() {
-      axios
-        .patch(`/api/v1/users/${this.user.id}`, this.user)
-        .then(response => {
-          this.$router.push({ name: 'UserDetail', params: { id: this.user.id } });
-        })
-        .catch(error => {
-          console.error(error);
-          if (error.response.data && error.response.data.errors) {
-            this.errors = error.response.data.errors;
-          }
-        });
+    updateUser: function() {
+      const userParams = {
+        "name": this.user.name,
+        "email": this.user.email,
+        "age": this.user.age,
+        "gender": this.user.gender,
+        "password": this.user.password,
+        "password_confirmation": this.user.password_confirmation,
+      }
+      this.$store.dispatch('updateUser', userParams)
+      this.$router.push({ name: 'Top' });
     },
+    // updateUser() {
+    //   axios
+    //     .put(`/api/v1/auth`, this.user)
+    //     .then(response => {
+    //       this.$router.push({ name: 'UserDetail' });
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //       if (error.response.data && error.response.data.errors) {
+    //         this.errors = error.response.data.errors;
+    //       }
+    //     });
+    // },
     deleteUser() {
       alert('これからアクションを実装して削除出来るようにします！')
     }

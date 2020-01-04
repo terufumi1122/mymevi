@@ -75,6 +75,16 @@ const store = new Vuex.Store({
         .catch(function (error) {
           alert(error);
         })
+      },
+    updateUser(context, userParams) {
+      axios
+      .put('/api/v1/auth', userParams, { headers: context.state.headers })
+        .then(function (response) {
+          context.commit('currentUser', { user: response.data });
+      })
+      .catch(function (error) {
+        alert(error);
+      })
     }
   },
 
