@@ -1,16 +1,35 @@
 <template>
   <div>
-    <dl>
-      <dt>Name</dt>
-      <dd>{{ user.name }}</dd>
-      <dt>Email</dt>
-      <dd>{{ user.email }}</dd>
-      <dt>Age</dt>
-      <dd>{{ user.age }}</dd>
-      <dt>Gender</dt>
-      <dd>{{ user.gender }}</dd>
-    </dl>
-    <router-link :to="{ name: 'UsersIndex' }">UsersIndexへ</router-link>
+    <div class="vertical-spacer"></div>
+    <v-card
+      class="mx-auto"
+      max-width="344"
+      outlined
+    >
+      <v-list-item three-line>
+
+        <v-list-item-avatar
+          circle
+          size="130" 
+          color="red"
+        ></v-list-item-avatar>
+  
+        <v-list-item-content>
+          <div class="overline mb-4">About Me!</div>
+          <v-list-item-title class="headline mb-1">{{ user.name }}</v-list-item-title>
+          <v-list-item-subtitle>E-mail: {{ user.email }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.age }} 歳</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.gender }}</v-list-item-subtitle>
+        </v-list-item-content>
+
+      </v-list-item>
+
+      <v-card-actions>
+        <v-btn text>編集</v-btn>
+        <v-btn text>削除</v-btn>
+      </v-card-actions>
+    </v-card>
+    <div class="vertical-spacer"></div>
   </div>
 </template>
 
@@ -42,3 +61,9 @@ export default {
 }
 </script>
 
+<style scoped>
+.vertical-spacer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+</style>
