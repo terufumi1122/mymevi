@@ -1,15 +1,15 @@
 <template>
-  <user-form-pane :errors="errors" :user="user" @submit="updateUser"></user-form-pane>
+  <user-form :errors="errors" :user="user" @submit="updateUser"></user-form>
 </template>
 
 <script>
 import axios from "axios";
 
-import UserFormPane from "./UserFormPane.vue"
+import UserForm from "./UserForm.vue"
 
 export default {
   components: {
-    UserFormPane
+    UserForm
   },
   data() {
     return {
