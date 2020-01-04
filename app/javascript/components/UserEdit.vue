@@ -1,5 +1,13 @@
 <template>
-  <user-form :errors="errors" :user="user" @submit="updateUser"></user-form>
+  <div>
+    <user-form :errors="errors" :user="user" @submit="updateUser"></user-form>
+    <v-btn
+      icon
+      @click="deleteUser"
+    >
+      <v-icon>mdi-trash-can</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -18,9 +26,9 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get(`/api/v1/users/${this.$route.params.id}.json`)
-      .then(response => (this.user = response.data))
+    // axios
+    //   .get(`/api/v1/users/${this.$route.params.id}.json`)
+    //   .then(response => (this.user = response.data))
   },
   methods: {
     updateUser() {
@@ -35,6 +43,9 @@ export default {
             this.errors = error.response.data.errors;
           }
         });
+    },
+    deleteUser() {
+      alert('これからアクションを実装して削除出来るようにします！')
     }
   }
 }
