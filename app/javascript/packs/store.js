@@ -16,7 +16,7 @@ const store = new Vuex.Store({
   state: {
     currentUser: null,
     headers: null,
-    flash: '',
+    flash: null,
   },
 
   getters: {
@@ -33,11 +33,18 @@ const store = new Vuex.Store({
         "client": payload["client"],
         "uid": payload["uid"],
       };
-      state.flash = "ログインに成功しました";
+      state.flash = {
+        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
+        "message": "ログインに成功しました",
+      };
     },
     signOut(state) {
       state.headers = null;
       state.currentUser = null;
+      state.flash = {
+        "type": "info",
+        "message": "ログアウトに成功しました"
+      }
     },
   },
 

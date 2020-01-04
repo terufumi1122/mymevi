@@ -1,6 +1,6 @@
 <template>
-  <v-alert v-if="flash !== ''" type="success">
-    {{ flash }}
+  <v-alert v-if="flash.status !== null" :type="flash.type">
+    {{ flash.message }}
   </v-alert>
 </template>
 
