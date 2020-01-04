@@ -1,6 +1,7 @@
 <template>
   <v-content>
     <v-container>
+      <Flash/>
       <v-row>
         <v-col><About/></v-col>
       </v-row>
@@ -15,12 +16,17 @@
 
 import About from "./About.vue"
 import Demo from "./Demo.vue"
+import Flash from "./Flash.vue"
 
   export default {
     name: 'Top',
     components: {
       About,
       Demo,
+      Flash,
+    },
+    destroyed() {
+      this.$store.state.flash = '';
     }
   }
 </script>

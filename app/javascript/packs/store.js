@@ -16,6 +16,7 @@ const store = new Vuex.Store({
   state: {
     currentUser: null,
     headers: null,
+    flash: '',
   },
 
   getters: {
@@ -31,7 +32,8 @@ const store = new Vuex.Store({
         "access-token": payload["access-token"],
         "client": payload["client"],
         "uid": payload["uid"],
-      }
+      };
+      state.flash = "ログインに成功しました";
     },
     signOut(state) {
       state.headers = null;
