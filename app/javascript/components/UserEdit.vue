@@ -31,7 +31,7 @@ export default {
     //   .then(response => (this.user = response.data))
   },
   methods: {
-    updateUser: function() {
+    updateUser() {
       const userParams = {
         "name": this.user.name,
         "email": this.user.email,
@@ -57,7 +57,8 @@ export default {
     //     });
     // },
     deleteUser() {
-      alert('これからアクションを実装して削除出来るようにします！')
+      this.$store.dispatch('deleteUser')
+      this.$router.push({ name: 'Top' })
     }
   }
 }

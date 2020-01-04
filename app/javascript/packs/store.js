@@ -85,6 +85,16 @@ const store = new Vuex.Store({
       .catch(function (error) {
         alert(error);
       })
+    },
+    deleteUser(context) {
+      axios
+        .delete('/api/v1/auth', { headers: context.state.headers })
+        .then(function () {
+          context.commit('signOut')
+        })
+        .catch(function (error) {
+          alert(error);
+        })
     }
   },
 
