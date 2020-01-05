@@ -59,7 +59,7 @@ const store = new Vuex.Store({
     flashUpdateUser(state) {
       state.flash = {
         "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ユーザー情報を更しました",
+        "message": "ユーザー情報を更新しました",
       };
     },
     flashDeleteUser(state) {
@@ -101,9 +101,9 @@ const store = new Vuex.Store({
           // context.commit('currentUser', { user: error });
           alert(error)
         });
-    },
-    signOut(context) {
-      axios
+      },
+      signOut(context) {
+        axios
         .delete('/api/v1/auth/sign_out', { headers: context.state.headers })
         .then(function () {
           context.commit('signOut');
@@ -112,13 +112,14 @@ const store = new Vuex.Store({
         .catch(function (error) {
           alert(error);
         })
-    },
-    updateUser(context, userParams) {
-      axios
-      .put('/api/v1/auth', userParams, { headers: context.state.headers })
-      .then(function (response) {
-        context.commit('currentUser', { user: response.data });
-        context.commit('flashUpdateUser');
+      },
+      updateUser(context, userParams) {
+        axios
+        .put('/api/v1/auth', userParams, { headers: context.state.headers })
+        .then(function (response) {
+          context.commit('currentUser', { user: response.data });
+          context.commit('signIn', response.headers);
+          context.commit('flashUpdateUser');
       })
       .catch(function (error) {
         alert(error);
