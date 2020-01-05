@@ -2,6 +2,7 @@
   <div>
     <v-form>
       <v-container>
+        <h2>{{ formTitle }}</h2>
         <v-row>
           <v-col
             cols="12"
@@ -89,7 +90,7 @@
       </v-container>
       <v-row>
         <v-spacer></v-spacer>
-        <v-btn @click="createUser">新規ユーザー登録</v-btn>
+        <v-btn @click="$emit('clickButton')"><slot>初期値だよー。</slot></v-btn>
         <v-spacer></v-spacer>
       </v-row>
     </v-form>
@@ -100,10 +101,12 @@
   const maxAge = 117;
   const ageRange = [...Array(maxAge).keys()]
 
-  import axios from 'axios'
-
   export default {
-    name: 'SignUpForm',
+    name: 'UserForm',
+    props: {
+      formTitle: '',
+      user: {},
+    },
     data() {
       return {
         valid: false,
@@ -111,14 +114,6 @@
         show2: false,
         radioGroup: 1,
         items: ageRange,
-        user: {
-          name: '',
-          email: '',
-          age: '',
-          gender: '',
-          password: '',
-          password_confirmation: '',
-        },
         nameRules: [
           v => !!v || '名前の入力は必須です',
           v => v.length <= 10 || '名前は20文字以内で入力して下さい'
@@ -134,23 +129,5 @@
         ],
       }
     },
-    methods: {
-      createUser: function() {
-        const userParams = {
-          "name": this.user.name,
-          "email": this.user.email,
-          "age": this.user.age,
-          "gender": this.user.gender,
-          "password": this.user.password,
-          "password_confirmation": this.user.password_confirmation,
-        }
-        this.$store.dispatch('signUp', userParams)
-        this.$router.push({ name: 'Top' });
-      }
-    }
   }
 </script>
-
-<style scoped>
-
-</style>

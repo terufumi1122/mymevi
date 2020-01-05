@@ -1,40 +1,51 @@
 <template>
-  <user-form-pane :errors="errors" :user="user" @submit="updateUser"></user-form-pane>
+  <div>
+    <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="user" @clickButton="updateUser">入力の通りに更新する</user-form>
+    <Dialog @clickDialogButton="deleteUser">
+        <v-icon>mdi-trash-can</v-icon>
+        アカウントを削除する
+    </Dialog>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import UserFormPane from "./UserFormPane.vue"
+import UserForm from "./UserForm.vue"
+import Dialog from "./Dialog.vue"
 
 export default {
   components: {
-    UserFormPane
+    UserForm,
+    Dialog,
   },
   data() {
     return {
       user: {},
-      errors: ''
+      errors: '',
     }
   },
   mounted() {
-    axios
-      .get(`/api/v1/users/${this.$route.params.id}.json`)
-      .then(response => (this.user = response.data))
+    // axios
+    //   .get(`/api/v1/users/${this.$route.params.id}.json`)
+    //   .then(response => (this.user = response.data))
   },
   methods: {
     updateUser() {
-      axios
-        .patch(`/api/v1/users/${this.user.id}`, this.user)
-        .then(response => {
-          this.$router.push({ name: 'UserDetail', params: { id: this.user.id } });
-        })
-        .catch(error => {
-          console.error(error);
-          if (error.response.data && error.response.data.errors) {
-            this.errors = error.response.data.errors;
-          }
-        });
+      const userParams = {
+        "name": this.user.name,
+        "email": this.user.email,
+        "age": this.user.age,
+        "gender": this.user.gender,
+        "password": this.user.password,
+        "password_confirmation": this.user.password_confirmation,
+      }
+      this.$store.dispatch('updateUser', userParams)
+      this.$router.push({ name: 'Top' });
+    },
+    deleteUser() {
+      this.$store.dispatch('deleteUser')
+      this.$router.push({ name: 'Top' })
     }
   }
 }
