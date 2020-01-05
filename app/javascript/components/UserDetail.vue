@@ -25,8 +25,7 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn text><router-link :to="{ name: 'UserEdit' }">編集</router-link></v-btn>
-        <v-btn text>削除</v-btn>
+        <v-btn text><router-link :to="{ name: 'UserEdit' }">編集する</router-link></v-btn>
       </v-card-actions>
     </v-card>
     <div class="vertical-spacer"></div>
