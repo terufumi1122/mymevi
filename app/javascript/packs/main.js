@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify' //追加
 import "vuetify/dist/vuetify.min.css" //追加
-import app from '../app.vue'
+import App from '../app.vue'
 import store from './store.js'
 import router from './router.js'
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     vuetify, //追加
     store,
     router,
-    render: h => h(app)
+    render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)
 

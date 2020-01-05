@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApiController
-  # skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:show, :update, :destroy]
 
   # rescue_from Exception, with: :render_status_500

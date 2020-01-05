@@ -9,14 +9,14 @@ require("@rails/activestorage").start()
 require("channels")
 
 import Vue from 'vue'
-import app from '../app.vue'
+import App from '../app.vue'
 
 Vue.config.productionTip = false
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#app',
-    render: (h) => h(app)
+    render: (h) => h(App)
   })
 })
 
