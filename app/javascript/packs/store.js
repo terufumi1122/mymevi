@@ -112,28 +112,28 @@ const store = new Vuex.Store({
         .catch(function (error) {
           alert(error);
         })
-      },
-      updateUser(context, userParams) {
-        axios
-        .put('/api/v1/auth', userParams, { headers: context.state.headers })
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('flashUpdateUser');
-        })
-        .catch(function (error) {
-          alert(error);
-        })
-      },
-      deleteUser(context) {
-        axios
-        .delete('/api/v1/auth', { headers: context.state.headers })
-        .then(function () {
-          context.commit('signOut')
-          context.commit('flashDeleteUser');
-        })
-        .catch(function (error) {
-          alert(error);
-        })
+    },
+    updateUser(context, userParams) {
+      axios
+      .put('/api/v1/auth', userParams, { headers: context.state.headers })
+      .then(function (response) {
+        context.commit('currentUser', { user: response.data });
+        context.commit('flashUpdateUser');
+      })
+      .catch(function (error) {
+        alert(error);
+      })
+    },
+    deleteUser(context) {
+      axios
+      .delete('/api/v1/auth', { headers: context.state.headers })
+      .then(function () {
+        context.commit('signOut')
+        context.commit('flashDeleteUser');
+      })
+      .catch(function (error) {
+        alert(error);
+      })
     }
   },
 

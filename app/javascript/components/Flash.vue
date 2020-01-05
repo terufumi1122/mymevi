@@ -1,5 +1,9 @@
 <template>
-  <v-alert v-if="flash.status !== null" :type="flash.type">
+  <v-alert
+    v-if="flash.status !== null"
+    :type="flash.type"
+    dismissible
+  >
     {{ flash.message }}
   </v-alert>
 </template>
