@@ -9,6 +9,7 @@ import UserDetail from '../components/UserDetail.vue'
 import UserNew from '../components/UserNew.vue'
 import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
+import HabitNew from '../components/HabitNew.vue'
 
 import LoginForm from '../components/LoginForm.vue'
 import SignUpForm from '../components/SignUpForm.vue'
@@ -47,6 +48,11 @@ const router = new VueRouter({
       path: '*',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/newhabit',
+      name: 'HabitNew',
+      component: HabitNew
     },
     {
       path: '/login',

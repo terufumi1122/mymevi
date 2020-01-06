@@ -29,16 +29,27 @@
       </v-card-actions>
     </v-card>
     <div class="vertical-spacer"></div>
+    <BestItem habitNumber="123" habitTitle="タイトルサンプル" :userName="user.name"></BestItem>
+    <p>この下に毎習慣があるだけ表示される</p>
+    <v-btn text>
+      <router-link :to="{ name: 'HabitNew' }">新規習慣 作成ボタン(HabitNew.vueへリンク)</router-link>
+      </v-btn>
+    <div class="vertical-spacer"></div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import BestItem from './BestItem';
 
 export default {
   name: 'UserDetail',
+  components: {
+    BestItem,
+  },
   data() {
     return {
+      userName: '',
       user: {
         name: '',
         email: '',
@@ -52,10 +63,6 @@ export default {
     axios
       .get(`/api/v1/users/${userId}.json`)
       .then(response => (this.user = response.data))
-    // this.user.name = this.$store.state.currentUser.data.name;
-    // this.user.email = this.$store.state.currentUser.data.email;
-    // this.user.age = this.$store.state.currentUser.data.age;
-    // this.user.gender = this.$store.state.currentUser.data.gender;
   }
 }
 </script>

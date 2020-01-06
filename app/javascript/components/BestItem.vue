@@ -4,10 +4,10 @@
     class="mx-auto"
   >
     <v-list-item>
-      <v-list-item-avatar color="yellow">1</v-list-item-avatar>
+      <v-list-item-avatar color="yellow">{{ habitNumber }}</v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">Habit title</v-list-item-title>
-        <v-list-item-subtitle>by User name</v-list-item-subtitle>
+        <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
+        <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -30,6 +30,12 @@
         text
         color="deep-purple accent-4"
       >
+        編集
+      </v-btn>
+      <v-btn
+        text
+        color="deep-purple accent-4"
+      >
         詳細
       </v-btn>
       <v-btn
@@ -45,6 +51,11 @@
 <script>
   export default {
     name: 'BestItem',
+    props: {
+      habitNumber: '',
+      habitTitle: '',
+      userName: '',
+    }
   }
 </script>
 
