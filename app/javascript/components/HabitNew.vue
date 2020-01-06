@@ -23,9 +23,21 @@
             <v-text-field
               v-model="habit.email"
               :rules="descriptionRules"
+              :counter="140"
               label="習慣詳細"
               required
             ></v-text-field>
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-select
+              v-model="habit.best"
+              :items=items
+              label="自分の中の習慣ランキング"
+              required
+            ></v-select>
           </v-col>
         </v-row>
       </v-container>
@@ -40,11 +52,15 @@
 
 
 <script>
+  const maxHabitAmount= 3;
+  const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
+
   export default {
     name: 'HabitNew',
     data() {
       return {
         habit: {},
+        items: habitAmount,
         nameRules: [
           v => !!v || '習慣名の入力は必須です',
           v => v.length <= 20 || '習慣名は20文字以内で入力して下さい'
