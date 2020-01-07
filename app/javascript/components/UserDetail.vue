@@ -30,7 +30,9 @@
     </v-card>
     <div class="vertical-spacer"></div>
     <BestItem habitNumber="123" habitTitle="タイトルサンプル" :userName="user.name"></BestItem>
+    <BestItem habitNumber="1" :habitTitle="habitName[0].name" :userName="user.name"></BestItem>
     <p>この下にマイ習慣があるだけ表示される</p>
+
     <v-btn text>
       <router-link :to="{ name: 'HabitNew' }">新規習慣 作成ボタン(HabitNew.vueへリンク)</router-link>
       </v-btn>
@@ -50,12 +52,18 @@ export default {
   data() {
     return {
       userName: '',
+      habitTitle: '',
       user: {
         name: '',
         email: '',
         age: '',
         gender: ''
       }
+    }
+  },
+  computed:{
+    habitName() {
+      return this.$store.getters.habits
     }
   },
   created() {
