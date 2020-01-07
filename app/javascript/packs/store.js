@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     currentUser: null,
     headers: null,
     flash: null,
+    habits: null,
   },
 
   getters: {
@@ -73,6 +74,9 @@ const store = new Vuex.Store({
     },
     deleteFlash(state) {
       state.flash = null;
+    },
+    currentUserHabits(state, payload) {
+      state.habits = payload.habits
     }
   },
 
@@ -138,6 +142,17 @@ const store = new Vuex.Store({
       .catch(function (error) {
         alert(error);
       })
+    },
+
+    setCurrentUserHabits(context, currentUserId) {
+      axios
+        .get(`/api/v1/habits/${currentUserId}`)
+        .then(function () {
+          context.commit('currentUserHabits')
+        })
+        .catch(function (error) {
+          alert(error)
+        })
     }
   },
 
