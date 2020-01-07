@@ -4,7 +4,7 @@
     class="mx-auto"
   >
     <v-list-item>
-      <v-list-item-avatar color="yellow">{{ habitNumber }}</v-list-item-avatar>
+      <v-list-item-avatar :color="avatorColor">{{ habitNumber }}</v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
         <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>
@@ -30,12 +30,6 @@
         text
         color="deep-purple accent-4"
       >
-        編集
-      </v-btn>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
         詳細
       </v-btn>
       <v-btn
@@ -55,6 +49,7 @@
       habitNumber: '',
       habitTitle: '',
       userName: '',
+      avatorColor: ''
     }
   }
 </script>
