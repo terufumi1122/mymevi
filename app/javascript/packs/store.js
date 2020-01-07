@@ -18,6 +18,8 @@ const store = new Vuex.Store({
     headers: null,
     flash: null,
     habits: null,
+    allHabits: null,
+    // allUsers: null,
   },
 
   getters: {
@@ -27,7 +29,15 @@ const store = new Vuex.Store({
 
     habits(state) {
       return state.habits;
-    }
+    },
+
+    allHabits(state) {
+      return state.allHabits;
+    },
+
+    // allUsers(state) {
+    //   return state.allUsers;
+    // }
 
   },
 
@@ -81,7 +91,13 @@ const store = new Vuex.Store({
     },
     currentUserHabits(state, payload) {
       state.habits = payload.habits
-    }
+    },
+    allHabits(state, payload) {
+      state.allHabits = payload.allHabits
+    },
+    // allUsers(state, payload) {
+    //   state.allUsers = payload.allUsers
+    // }
   },
 
   actions: {
@@ -157,6 +173,24 @@ const store = new Vuex.Store({
         .catch(function (error) {
           alert(error)
         })
+    },
+    setAllHabits(context) {
+      axios
+        .get('/api/v1/allhabits')
+        .then(function (response) {
+          context.commit('allHabits', { allHabits: response.data })
+        })
+        .catch(function (error) {
+          alert(error)
+        })
+      // axios
+      //   .get('/api/v1/allusers')
+      //   .then(function (response) {
+      //     context.commit('allUsers', { allUsers: response.data })
+      //   })
+      //   .catch(function (error) {
+      //     alert(error)
+      //   })
     }
   },
 

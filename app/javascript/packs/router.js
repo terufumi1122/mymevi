@@ -10,6 +10,7 @@ import UserNew from '../components/UserNew.vue'
 import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
+import AllBestItem from '../components/AllBestItem.vue'
 
 import LoginForm from '../components/LoginForm.vue'
 import SignUpForm from '../components/SignUpForm.vue'
@@ -64,6 +65,11 @@ const router = new VueRouter({
       name: 'SignUpForm',
       component: SignUpForm
     },
+    {
+      path: '/allhabits',
+      name: 'AllBestItem',
+      component: AllBestItem
+    }
   ]
 })
 
