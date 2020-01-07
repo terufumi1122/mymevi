@@ -17,12 +17,27 @@ const store = new Vuex.Store({
     currentUser: null,
     headers: null,
     flash: null,
+    habits: null,
+    allHabits: null,
+    // allUsers: null,
   },
 
   getters: {
     currentUser(state) {
       return state.currentUser;
-    }
+    },
+
+    habits(state) {
+      return state.habits;
+    },
+
+    allHabits(state) {
+      return state.allHabits;
+    },
+
+    // allUsers(state) {
+    //   return state.allUsers;
+    // }
 
   },
 
@@ -73,7 +88,16 @@ const store = new Vuex.Store({
     },
     deleteFlash(state) {
       state.flash = null;
-    }
+    },
+    currentUserHabits(state, payload) {
+      state.habits = payload.habits
+    },
+    allHabits(state, payload) {
+      state.allHabits = payload.allHabits
+    },
+    // allUsers(state, payload) {
+    //   state.allUsers = payload.allUsers
+    // }
   },
 
   actions: {
@@ -138,6 +162,35 @@ const store = new Vuex.Store({
       .catch(function (error) {
         alert(error);
       })
+    },
+
+    setCurrentUserHabits(context, currentUserId) {
+      axios
+        .get('/api/v1/habits', { params: { user_id: currentUserId } })
+        .then(function (response) {
+          context.commit('currentUserHabits', { habits: response.data })
+        })
+        .catch(function (error) {
+          alert(error)
+        })
+    },
+    setAllHabits(context) {
+      axios
+        .get('/api/v1/allhabits')
+        .then(function (response) {
+          context.commit('allHabits', { allHabits: response.data })
+        })
+        .catch(function (error) {
+          alert(error)
+        })
+      // axios
+      //   .get('/api/v1/allusers')
+      //   .then(function (response) {
+      //     context.commit('allUsers', { allUsers: response.data })
+      //   })
+      //   .catch(function (error) {
+      //     alert(error)
+      //   })
     }
   },
 

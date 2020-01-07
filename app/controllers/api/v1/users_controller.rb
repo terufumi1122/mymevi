@@ -15,6 +15,11 @@ class Api::V1::UsersController < ApiController
     render json: @user
   end
 
+  def all_users
+    all_users = User.select(:id, :name, :age, :gender)
+    render json: all_users
+  end
+
   def create
     user = User.new(user_params)
     if user.save

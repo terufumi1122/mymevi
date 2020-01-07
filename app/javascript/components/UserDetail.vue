@@ -28,12 +28,25 @@
         <v-btn text><router-link :to="{ name: 'UserEdit' }">編集する</router-link></v-btn>
       </v-card-actions>
     </v-card>
+
     <div class="vertical-spacer"></div>
-    <BestItem habitNumber="123" habitTitle="タイトルサンプル" :userName="user.name"></BestItem>
-    <p>この下に毎習慣があるだけ表示される</p>
-    <v-btn text>
-      <router-link :to="{ name: 'HabitNew' }">新規習慣 作成ボタン(HabitNew.vueへリンク)</router-link>
+
+    <div v-for="(habit, index) in habits" :key="habit.id">
+      <BestItem v-if="index === 0" :avatorColor="avatorColor1" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+      <BestItem v-else-if="index === 1" :avatorColor="avatorColor2" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+      <BestItem v-else-if="index === 2" :avatorColor="avatorColor3" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+      <BestItem v-else :avatorColor="avatorColor" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+      <div class="vertical-spacer"></div>
+    </div>
+
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-btn>
+        <router-link :to="{ name: 'HabitNew' }"><v-icon>mdi-plus-box</v-icon>新規習慣の作成</router-link>
       </v-btn>
+      <v-spacer></v-spacer>
+    </v-row>
+
     <div class="vertical-spacer"></div>
   </div>
 </template>
@@ -50,6 +63,11 @@ export default {
   data() {
     return {
       userName: '',
+      // habits: '',
+      avatorColor: 'white',
+      avatorColor1: 'yellow',
+      avatorColor2: 'grey lighten-2',
+      avatorColor3: 'brown lighten-2',
       user: {
         name: '',
         email: '',
@@ -57,6 +75,15 @@ export default {
         gender: ''
       }
     }
+  },
+  computed:{
+    habits() {
+      return this.$store.getters.habits
+    }
+  },
+  created() {
+    const userId = this.$store.state.currentUser.data.id
+    this.$store.dispatch('setCurrentUserHabits', userId)
   },
   mounted() {
     const userId = this.$store.state.currentUser.data.id

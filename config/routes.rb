@@ -56,7 +56,11 @@ Rails.application.routes.draw do
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :users, only: [:show]
-      resources :habits, only: [:create]
+      get 'allusers', to: 'users#all_users'
+
+      resources :habits, only: [:show, :create]
+      get 'habits', to: 'habits#users_habits_show'
+      get 'allhabits', to: 'habits#all_habits_show'
     end
   end
 
