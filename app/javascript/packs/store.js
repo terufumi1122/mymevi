@@ -146,9 +146,9 @@ const store = new Vuex.Store({
 
     setCurrentUserHabits(context, currentUserId) {
       axios
-        .get(`/api/v1/habits/${currentUserId}`)
-        .then(function () {
-          context.commit('currentUserHabits')
+        .get('/api/v1/habits', { params: { user_id: currentUserId } })
+        .then(function (response) {
+          context.commit('currentUserHabits', { habits: response.data })
         })
         .catch(function (error) {
           alert(error)

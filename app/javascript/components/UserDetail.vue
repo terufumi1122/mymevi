@@ -30,7 +30,7 @@
     </v-card>
     <div class="vertical-spacer"></div>
     <BestItem habitNumber="123" habitTitle="タイトルサンプル" :userName="user.name"></BestItem>
-    <p>この下に毎習慣があるだけ表示される</p>
+    <p>この下にマイ習慣があるだけ表示される</p>
     <v-btn text>
       <router-link :to="{ name: 'HabitNew' }">新規習慣 作成ボタン(HabitNew.vueへリンク)</router-link>
       </v-btn>
@@ -57,6 +57,10 @@ export default {
         gender: ''
       }
     }
+  },
+  created() {
+    const userId = this.$store.state.currentUser.data.id
+    this.$store.dispatch('setCurrentUserHabits', userId)
   },
   mounted() {
     const userId = this.$store.state.currentUser.data.id
