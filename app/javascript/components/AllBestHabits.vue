@@ -2,7 +2,7 @@
   <div>
     <div class="vertical-spacer"></div>
 
-    <div v-for="(habit, index) in allHabits" :key="habit.id">
+    <div v-for="habit in allHabits" :key="habit.id">
       <BestItem
        v-if="habit.best === 1"
        :avatorColor="avatorColor[habit.best]"
@@ -35,7 +35,7 @@ import axios from 'axios';
 import BestItem from './BestItem';
 
 export default {
-  name: 'AllBestItem',
+  name: 'AllBestHabits',
   components: {
     BestItem,
   },

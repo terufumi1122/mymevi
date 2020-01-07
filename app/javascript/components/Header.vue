@@ -27,7 +27,7 @@
       <v-spacer></v-spacer>
       
       <v-btn icon>
-        <router-link :to="{ name: 'AllBestItem' }">
+        <router-link :to="{ name: 'AllBestHabits' }">
           <v-icon>mdi-heart</v-icon>
         </router-link>
       </v-btn>
