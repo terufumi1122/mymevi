@@ -2,202 +2,33 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import userStore from './stores/user.js'
-import axios from 'axios'
+// storeモジュールの読み込み
+import userStore from './stores/user.js'
+import habitStore from './stores/habit.js'
+import flashStore from './stores/flash.js'
+
+// import axios from 'axios'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
 
   modules: {
-    // userStore,
+    userStore,
+    habitStore,
+    flashStore,
   },
 
   state: {
-    currentUser: null,
-    headers: null,
-    flash: null,
-    habits: null,
-    allHabits: null,
-    // allUsers: null,
   },
 
   getters: {
-    currentUser(state) {
-      return state.currentUser;
-    },
-
-    habits(state) {
-      return state.habits;
-    },
-
-    allHabits(state) {
-      return state.allHabits;
-    },
-
-    // allUsers(state) {
-    //   return state.allUsers;
-    // }
-
   },
 
   mutations: {
-    currentUser(state, payload) {
-      state.currentUser = payload.user;
-    },
-    signIn(state, payload) {
-      state.headers = {
-        "access-token": payload["access-token"],
-        "client": payload["client"],
-        "uid": payload["uid"],
-      };
-    },
-    signOut(state) {
-      state.headers = null;
-      state.currentUser = null;
-    },
-    flashSignUp(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "新規登録・ログインに成功しました",
-      };
-    },
-    flashSignIn(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ログインに成功しました",
-      };
-    },
-    flashSignOut(state) {
-      state.flash = {
-        "type": "info", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ログアウトに成功しました",
-      };
-    },
-    flashUpdateUser(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ユーザー情報を更新しました",
-      };
-    },
-    flashDeleteUser(state) {
-      state.flash = {
-        "type": "warning", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "アカウントを削除しました",
-      };
-    },
-    deleteFlash(state) {
-      state.flash = null;
-    },
-    currentUserHabits(state, payload) {
-      state.habits = payload.habits
-    },
-    allHabits(state, payload) {
-      state.allHabits = payload.allHabits
-    },
-    flashCreateHabit(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "習慣を登録しました",
-      };
-    },
-    // allUsers(state, payload) {
-    //   state.allUsers = payload.allUsers
-    // }
   },
 
   actions: {
-    signUp(context, userParams) {
-      axios
-        .post('/api/v1/auth', userParams)
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
-          context.commit('flashSignUp');
-        })
-        .catch(function (error) {
-          console.error(error);
-          // context.commit('currentUser', { user: error });
-          alert(error);
-        });
-    },
-    signIn(context, userParams) {
-      axios
-        .post('/api/v1/auth/sign_in', userParams)
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
-          context.commit('flashSignIn');
-        })
-        .catch(function (error) {
-          console.error(error);
-          // context.commit('currentUser', { user: error });
-          alert(error)
-        });
-      },
-      signOut(context) {
-        axios
-        .delete('/api/v1/auth/sign_out', { headers: context.state.headers })
-        .then(function () {
-          context.commit('signOut');
-          context.commit('flashSignOut');
-        })
-        .catch(function (error) {
-          alert(error);
-        })
-      },
-      updateUser(context, userParams) {
-        axios
-        .put('/api/v1/auth', userParams, { headers: context.state.headers })
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
-          context.commit('flashUpdateUser');
-      })
-      .catch(function (error) {
-        alert(error);
-      })
-    },
-    deleteUser(context) {
-      axios
-      .delete('/api/v1/auth', { headers: context.state.headers })
-      .then(function () {
-        context.commit('signOut')
-        context.commit('flashDeleteUser');
-      })
-      .catch(function (error) {
-        alert(error);
-      })
-    },
-
-    setCurrentUserHabits(context, currentUserId) {
-      axios
-        .get('/api/v1/habits', { params: { user_id: currentUserId } })
-        .then(function (response) {
-          context.commit('currentUserHabits', { habits: response.data })
-        })
-        .catch(function (error) {
-          alert(error)
-        })
-    },
-    setAllHabits(context) {
-      axios
-        .get('/api/v1/allhabits')
-        .then(function (response) {
-          context.commit('allHabits', { allHabits: response.data })
-        })
-        .catch(function (error) {
-          alert(error)
-        })
-      // axios
-      //   .get('/api/v1/allusers')
-      //   .then(function (response) {
-      //     context.commit('allUsers', { allUsers: response.data })
-      //   })
-      //   .catch(function (error) {
-      //     alert(error)
-      //   })
-    }
   },
 
 })

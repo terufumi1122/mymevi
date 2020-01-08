@@ -97,6 +97,8 @@
 </template>
 
 <script>
+  import { mapMutations, mapActions } from 'vuex'
+
   const maxAge = 117;
   const ageRange = [...Array(maxAge).keys()]
 
@@ -135,6 +137,12 @@
       }
     },
     methods: {
+      ...mapMutations([
+        'flashSignUp'
+      ]),
+      ...mapActions([
+        'signUp'
+      ]),
       createUser: function() {
         const userParams = {
           "name": this.user.name,
@@ -144,8 +152,9 @@
           "password": this.user.password,
           "password_confirmation": this.user.password_confirmation,
         }
-        this.$store.dispatch('signUp', userParams)
-        this.$router.push({ name: 'Top' });
+        this.signUp(userParams)
+        this.$router.push({ name: 'Top' })
+        this.flashSignUp()
       }
     }
   }

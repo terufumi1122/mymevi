@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+import { mapMutations, mapActions } from 'vuex';
 
   export default {
     name: 'LoginForm',
@@ -68,18 +68,34 @@
         ],
       }
     },
+    computed: {
+      // ...mapActions([
+      //   'signIn',
+      //   'signOut'
+      // ])
+    },
     methods: {
+      ...mapMutations([
+        'flashSignIn',
+        'flashSignOut',
+      ]),
+      ...mapActions([
+        'signIn',
+        'signOut'
+      ]),
       signInUser() {
         const userParams = {
           "email": this.user.email,
           "password": this.user.password
         }
-        this.$store.dispatch('signIn', userParams);
-        this.$router.push({ name: 'Top' });
+        this.signIn(userParams)
+        this.$router.push({ name: 'Top' })
+        this.flashSignIn()
       },
       signOut() {
-        this.$store.dispatch('signOut')
+        this.signOut()
         this.$router.push({ name: 'Top'})
+        this.flashSignOut()
       }
     }
   }

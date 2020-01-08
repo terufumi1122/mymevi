@@ -2,7 +2,7 @@
   <div>
     <div class="vertical-spacer"></div>
 
-    <div v-for="habit in allHabits" :key="habit.id">
+    <div v-for="habit in allHabits1" :key="habit.id">
       <BestItem
        v-if="habit.best === 1"
        :avatorColor="avatorColor[habit.best]"
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
+
 import BestItem from './BestItem';
 
 export default {
@@ -49,14 +50,22 @@ export default {
     }
   },
   computed:{
-    allHabits() {
-      return this.$store.getters.allHabits
+    ...mapGetters([
+      'allHabits'
+    ]),
+    allHabits1() {
+      return this.allHabits
     }
   },
   created() {
     // createdのタイミングで全習慣を読み込むactionsを発動したい
-    this.$store.dispatch('setAllHabits')
+    this.setAllHabits()
   },
+  methods: {
+    ...mapActions([
+      'setAllHabits'
+    ])
+  }
 }
 </script>
 

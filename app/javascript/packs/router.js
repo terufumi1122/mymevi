@@ -4,9 +4,7 @@ import VueRouter from 'vue-router'
 
 // Components for router
 import Top from '../components/Top'
-import UsersIndex from '../components/UsersIndex.vue'
 import UserDetail from '../components/UserDetail.vue'
-import UserNew from '../components/UserNew.vue'
 import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
@@ -25,20 +23,10 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/users',
-      name: 'UsersIndex',
-      component: UsersIndex
-    },
-    {
       path: '/user',
       // path: '/users/:id(\\d+)',
       name: 'UserDetail',
       component: UserDetail
-    },
-    {
-      path: '/users/new',
-      name: 'UserNew',
-      component: UserNew
     },
     {
       path: '/user/edit',

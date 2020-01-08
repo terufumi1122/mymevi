@@ -9,12 +9,14 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'Flash',
     computed: {
-      flash() {
-        return this.$store.state.flash
-      }
+      ...mapGetters([
+        'flash'
+      ])
     },
   }
 </script>

@@ -43,7 +43,7 @@
       </v-container>
       <v-row>
         <v-spacer></v-spacer>
-        <v-btn @click="addHabit"><v-icon>mdi-plus-box</v-icon>登録する</v-btn>
+        <v-btn @click="addHabit1"><v-icon>mdi-plus-box</v-icon>登録する</v-btn>
         <v-spacer></v-spacer>
       </v-row>
     </v-form>
@@ -52,7 +52,10 @@
 
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+
 import axios from 'axios';
+
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
 
@@ -71,26 +74,30 @@ import axios from 'axios';
         ],
       }
     },
+    computed: {
+      ...mapGetters([
+        'currentUser'
+      ]),
+    },
     methods: {
-      addHabit() {
+      ...mapMutations([
+        'flashCreateHabit'
+      ]),
+      ...mapActions([
+        'addHabit'
+      ]),
+      addHabit1() {
         // axiosを使ってRails APIを叩く。引数にhabitParamsを渡す。
         // 渡したhabitParamsをRails側で読み取り、DBに保存する。
         const habitParams = {
             "name": this.habit.name,
             "description": this.habit.description,
             "best": this.habit.best,
-            "user_id": this.$store.state.currentUser.data.id
+            "user_id": this.currentUser.data.id
         }
-        axios
-          .post('/api/v1/habits', habitParams)
-          .then(function(response) {
-          })
-          .catch(function(error) {
-            console.error(error);
-            alert(error)
-          });
-        this.$store.commit('flashCreateHabit')
+        this.addHabit(habitParams)
         this.$router.push({ name: 'Top' })
+        this.flashCreateHabit()
       }
     }
   }

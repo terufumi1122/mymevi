@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 import About from "./About.vue"
 import Demo from "./Demo.vue"
@@ -25,8 +26,13 @@ import Flash from "./Flash.vue"
       Demo,
       Flash,
     },
+    methods: {
+      ...mapMutations([
+        'deleteFlash',
+      ])
+    },
     destroyed() {
-      this.$store.commit('deleteFlash');
+      this.deleteFlash()
     }
   }
 </script>
