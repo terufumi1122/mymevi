@@ -61,6 +61,8 @@ Rails.application.routes.draw do
       resources :habits, only: [:show, :create]
       get 'habits', to: 'habits#users_habits_show'
       get 'allhabits', to: 'habits#all_habits_show'
+      post 'habitlike', to: 'habits#like'
+      post 'habitunlike', to: 'habits#unlike'
     end
   end
 
