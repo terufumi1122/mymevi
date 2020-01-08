@@ -63,7 +63,6 @@ export default {
   data() {
     return {
       userName: '',
-      // habits: '',
       avatorColor: 'white',
       avatorColor1: 'yellow',
       avatorColor2: 'grey lighten-2',
