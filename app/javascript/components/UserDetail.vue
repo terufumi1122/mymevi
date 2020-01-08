@@ -19,7 +19,8 @@
           <v-list-item-title class="headline mb-1">{{ user.name }}</v-list-item-title>
           <v-list-item-subtitle>E-mail: {{ user.email }}</v-list-item-subtitle>
           <v-list-item-subtitle>{{ user.age }} 歳</v-list-item-subtitle>
-          <v-list-item-subtitle>{{ user.gender }}</v-list-item-subtitle>
+          <!-- <v-list-item-subtitle>{{ user.gender }}</v-list-item-subtitle> -->
+          <v-list-item-subtitle>{{ userGender }}</v-list-item-subtitle>
         </v-list-item-content>
 
       </v-list-item>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import axios from 'axios';
 import BestItem from './BestItem';
 
@@ -76,16 +78,26 @@ export default {
     }
   },
   computed:{
-    habits() {
-      return this.$store.getters.habits
+    ...mapGetters([
+      'habits',
+      'currentUser'
+    ]),
+    userGender() {
+      if(this.currentUser.data.gender === 1) {
+        return '男性'
+      } else if(this.currentUser.data.gender === 2 ) {
+        return '女性'
+      } else {
+        return ''
+      }
     }
   },
   created() {
-    const userId = this.$store.state.currentUser.data.id
+    const userId = this.currentUser.data.id
     this.$store.dispatch('setCurrentUserHabits', userId)
   },
   mounted() {
-    const userId = this.$store.state.currentUser.data.id
+    const userId = this.currentUser.data.id
     axios
       .get(`/api/v1/users/${userId}.json`)
       .then(response => (this.user = response.data))
