@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApiController
   rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
 
   def index
-    users = User.select(:id, :name, :email, :age, :gender)
+    users = User.select(:id, :name, :email, :birthday, :gender)
     render json: users
   end
 
@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def all_users
-    all_users = User.select(:id, :name, :age, :gender)
+    all_users = User.select(:id, :name, :birthday, :gender)
     render json: all_users
   end
 
@@ -49,7 +49,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def user_params
-    params.fetch(:user, {}).permit(:name, :email, :age, :gender, :password, :password_confirmation)
+    params.fetch(:user, {}).permit(:name, :email, :birthday, :gender, :password, :password_confirmation)
   end
 
   def render_status_404(exception)

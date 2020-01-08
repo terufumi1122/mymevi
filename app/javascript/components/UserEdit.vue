@@ -45,14 +45,14 @@ export default {
       const userParams = {
         "name": this.user.name,
         "email": this.user.email,
-        "age": this.user.age,
+        "birthday": `${this.user.year}${this.user.month}${this.user.day}`, //うまくいかない予感。文字列の足し算にし、最後に数字に変換とかでどうか？
         "gender": this.user.gender,
         "password": this.user.password,
         "password_confirmation": this.user.password_confirmation,
       }
       this.updateUser(userParams)
       this.$router.push({ name: 'Top' })
-      this.flashDeleteUser()
+      this.flashUpdateUser()
     },
     deleteUser1() {
       this.deleteUser()

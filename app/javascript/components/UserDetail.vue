@@ -18,7 +18,7 @@
           <div class="overline mb-4">About Me!</div>
           <v-list-item-title class="headline mb-1">{{ user.name }}</v-list-item-title>
           <v-list-item-subtitle>E-mail: {{ user.email }}</v-list-item-subtitle>
-          <v-list-item-subtitle>{{ user.age }} 歳</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.birthday }}生まれ</v-list-item-subtitle>
           <!-- <v-list-item-subtitle>{{ user.gender }}</v-list-item-subtitle> -->
           <v-list-item-subtitle>{{ userGender }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -72,7 +72,7 @@ export default {
       user: {
         name: '',
         email: '',
-        age: '',
+        birthday: '',
         gender: ''
       }
     }

@@ -30,11 +30,25 @@
             cols="12"
             md="4"
           >
+
+          <!-- 要修正 -->
             <v-select
-              v-model="user.age"
-              :items="items"
-              label="年齢"
+              v-model="user.year"
+              :items="years"
+              label="西暦"
             ></v-select>
+            <v-select
+              v-model="user.month"
+              :items="months"
+              label="月"
+            ></v-select>
+            <v-select
+              v-model="user.day"
+              :items="days"
+              label="日"
+            ></v-select>
+            <!-- 要修正   -->
+
           </v-col>
           <v-col
             cols="12"
@@ -102,6 +116,10 @@
   const maxAge = 117;
   const ageRange = [...Array(maxAge).keys()]
 
+  const yearRange = [...Array(2010).keys()]
+  const monthRange = [...Array(13).keys()]
+  const dayRange = [...Array(32).keys()]
+
   import axios from 'axios'
 
   export default {
@@ -116,7 +134,9 @@
         user: {
           name: '',
           email: '',
-          age: '',
+          year: '',
+          month: '',
+          day: '',
           gender: '',
           password: '',
           password_confirmation: '',
@@ -147,7 +167,7 @@
         const userParams = {
           "name": this.user.name,
           "email": this.user.email,
-          "age": this.user.age,
+          "birthday": `${this.user.year} + ${this.user.month} + ${this.user.day}`, //うまくいかない予感。文字列の足し算にし、最後に数字に変換とかでどうか？
           "gender": this.user.gender,
           "password": this.user.password,
           "password_confirmation": this.user.password_confirmation,

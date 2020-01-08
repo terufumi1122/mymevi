@@ -31,11 +31,23 @@
             cols="12"
             md="4"
           >
+          <!-- 要修正 -->
             <v-select
-              v-model="user.age"
-              :items="items"
-              label="年齢"
+              v-model="user.year"
+              :items="years"
+              label="西暦"
             ></v-select>
+            <v-select
+              v-model="user.month"
+              :items="months"
+              label="月"
+            ></v-select>
+            <v-select
+              v-model="user.day"
+              :items="days"
+              label="日"
+            ></v-select>
+            <!-- 要修正 -->
           </v-col>
           <v-col
             cols="12"
@@ -98,8 +110,12 @@
 </template>
 
 <script>
-  const maxAge = 117;
-  const ageRange = [...Array(maxAge).keys()]
+  const maxAge = 117; //要修正
+  const ageRange = [...Array(maxAge).keys()] //要修正
+
+  const yearRange = [...Array(2010).keys()]
+  const monthRange = [...Array(13).keys()]
+  const dayRange = [...Array(32).keys()]
 
   export default {
     name: 'UserForm',
@@ -113,7 +129,10 @@
         show1: false,
         show2: false,
         radioGroup: 1,
-        items: ageRange,
+        items: ageRange, //要修正
+        years: yearRange,
+        months: monthRange,
+        days: dayRange,
         nameRules: [
           v => !!v || '名前の入力は必須です',
           v => v.length < 20 || '名前は20文字以内で入力して下さい'

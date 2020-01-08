@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  age                    :integer
 #  allow_password_change  :boolean          default(FALSE)
+#  birthday               :datetime
 #  current_sign_in_at     :datetime
 #  email                  :string(255)
 #  encrypted_password     :string(255)      default(""), not null

@@ -10,7 +10,7 @@ class Api::V1::HabitsController < ApiController
       best,
       user_id,
       users.name AS user_name,
-      users.age AS user_age,
+      users.birthday AS user_birthday,
       users.gender AS user_gender
       ")
     render json: all_habits
