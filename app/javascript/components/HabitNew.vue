@@ -89,6 +89,7 @@ import axios from 'axios';
             console.error(error);
             alert(error)
           });
+        this.$store.commit('flashCreateHabit')
         this.$router.push({ name: 'Top' })
       }
     }

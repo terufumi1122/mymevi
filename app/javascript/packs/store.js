@@ -95,6 +95,12 @@ const store = new Vuex.Store({
     allHabits(state, payload) {
       state.allHabits = payload.allHabits
     },
+    flashCreateHabit(state) {
+      state.flash = {
+        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
+        "message": "習慣を登録しました",
+      };
+    },
     // allUsers(state, payload) {
     //   state.allUsers = payload.allUsers
     // }
