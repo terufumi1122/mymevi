@@ -17,8 +17,12 @@
     <!-- ここは詳細を押したら表示されるようにしたい -->
 
     <v-card-actions>
-      <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
+      <v-btn
+        icon
+        @click="toggleLike"
+      >
+          <v-icon v-if="like === liked">mdi-heart</v-icon>
+          <v-icon v-else color="red">mdi-heart</v-icon>
         <!-- いいね！数も掲載 -->
       </v-btn>
       <v-btn icon>
@@ -49,7 +53,18 @@
       habitNumber: '',
       habitTitle: '',
       userName: '',
-      avatorColor: ''
+      avatorColor: '',
+      like: '',
+    },
+    data() {
+      return {
+        liked: false
+      }
+    },
+    methods: {
+      toggleLike() {
+        this.liked = !this.liked
+      }
     }
   }
 </script>

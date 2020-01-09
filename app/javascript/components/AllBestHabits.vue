@@ -5,6 +5,7 @@
     <div v-for="habit in allHabits1" :key="habit.id">
       <BestItem
        v-if="habit.best === 1"
+       :like="false"
        :avatorColor="avatorColor[habit.best]"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
@@ -12,6 +13,8 @@
        ></BestItem>
       <BestItem
        v-if="habit.best === 2"
+
+       :like="false"
        :avatorColor="avatorColor[habit.best]"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
@@ -19,6 +22,8 @@
        ></BestItem>
       <BestItem
        v-if="habit.best === 3"
+
+       :like="false"
        :avatorColor="avatorColor[habit.best]"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
@@ -55,7 +60,7 @@ export default {
     ]),
     allHabits1() {
       return this.allHabits
-    }
+    },
   },
   created() {
     // createdのタイミングで全習慣を読み込むactionsを発動したい
