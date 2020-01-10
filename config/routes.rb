@@ -51,6 +51,11 @@
 
 Rails.application.routes.draw do
   
+  namespace :api do
+    namespace :v1 do
+      get 'favorites/index'
+    end
+  end
   root to: 'home#index'
   
   namespace :api, {format: 'json'} do
