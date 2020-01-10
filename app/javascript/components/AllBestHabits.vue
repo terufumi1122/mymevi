@@ -2,7 +2,7 @@
   <div>
     <div class="vertical-spacer"></div>
 
-    <div v-for="habit in allHabits1" :key="habit.id">
+    <div v-for="habit in habits" :key="habit.id">
       <BestItem
        v-if="habit.best === 1"
        :like="false"
@@ -56,19 +56,25 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'allHabits'
+      'allHabits',
+      'allFavorites'
     ]),
-    allHabits1() {
+    habits() {
       return this.allHabits
     },
+    favorites() {
+      return this.allFavorites
+    }
   },
   created() {
     // createdのタイミングで全習慣を読み込むactionsを発動したい
-    this.setAllHabits()
+    this.setAllHabits();
+    this.setAllFavorites();
   },
   methods: {
     ...mapActions([
-      'setAllHabits'
+      'setAllHabits',
+      'setAllFavorites'
     ])
   }
 }

@@ -1,9 +1,12 @@
 class Api::V1::FavoritesController < ApiController
 
-  before_action :set_favorites, only: [:index]
-
   def index
-    render json: @favorites
+    favorites = Favorite.select("
+      id,
+      user_id,
+      habit_id
+      ")
+    render json: favorites
   end
 
   def create
@@ -16,10 +19,6 @@ class Api::V1::FavoritesController < ApiController
   end
 
   private
-
-  def set_favorites
-    @favorites = Favorite.all
-  end
 
   def favorite_params
     params.permit(:user_id, :habit_id)

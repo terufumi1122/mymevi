@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default ({
 
   state: {
@@ -17,9 +19,9 @@ export default ({
   },
 
   actions: {
-    getAllFavorites() {
+    setAllFavorites(context) {
       axios
-        .get('/api/v1/favoritses')
+        .get('/api/v1/favorites')
         .then(function (response) {
           context.commit('allFavorites', { favorites: response.data })
         })
@@ -28,9 +30,5 @@ export default ({
         })
     }
   },
-
-  actionts: {
-
-  }
 
 })
