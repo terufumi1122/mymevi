@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 import BestItem from './BestItem';
 
@@ -80,27 +80,41 @@ export default {
   computed:{
     ...mapGetters([
       'habits',
-      'currentUser'
+      'currentUser',
+      'allFavorites'
     ]),
     userGender() {
-      if(this.currentUser.data.gender === 1) {
+      if(this.currentUserGender === 1) {
         return '男性'
-      } else if(this.currentUser.data.gender === 2 ) {
+      } else if(this.currentUserGender === 2 ) {
         return '女性'
       } else {
         return ''
       }
+    },
+    favorites() {
+      this.allFavorites
+    },
+    currentUserGender() {
+      this.currentUser.data.gender
     }
   },
   created() {
     const userId = this.currentUser.data.id
-    this.$store.dispatch('setCurrentUserHabits', userId)
+    this.setCurrentUserHabits(userId)
+    this.setAllFavorites()
   },
   mounted() {
     const userId = this.currentUser.data.id
     axios
       .get(`/api/v1/users/${userId}.json`)
       .then(response => (this.user = response.data))
+  },
+  methods: {
+    ...mapActions([
+      'setAllFavorites',
+      'setCurrentUserHabits'
+    ])
   }
 }
 </script>

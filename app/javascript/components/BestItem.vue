@@ -6,7 +6,7 @@
     <v-list-item>
       <v-list-item-avatar :color="avatorColor">{{ habitNumber }}</v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
+        <v-list-item-title class="headline">{{ habitId }}{{ habitTitle }}</v-list-item-title>
         <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>

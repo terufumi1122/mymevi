@@ -7,6 +7,7 @@
        v-if="habit.best === 1"
        :like="false"
        :avatorColor="avatorColor[habit.best]"
+       :habitId="habit.id"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
@@ -16,6 +17,7 @@
 
        :like="false"
        :avatorColor="avatorColor[habit.best]"
+       :habitId="habit.id"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
@@ -25,6 +27,7 @@
 
        :like="false"
        :avatorColor="avatorColor[habit.best]"
+       :habitId="habit.id"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
