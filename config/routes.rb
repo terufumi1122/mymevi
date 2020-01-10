@@ -51,23 +51,20 @@
 
 Rails.application.routes.draw do
   
-  namespace :api do
-    namespace :v1 do
-      get 'favorites/index'
-    end
-  end
   root to: 'home#index'
   
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :users, only: [:show]
       get 'allusers', to: 'users#all_users'
-
+      
       resources :habits, only: [:show, :create]
       get 'habits', to: 'habits#users_habits_show'
       get 'allhabits', to: 'habits#all_habits_show'
-      post 'habitlike', to: 'habits#like'
-      post 'habitunlike', to: 'habits#unlike'
+
+      get 'favorites', to: 'favorites#index'
+      post 'favorite/create', to: 'favorites#create'
+      delete 'favorite', to: 'favorites#destroy'
     end
   end
 
