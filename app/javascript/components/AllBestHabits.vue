@@ -1,37 +1,25 @@
 <template>
   <div>
     <div class="vertical-spacer"></div>
+    <p>{{ currentUserLiked }}</p>
+    <p>{{ favorites }}</p>
+    <p>{{ allFavorites }}</p>
 
-    <div v-for="habit in habits" :key="habit.id">
+    <div v-for="habit in allHabits" :key="habit.id">
       <BestItem
-       v-if="habit.best === 1"
-       :like="false"
        :avatorColor="avatorColor[habit.best]"
-       :habitId="habit.id"
        :habitNumber="habit.best"
        :habitTitle="habit.name"
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
-      <BestItem
-       v-if="habit.best === 2"
 
-       :like="false"
-       :avatorColor="avatorColor[habit.best]"
        :habitId="habit.id"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
-      <BestItem
-       v-if="habit.best === 3"
-
-       :like="false"
-       :avatorColor="avatorColor[habit.best]"
-       :habitId="habit.id"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
+       :userId="currentUser.data.id"
+       :favorites="favorites"
+       >
+        <template v-slot:habit_id>【habit.id】{{ habit.id }}</template>
+        <template v-slot:habit_user_id>【habit.user_id】{{ habit.user_id }}</template>
+        <template v-slot:currentUser_id>【currentUser.data.id】{{ currentUser.data.id }}</template>
+      </BestItem>
       <div class="vertical-spacer"></div>
     </div>
     <div class="vertical-spacer"></div>
@@ -60,14 +48,13 @@ export default {
   computed:{
     ...mapGetters([
       'allHabits',
-      'allFavorites'
+      'allFavorites',
+      'currentUser',
+      'getFavoritesByUserId'
     ]),
-    habits() {
-      return this.allHabits
-    },
     favorites() {
       return this.allFavorites
-    }
+    },
   },
   created() {
     // createdのタイミングで全習慣を読み込むactionsを発動したい
@@ -78,7 +65,10 @@ export default {
     ...mapActions([
       'setAllHabits',
       'setAllFavorites'
-    ])
+    ]),
+    currentUserLiked(){
+      return this.getFavoritesByUserId(this.currentUser.id);
+    }
   }
 }
 </script>

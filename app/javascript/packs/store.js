@@ -18,7 +18,7 @@ const store = new Vuex.Store({
     userStore,
     habitStore,
     flashStore,
-    favoriteStore,
+    favoriteStore
   },
 
   state: {

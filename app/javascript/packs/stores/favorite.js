@@ -7,8 +7,12 @@ export default ({
   },
 
   getters: {
-    favorites(state) {
+    allFavorites(state) {
       return state.favorites;
+    },
+    getFavoritesByUserId(state, currentUserId) {
+      return state.favorites.filter(favorite => favorite.user_id === currentUserId);
+      // return state.favorites;
     }
   },
 

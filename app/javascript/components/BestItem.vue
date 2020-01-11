@@ -6,7 +6,7 @@
     <v-list-item>
       <v-list-item-avatar :color="avatorColor">{{ habitNumber }}</v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">{{ habitId }}{{ habitTitle }}</v-list-item-title>
+        <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
         <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -21,10 +21,11 @@
         icon
         @click="toggleLike"
       >
-          <v-icon v-if="like === liked">mdi-heart</v-icon>
-          <v-icon v-else color="red">mdi-heart</v-icon>
+          <v-icon v-if="isLike === true" color="red">mdi-heart</v-icon>
+          <v-icon v-else>mdi-heart</v-icon>
         <!-- いいね！数も掲載 -->
       </v-btn>
+      <p>{{ likeCount }}</p>
       <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
         <!-- ここを押すとTwitterでシェアしたり出来る -->
@@ -34,15 +35,14 @@
         text
         color="deep-purple accent-4"
       >
-        詳細
-      </v-btn>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
-        お気に入り登録
+        詳細を見る
       </v-btn>
     </v-card-actions>
+    <slot name="habit_id"></slot>
+    <slot name="habit_user_id"></slot>
+    <slot name="currentUser_id"></slot>
+    <p>この習慣をいいねしたuser_idリスト</p>
+    <p>{{ LikedUsers }}</p>
   </v-card>
 </template>
 
@@ -54,16 +54,31 @@
       habitTitle: '',
       userName: '',
       avatorColor: '',
-      like: '',
+      habitId: '',
+      userId: '',
+      favorites: ''
     },
-    data() {
-      return {
-        liked: false
+    computed: {
+      likeCount(){
+        return this.favorites.filter(favorite => favorite.habit_id === this.habitId).length
+      },
+      LikedUsers() {
+        return this.favorites.filter( favorite => favorite.habit_id === this.habitId ).map( f => f.user_id )
+      },
+      isLike() {
+        return this.LikedUsers.includes(this.userId)
       }
     },
     methods: {
       toggleLike() {
-        this.liked = !this.liked
+        this.isLike = !this.isLike
+        if (this.isLike === true) {
+          // いいね！をつける。
+          console.log('いいねをつけました')
+        } else {
+          // いいね！をはずす。
+          console.log('いいねを外しました')
+        }
       }
     }
   }
