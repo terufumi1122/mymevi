@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="vertical-spacer"></div>
-    <p>{{ currentUserLiked }}</p>
     <p>{{ favorites }}</p>
-    <p>{{ allFavorites }}</p>
 
     <div v-for="habit in allHabits" :key="habit.id">
       <BestItem
@@ -50,14 +48,12 @@ export default {
       'allHabits',
       'allFavorites',
       'currentUser',
-      'getFavoritesByUserId'
     ]),
     favorites() {
       return this.allFavorites
     },
   },
   created() {
-    // createdのタイミングで全習慣を読み込むactionsを発動したい
     this.setAllHabits();
     this.setAllFavorites();
   },
@@ -66,9 +62,6 @@ export default {
       'setAllHabits',
       'setAllFavorites'
     ]),
-    currentUserLiked(){
-      return this.getFavoritesByUserId(this.currentUser.id);
-    }
   }
 }
 </script>

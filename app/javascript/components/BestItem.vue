@@ -23,7 +23,6 @@
       >
           <v-icon v-if="isLike === true" color="red">mdi-heart</v-icon>
           <v-icon v-else>mdi-heart</v-icon>
-        <!-- いいね！数も掲載 -->
       </v-btn>
       <p>{{ likeCount }}</p>
       <v-btn icon>
@@ -47,6 +46,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'BestItem',
     props: {
@@ -70,13 +71,17 @@
       }
     },
     methods: {
+      ...mapActions([
+        'addLike',
+        'deleteLike'
+      ]),
       toggleLike() {
-        this.isLike = !this.isLike
-        if (this.isLike === true) {
-          // いいね！をつける。
+        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        if (this.isLike === false) {
+          this.addLike(likeParams)
           console.log('いいねをつけました')
         } else {
-          // いいね！をはずす。
+          this.deleteLike(likeParams)
           console.log('いいねを外しました')
         }
       }
