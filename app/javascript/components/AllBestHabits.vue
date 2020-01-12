@@ -1,29 +1,22 @@
 <template>
   <div>
     <div class="vertical-spacer"></div>
+    <div v-for="habit in allHabits" :key="habit.id">
+      <BestItem
+       :avatorColor="avatorColor[habit.best]"
+       :habitNumber="habit.best"
+       :habitTitle="habit.name"
+       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
 
-    <div v-for="habit in allHabits1" :key="habit.id">
-      <BestItem
-       v-if="habit.best === 1"
-       :avatorColor="avatorColor[habit.best]"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
-      <BestItem
-       v-if="habit.best === 2"
-       :avatorColor="avatorColor[habit.best]"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
-      <BestItem
-       v-if="habit.best === 3"
-       :avatorColor="avatorColor[habit.best]"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-       ></BestItem>
+       :habitId="habit.id"
+       :userId="currentUser.data.id"
+       :favorites="favorites"
+       :isDisabled="habit.user_id === currentUser.data.id"
+       >
+        <template v-slot:habit_id>【habit.id】{{ habit.id }}</template>
+        <template v-slot:habit_user_id>【habit.user_id】{{ habit.user_id }}</template>
+        <template v-slot:currentUser_id>【currentUser.data.id】{{ currentUser.data.id }}</template>
+      </BestItem>
       <div class="vertical-spacer"></div>
     </div>
     <div class="vertical-spacer"></div>
@@ -51,20 +44,23 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'allHabits'
+      'allHabits',
+      'allFavorites',
+      'currentUser',
     ]),
-    allHabits1() {
-      return this.allHabits
-    }
+    favorites() {
+      return this.allFavorites
+    },
   },
   created() {
-    // createdのタイミングで全習慣を読み込むactionsを発動したい
-    this.setAllHabits()
+    this.setAllHabits();
+    this.setAllFavorites();
   },
   methods: {
     ...mapActions([
-      'setAllHabits'
-    ])
+      'setAllHabits',
+      'setAllFavorites'
+    ]),
   }
 }
 </script>

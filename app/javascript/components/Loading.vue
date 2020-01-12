@@ -2,7 +2,7 @@
   <div v-show="loading">
     <div class="fullview">
       <div class="loading-spacer"></div>
-      <h1>読み込んでいます。。。</h1>
+      <h3>読み込んでいます。。。</h3>
       <!-- <vue-loading 
         type="spiningDubbles"
         color="#aaa"

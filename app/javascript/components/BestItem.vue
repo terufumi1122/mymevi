@@ -17,9 +17,22 @@
     <!-- ここは詳細を押したら表示されるようにしたい -->
 
     <v-card-actions>
-      <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        <!-- いいね！数も掲載 -->
+      <v-btn
+        @click="toggleLike"
+        icon
+        :disabled="isDisabled"
+      >
+        <v-badge
+          color="pink"
+          :value="likeCount"
+          :content="likeCount"
+        >
+          <v-icon
+            v-if="isLike === true"
+            color="red"
+          >mdi-heart</v-icon>
+          <v-icon v-else>mdi-heart</v-icon>
+        </v-badge>
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
@@ -30,26 +43,58 @@
         text
         color="deep-purple accent-4"
       >
-        詳細
-      </v-btn>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
-        お気に入り登録
+        詳細を見る
       </v-btn>
     </v-card-actions>
+    <slot name="habit_id"></slot>
+    <slot name="habit_user_id"></slot>
+    <slot name="currentUser_id"></slot>
+    <p>この習慣をいいねしたuser_idリスト</p>
+    <p>{{ LikedUsers }}</p>
   </v-card>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'BestItem',
     props: {
       habitNumber: '',
       habitTitle: '',
       userName: '',
-      avatorColor: ''
+      avatorColor: '',
+      habitId: '',
+      userId: '',
+      favorites: '',
+      isDisabled: ''
+    },
+    computed: {
+      likeCount(){
+        return this.favorites.filter(favorite => favorite.habit_id === this.habitId).length
+      },
+      LikedUsers() {
+        return this.favorites.filter( favorite => favorite.habit_id === this.habitId ).map( f => f.user_id )
+      },
+      isLike() {
+        return this.LikedUsers.includes(this.userId)
+      }
+    },
+    methods: {
+      ...mapActions([
+        'addLike',
+        'deleteLike',
+      ]),
+      toggleLike() {
+        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        if (this.isLike === false) {
+          this.addLike(likeParams)
+          console.log('いいねをつけました')
+        } else {
+          this.deleteLike(likeParams)
+          console.log('いいねを外しました')
+        }
+      }
     }
   }
 </script>

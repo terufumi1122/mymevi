@@ -1,6 +1,5 @@
 class Api::V1::HabitsController < ApiController
   before_action :set_current_user_habits, only: [:users_habits_show]
-  before_acriont :set_habit, only: [:like, :unlike]
 
   def all_habits_show
     all_habits = Habit.joins(:user)
@@ -30,25 +29,7 @@ class Api::V1::HabitsController < ApiController
     end
   end
 
-  def like
-    @current_habit.likes ++
-    unless @current_habit.save
-      render json: { errors: @current_habit.errors.full_messages }
-    end
-  end
-  
-  def unlike
-    @current_habit.likes --
-    unless @current_habit.save
-      render json: { errors: @current_habit.errors.full_messages }
-    end
-  end
-
   private
-
-  def set_habit
-    @current_habit = Habit.find(params[:id])
-  end
 
   def set_current_user_habits
     @current_user_habits = Habit.where(user_id: params[:user_id])

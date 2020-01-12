@@ -32,11 +32,17 @@
 
     <div class="vertical-spacer"></div>
 
-    <div v-for="(habit, index) in habits" :key="habit.id">
-      <BestItem v-if="index === 0" :avatorColor="avatorColor1" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else-if="index === 1" :avatorColor="avatorColor2" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else-if="index === 2" :avatorColor="avatorColor3" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else :avatorColor="avatorColor" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+    <div v-for="habit in allHabits" :key="habit.id">
+      <BestItem
+       :avatorColor="avatorColor[habit.best]"
+       :habitNumber="habit.best"
+       :habitTitle="habit.name"
+       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
+
+       :habitId="habit.id"
+       :userId="currentUser.data.id"
+       :favorites="favorites"
+       />
       <div class="vertical-spacer"></div>
     </div>
 
@@ -53,7 +59,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 import BestItem from './BestItem';
 
@@ -65,10 +71,11 @@ export default {
   data() {
     return {
       userName: '',
-      avatorColor: 'white',
-      avatorColor1: 'yellow',
-      avatorColor2: 'grey lighten-2',
-      avatorColor3: 'brown lighten-2',
+      avatorColor: {
+        1: 'yellow',
+        2: 'grey lighten-2',
+        3: 'brown lighten-2'
+      },
       user: {
         name: '',
         email: '',
@@ -79,28 +86,42 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'habits',
-      'currentUser'
+      'allHabits',
+      'allFavorites',
+      'currentUser',
     ]),
     userGender() {
-      if(this.currentUser.data.gender === 1) {
+      if(this.currentUserGender === 1) {
         return '男性'
-      } else if(this.currentUser.data.gender === 2 ) {
+      } else if(this.currentUserGender === 2 ) {
         return '女性'
       } else {
         return ''
       }
+    },
+    favorites() {
+      return this.allFavorites
+    },
+    currentUserGender() {
+      return this.currentUser.data.gender
     }
   },
   created() {
     const userId = this.currentUser.data.id
-    this.$store.dispatch('setCurrentUserHabits', userId)
+    this.setCurrentUserHabits(userId)
+    this.setAllFavorites()
   },
   mounted() {
     const userId = this.currentUser.data.id
     axios
       .get(`/api/v1/users/${userId}.json`)
       .then(response => (this.user = response.data))
+  },
+  methods: {
+    ...mapActions([
+      'setAllFavorites',
+      'setCurrentUserHabits'
+    ])
   }
 }
 </script>

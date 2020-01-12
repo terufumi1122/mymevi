@@ -69,10 +69,6 @@ import { mapMutations, mapActions } from 'vuex';
       }
     },
     computed: {
-      // ...mapActions([
-      //   'signIn',
-      //   'signOut'
-      // ])
     },
     methods: {
       ...mapMutations([

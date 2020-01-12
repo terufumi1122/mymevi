@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import userStore from './stores/user.js'
 import habitStore from './stores/habit.js'
 import flashStore from './stores/flash.js'
+import favoriteStore from './stores/favorite.js'
 
 // import axios from 'axios'
 
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     userStore,
     habitStore,
     flashStore,
+    favoriteStore
   },
 
   state: {
