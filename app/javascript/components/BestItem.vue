@@ -20,13 +20,17 @@
       <v-btn
         @click="toggleLike"
         icon
+        :disabled="isDisabled"
       >
         <v-badge
           color="pink"
           :value="likeCount"
           :content="likeCount"
         >
-          <v-icon v-if="isLike === true" color="red">mdi-heart</v-icon>
+          <v-icon
+            v-if="isLike === true"
+            color="red"
+          >mdi-heart</v-icon>
           <v-icon v-else>mdi-heart</v-icon>
         </v-badge>
       </v-btn>
@@ -62,7 +66,8 @@
       avatorColor: '',
       habitId: '',
       userId: '',
-      favorites: ''
+      favorites: '',
+      isDisabled: ''
     },
     computed: {
       likeCount(){

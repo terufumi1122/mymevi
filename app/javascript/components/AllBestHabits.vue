@@ -13,6 +13,7 @@
        :habitId="habit.id"
        :userId="currentUser.data.id"
        :favorites="favorites"
+       :isDisabled="habit.user_id === currentUser.data.id"
        >
         <template v-slot:habit_id>【habit.id】{{ habit.id }}</template>
         <template v-slot:habit_user_id>【habit.user_id】{{ habit.user_id }}</template>
