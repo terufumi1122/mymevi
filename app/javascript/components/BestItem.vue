@@ -18,13 +18,18 @@
 
     <v-card-actions>
       <v-btn
-        icon
         @click="toggleLike"
+        icon
       >
+        <v-badge
+          color="pink"
+          :value="likeCount"
+          :content="likeCount"
+        >
           <v-icon v-if="isLike === true" color="red">mdi-heart</v-icon>
           <v-icon v-else>mdi-heart</v-icon>
+        </v-badge>
       </v-btn>
-      <p>{{ likeCount }}</p>
       <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
         <!-- ここを押すとTwitterでシェアしたり出来る -->
@@ -73,7 +78,7 @@
     methods: {
       ...mapActions([
         'addLike',
-        'deleteLike'
+        'deleteLike',
       ]),
       toggleLike() {
         let likeParams = {user_id: this.userId, habit_id: this.habitId}

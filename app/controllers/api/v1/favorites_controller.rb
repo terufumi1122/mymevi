@@ -19,10 +19,10 @@ class Api::V1::FavoritesController < ApiController
   end
 
   def destroy
-    # favoritesに消したいデータを抽出し、代入する
-    favorites = Favorite.find_by(favorite_params)
-    # favoritesをテーブルから消す
-    if favorites.destroy
+    # favoriteに消したいデータを抽出し、代入する
+    favorite = Favorite.find_by(favorite_params)
+    # favoriteをテーブルから消す
+    if favorite.destroy
       new_favorites = Favorite.select("
         id,
         user_id,
