@@ -1,8 +1,6 @@
 <template>
   <div>
     <div class="vertical-spacer"></div>
-    <p>{{ favorites }}</p>
-
     <div v-for="habit in allHabits" :key="habit.id">
       <BestItem
        :avatorColor="avatorColor[habit.best]"
