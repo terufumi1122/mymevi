@@ -32,11 +32,17 @@
 
     <div class="vertical-spacer"></div>
 
-    <div v-for="(habit, index) in habits" :key="habit.id">
-      <BestItem v-if="index === 0" :avatorColor="avatorColor1" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else-if="index === 1" :avatorColor="avatorColor2" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else-if="index === 2" :avatorColor="avatorColor3" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
-      <BestItem v-else :avatorColor="avatorColor" :habitNumber="index + 1" :habitTitle="habit.name" :userName="user.name"></BestItem>
+    <div v-for="habit in allHabits" :key="habit.id">
+      <BestItem
+       :avatorColor="avatorColor[habit.best]"
+       :habitNumber="habit.best"
+       :habitTitle="habit.name"
+       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
+
+       :habitId="habit.id"
+       :userId="currentUser.data.id"
+       :favorites="favorites"
+       />
       <div class="vertical-spacer"></div>
     </div>
 
@@ -65,10 +71,11 @@ export default {
   data() {
     return {
       userName: '',
-      avatorColor: 'white',
-      avatorColor1: 'yellow',
-      avatorColor2: 'grey lighten-2',
-      avatorColor3: 'brown lighten-2',
+      avatorColor: {
+        1: 'yellow',
+        2: 'grey lighten-2',
+        3: 'brown lighten-2'
+      },
       user: {
         name: '',
         email: '',
@@ -79,9 +86,9 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'habits',
+      'allHabits',
+      'allFavorites',
       'currentUser',
-      'allFavorites'
     ]),
     userGender() {
       if(this.currentUserGender === 1) {
@@ -93,10 +100,10 @@ export default {
       }
     },
     favorites() {
-      this.allFavorites
+      return this.allFavorites
     },
     currentUserGender() {
-      this.currentUser.data.gender
+      return this.currentUser.data.gender
     }
   },
   created() {
