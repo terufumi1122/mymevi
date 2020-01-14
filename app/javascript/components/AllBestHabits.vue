@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="vertical-spacer"></div>
-    <div v-for="habit in allHabits" :key="habit.id">
+    <div v-for="habit in habits" :key="habit.id">
       <BestItem
        :avatorColor="avatorColor[habit.best]"
        :habitNumber="habit.best"
@@ -45,6 +45,9 @@ export default {
       'allFavorites',
       'currentUser',
     ]),
+    habits() {
+      return this.allHabits
+    },
     favorites() {
       return this.allFavorites
     },
