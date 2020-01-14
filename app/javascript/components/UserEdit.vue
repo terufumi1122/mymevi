@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 import axios from "axios";
 
@@ -23,14 +23,16 @@ export default {
   },
   data() {
     return {
-      user: {},
       errors: '',
     }
   },
-  mounted() {
-    // axios
-    //   .get(`/api/v1/users/${this.$route.params.id}.json`)
-    //   .then(response => (this.user = response.data))
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ]),
+    user() {
+      return this.currentUser.data
+    }
   },
   methods: {
     ...mapMutations([

@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       get 'allhabits', to: 'habits#all_habits_show'
 
       get 'favorites', to: 'favorites#index'
+      get 'user_favorites', to: 'favorites#current_user_index'
       post 'favorite/create', to: 'favorites#create'
       delete 'favorite', to: 'favorites#destroy'
     end

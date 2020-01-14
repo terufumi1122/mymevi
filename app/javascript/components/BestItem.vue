@@ -46,11 +46,6 @@
         詳細を見る
       </v-btn>
     </v-card-actions>
-    <slot name="habit_id"></slot>
-    <slot name="habit_user_id"></slot>
-    <slot name="currentUser_id"></slot>
-    <p>この習慣をいいねしたuser_idリスト</p>
-    <p>{{ LikedUsers }}</p>
   </v-card>
 </template>
 

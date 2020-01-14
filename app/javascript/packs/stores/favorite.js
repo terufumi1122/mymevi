@@ -39,6 +39,16 @@ export default ({
           alert(error)
         })
     },
+    setCurrentUserFavorites(context, userId) {
+      axios
+        .get('/api/v1/user_favorites', { params: { id: userId }})
+        .then(function (response) {
+          context.commit('allFavorites', { favorites: response.data })
+        })
+        .catch(function (error) {
+          alert(error)
+        })
+    },
     addLike(context, likeParams) {
       axios
         .post('/api/v1/favorite/create',  likeParams)

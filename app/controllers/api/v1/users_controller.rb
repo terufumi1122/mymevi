@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def all_users
-    all_users = User.select(:id, :name, :birthday, :gender)
+    all_users = User.select(:id, :name, :birth_year, :birth_month, :birth_day, :gender)
     render json: all_users
   end
 
@@ -49,7 +49,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def user_params
-    params.fetch(:user, {}).permit(:name, :email, :birthday, :gender, :password, :password_confirmation)
+    params.fetch(:user, {}).permit(:name, :email, :birth_year, :birth_month, :birth_day, :gender, :password, :password_confirmation)
   end
 
   def render_status_404(exception)

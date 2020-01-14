@@ -32,7 +32,7 @@
 
     <div class="vertical-spacer"></div>
 
-    <div v-for="habit in allHabits" :key="habit.id">
+    <div v-for="habit in habits" :key="habit.id">
       <BestItem
        :avatorColor="avatorColor[habit.best]"
        :habitNumber="habit.best"
@@ -42,6 +42,7 @@
        :habitId="habit.id"
        :userId="currentUser.data.id"
        :favorites="favorites"
+       :isDisabled="habit.user_id === currentUser.data.id"
        />
       <div class="vertical-spacer"></div>
     </div>
@@ -86,7 +87,7 @@ export default {
   },
   computed:{
     ...mapGetters([
-      'allHabits',
+      'habits',
       'allFavorites',
       'currentUser',
     ]),

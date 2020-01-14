@@ -13,9 +13,6 @@
        :favorites="favorites"
        :isDisabled="habit.user_id === currentUser.data.id"
        >
-        <template v-slot:habit_id>【habit.id】{{ habit.id }}</template>
-        <template v-slot:habit_user_id>【habit.user_id】{{ habit.user_id }}</template>
-        <template v-slot:currentUser_id>【currentUser.data.id】{{ currentUser.data.id }}</template>
       </BestItem>
       <div class="vertical-spacer"></div>
     </div>
