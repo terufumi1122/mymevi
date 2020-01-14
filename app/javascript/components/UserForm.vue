@@ -33,21 +33,21 @@
           >
           <!-- 要修正 -->
             <v-select
-              v-model="user.year"
+              v-model="user.birth_year"
               :items="years"
               label="西暦"
             ></v-select>
             <v-select
-              v-model="user.month"
+              v-model="user.birth_month"
               :items="months"
               label="月"
             ></v-select>
             <v-select
-              v-model="user.day"
+              v-model="user.birth_day"
               :items="days"
               label="日"
             ></v-select>
-            <!-- 要修正 -->
+            <!-- 要修正1      1¡ -->
           </v-col>
           <v-col
             cols="12"

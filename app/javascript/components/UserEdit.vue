@@ -47,7 +47,9 @@ export default {
       const userParams = {
         "name": this.user.name,
         "email": this.user.email,
-        "birthday": `${this.user.year}${this.user.month}${this.user.day}`, //うまくいかない予感。文字列の足し算にし、最後に数字に変換とかでどうか？
+        "birth_year": this.user.birth_year,
+        "birth_month": this.user.birth_month,
+        "birth_day": this.user.birth_day,
         "gender": this.user.gender,
         "password": this.user.password,
         "password_confirmation": this.user.password_confirmation,

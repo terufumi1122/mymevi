@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApiController
   rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
 
   def index
-    users = User.select(:id, :name, :email, :birthday, :gender)
+    users = User.select(:id, :name, :email, :birth_year, :birthe_month, :birth_day, :gender)
     render json: users
   end
 
