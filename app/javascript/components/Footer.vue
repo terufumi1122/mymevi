@@ -2,7 +2,6 @@
   <v-bottom-navigation
     background-color="#990011"
     dark
-    v-model="bottomNav"
   >
     <v-btn>
       <span>Recent</span>
@@ -24,10 +23,5 @@
 <script>
   export default {
     name: 'Footer',
-    data() {
-      return {
-        bottomNav: 'recent',
-      }
-    },
   }
 </script>

@@ -8,6 +8,7 @@ import UserDetail from '../components/UserDetail.vue'
 import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
+import HabitDetail from '../components/HabitDetail.vue'
 import AllBestHabits from '../components/AllBestHabits.vue'
 
 import LoginForm from '../components/LoginForm.vue'
@@ -42,6 +43,11 @@ const router = new VueRouter({
       path: '/newhabit',
       name: 'HabitNew',
       component: HabitNew
+    },
+    {
+      path: '/habitdetail',
+      name: 'HabitDetail',
+      component: HabitDetail
     },
     {
       path: '/login',

@@ -4,12 +4,16 @@ export default ({
 
   state: {
     habits: null,
+    currentHabitId: null,
     allHabits: null,
   },
 
   getters: {
     habits(state) {
       return state.habits;
+    },
+    currentHabitId(state) {
+      return state.currentHabitId;
     },
     allHabits(state) {
       return state.allHabits;
@@ -19,6 +23,9 @@ export default ({
   mutations: {
     currentUserHabits(state, payload) {
       state.habits = payload.habits
+    },
+    currentHabitId(state, payload) {
+      state.currentHabitId = payload.currentHabitId
     },
     allHabits(state, payload) {
       state.allHabits = payload.allHabits
@@ -35,6 +42,9 @@ export default ({
         .catch(function (error) {
           alert(error)
         })
+    },
+    setCurrentHabitId(context, habitId) {
+      context.commit('currentHabitId', { currentHabitId: habitId })
     },
     setAllHabits(context) {
       axios

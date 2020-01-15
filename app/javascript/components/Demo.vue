@@ -5,7 +5,6 @@
         <v-col>
           <div class="demo__field">
             <div class="dammy__square">
-              <p>ここにデモGIFが入ります。</p>
             </div>
           </div>
           <p>this is Demo.vue</p>
@@ -26,12 +25,8 @@
 </script>
 
 <style scoped>
-  .demo__container {
-    background: #bbb;
-  }
   .demo__field {
     margin: 0 auto;
-    background: #eee;
   }
   .dammy__square {
     width: 200px;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <div class="vertical-spacer"></div>
     <v-card
       class="mx-auto"
@@ -18,7 +18,7 @@
           <div class="overline mb-4">About Me!</div>
           <v-list-item-title class="headline mb-1">{{ user.name }}</v-list-item-title>
           <v-list-item-subtitle>E-mail: {{ user.email }}</v-list-item-subtitle>
-          <v-list-item-subtitle>{{ user.birthday }}生まれ</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.birth_year }}年生まれ</v-list-item-subtitle>
           <!-- <v-list-item-subtitle>{{ user.gender }}</v-list-item-subtitle> -->
           <v-list-item-subtitle>{{ userGender }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -56,7 +56,7 @@
     </v-row>
 
     <div class="vertical-spacer"></div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -71,18 +71,12 @@ export default {
   },
   data() {
     return {
-      userName: '',
       avatorColor: {
         1: 'yellow',
         2: 'grey lighten-2',
         3: 'brown lighten-2'
       },
-      user: {
-        name: '',
-        email: '',
-        birthday: '',
-        gender: ''
-      }
+      user: {}
     }
   },
   computed:{

@@ -1,5 +1,4 @@
 <template>
-  <header id="header">
     <v-app-bar
       color="#0f4c81"
       dark
@@ -23,7 +22,14 @@
         </v-menu>        
       </v-app-bar-nav-icon>
 
-      <v-toolbar-title><router-link :to="{ name: 'Top' }">Mymevi</router-link></v-toolbar-title>
+      <v-toolbar-title>
+        <router-link :to="{ name: 'Top' }">
+          <div class="my-4 title white--text inline-flex">
+            <img src="../../assets/images/002-infinity.svg" alt="ヘッダーロゴ" width="25px" height="25px">
+            MyMevi
+          </div>
+        </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       
       <v-btn icon>
@@ -61,15 +67,17 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-  </header>
+    <!-- <v-sheet
+      id="scrolling-area-1"
+      class="overflow-y-auto"
+      max-height="600"
+    >
+    </v-sheet> -->
 </template>
 
 <script>
   export default {
     name: 'Header',
-    data() {
-      user: {}
-    },
     data() {
       return {
       }
