@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container>
     <div class="vertical-spacer"></div>
     <v-card
       class="mx-auto"
-      max-width="334px"
+      max-width="344"
       outlined
     >
       <v-list-item three-line>
@@ -56,7 +56,7 @@
     </v-row>
 
     <div class="vertical-spacer"></div>
-  </div>
+  </v-container>
 </template>
 
 <script>
