@@ -39,12 +39,15 @@
         <!-- ここを押すとTwitterでシェアしたり出来る -->
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
-        詳細を見る
-      </v-btn>
+      <router-link :to="{ name: 'HabitDetail' }">
+        <v-btn
+          text
+          color="deep-purple accent-4"
+          @click="setHabit"
+        >
+          詳細を見る
+        </v-btn>
+      </router-link>
     </v-card-actions>
   </v-card>
 </template>
@@ -79,6 +82,7 @@
       ...mapActions([
         'addLike',
         'deleteLike',
+        'setCurrentHabitId'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.userId, habit_id: this.habitId}
@@ -89,6 +93,9 @@
           this.deleteLike(likeParams)
           console.log('いいねを外しました')
         }
+      },
+      setHabit() {
+        this.setCurrentHabitId(this.habitId)
       }
     }
   }

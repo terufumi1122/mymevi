@@ -13,13 +13,29 @@ node[ shape  =  "Mrecord" , fontsize  =  "10" , fontname  =  "Arial" , margin  =
 edge[ fontname  =  "Arial" , fontsize  =  "7" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
 rankdir = "TB";
 label = "AppName domain model\n\n";
+m_Favorite [label = <{<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Favorite</font></td></tr>
+</table>
+}>];
+m_Habit [label = <{<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Habit</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="best">best <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+}>];
 m_User [label = <{<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
   <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">User</font></td></tr>
 </table>
 |
 <table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
   <tr><td align="left" width="130" port="allow_password_change">allow_password_change <font face="Arial Italic" color="grey60">boolean (0)</font></td></tr>
-  <tr><td align="left" width="130" port="birthday">birthday <font face="Arial Italic" color="grey60">datetime (0,0)</font></td></tr>
+  <tr><td align="left" width="130" port="birth_day">birth_day <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="birth_month">birth_month <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="birth_year">birth_year <font face="Arial Italic" color="grey60">integer</font></td></tr>
   <tr><td align="left" width="130" port="current_sign_in_at">current_sign_in_at <font face="Arial Italic" color="grey60">datetime (0,0)</font></td></tr>
   <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60">string ∗ U</font></td></tr>
   <tr><td align="left" width="130" port="encrypted_password">encrypted_password <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
@@ -37,4 +53,7 @@ m_User [label = <{<table border="0" align="center" cellspacing="0.5" cellpadding
   <tr><td align="left" width="130" port="uid">uid <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
 </table>
 }>];
+  m_User -> m_Habit [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_User -> m_Favorite [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Habit -> m_Favorite [arrowhead = "normal", arrowtail = "none", weight = "2"];
 }

@@ -38,6 +38,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'rails-erd'
+  gem 'ruby-graphviz'
 end
 
 group :development do
