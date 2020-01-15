@@ -6,7 +6,8 @@
         <v-col><About/></v-col>
       </v-row>
       <v-row>
-        <v-col><Demo/></v-col>
+        <!-- デモGIFが出来たら表示する -->
+        <!-- <v-col><Demo/></v-col> -->
       </v-row>
     </v-container>
   </v-content>

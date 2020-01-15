@@ -2,6 +2,7 @@
   <v-bottom-navigation
     background-color="#990011"
     dark
+    fixed
     v-model="bottomNav"
   >
     <v-btn>

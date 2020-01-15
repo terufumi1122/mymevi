@@ -3,7 +3,7 @@
     <Loading v-show="loading"></Loading>
     <div v-show="!loading">
       <Header/>
-      <router-view></router-view>
+      <router-view class="main__view--margin_bottom"></router-view>
       <Footer/>
     </div>
   </v-app>
@@ -37,5 +37,10 @@ export default {
 <style>
 #app {
   background: #f0efe2;
+  height: 100vh;
+  overflow-y: scroll;
+}
+.main__view--margin_bottom {
+  margin-bottom: 56px;
 }
 </style>

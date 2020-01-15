@@ -33,6 +33,7 @@
       >
         <v-badge
           color="pink"
+          :value="likesCount"
         >
           <v-icon
             color="red"
@@ -62,6 +63,7 @@
     name: 'HabitDetail',
     date() {
       return {
+        loading: true,
       }
     },
     computed: {
@@ -73,6 +75,9 @@
       ]),
       currentHabit() {
         return this.allHabits.find(habit => habit.id === this.currentHabitId)
+      },
+      likesCount() {
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.currentHabitId ).length
       },
       favorites() {
         return this.allFavorites
@@ -96,6 +101,8 @@
       this.setAllFavorites()
     },
     mounted() {
+      this.loading = false
+
       const userId = this.currentUser.data.id
       axios
         .get(`/api/v1/users/${userId}.json`)
