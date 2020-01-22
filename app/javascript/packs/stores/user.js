@@ -98,9 +98,10 @@ export default ({
       },
       sampleLogin(context) {
         axios
-        .post('/api/v1/samplelogin')
+        .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
         .then(function (response) {
           context.commit('currentUser', { user: { data: response.data} });
+          context.commit('signIn', response.headers)
         })
         .catch(function (error) {
           alert(error);
