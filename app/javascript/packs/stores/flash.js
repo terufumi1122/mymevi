@@ -71,11 +71,20 @@ export default ({
         "message": "新しい習慣を登録しました",
       };
     },
+    createFlash(state, payload) {
+      state.flash = {
+        "type": payload.type,
+        "message": payload.message,
+      };
+    } 
 
   },
   actions: {
     flashCantDelete(context) {
       context.commit('flashCantDelete');
+    },
+    createFlash(context, flashParams) {
+      context.commit('createFlash', {type: flashParams.type, message: flashParams.message})
     }
   }
 

@@ -27,11 +27,7 @@
       ])
     },
     updated() {
-      console.log('あっぷでーてぃっど')
-
       setTimeout(this.deleteFlash, 3000);
-      
-      console.log('関数のあとです')
     }
   }
 </script>

@@ -1,6 +1,5 @@
 <template>
-<div>
-  <!-- <v-container> -->
+  <v-container>
     <div class="vertical-spacer"></div>
     <v-card
       class="mx-auto"
@@ -57,8 +56,7 @@
     </v-row>
 
     <div class="vertical-spacer"></div>
-  <!-- </v-container> -->
-</div>
+  </v-container>
 </template>
 
 <script>

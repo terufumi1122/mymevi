@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
   export default {
     name: 'LoginForm',
@@ -71,13 +71,10 @@ import { mapMutations, mapActions } from 'vuex';
     computed: {
     },
     methods: {
-      ...mapMutations([
-        'flashSignIn',
-        'flashSignOut',
-      ]),
       ...mapActions([
         'signIn',
-        'signOut'
+        'signOut',
+        'createFlash'
       ]),
       signInUser() {
         const userParams = {
@@ -86,12 +83,18 @@ import { mapMutations, mapActions } from 'vuex';
         }
         this.signIn(userParams)
         this.$router.push({ name: 'Top' })
-        this.flashSignIn()
+        this.createFlash({
+          type: 'success',
+          message: 'ログインに成功しました'
+        })
       },
       signOutUser() {
         this.signOut()
         this.$router.push({ name: 'Top'})
-        this.flashSignOut()
+        this.createFlash({
+          type: 'info',
+          message: 'ログアウトに成功しました'
+        })
       }
     }
   }

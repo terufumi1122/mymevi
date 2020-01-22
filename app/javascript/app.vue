@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import Loading from './components/Loading'
 import Header from './components/Header'
@@ -32,25 +32,28 @@ export default {
       loading: true,
     }
   },
-  // computed: {
-  //   ...mapGetters([
-  //     'flash'
-  //   ])
-  // },
+  computed: {
+    ...mapGetters([
+      'currentUser',
+    ])
+  },
   mounted() {
     setTimeout(() => {
       this.loading = false
     }, 1000);
-    // console.log('まうんてっど')
-    // setTimeout(() => {this.deleteFlash}, 3000)
-    // console.log('deleteFlashの後ろの行')
-    // console.log(this.flash)
+    if (localStorage.currentUser) {
+      this.setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
+    }
+    if (localStorage.headers) {
+      this.setHeaders(JSON.parse(localStorage.getItem('headers')));
+    }
   },
-  // methods: {
-  //   ...mapMutations([
-  //     'deleteFlash'
-  //   ])
-  // }
+  methods: {
+    ...mapActions([
+      'setCurrentUser',
+      'setHeaders'
+    ])
+  }
 }
 </script>
 

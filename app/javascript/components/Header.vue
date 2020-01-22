@@ -32,12 +32,12 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <v-btn icon>
+      <v-btn icon v-if="logined">
         <router-link :to="{ name: 'AllBestHabits' }">
           <v-icon>mdi-heart</v-icon>
         </router-link>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon v-if="logined">
         <router-link :to="{ name: 'UserDetail' }">
           <v-icon>mdi-account-circle</v-icon>
         </router-link>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'Header',
@@ -110,23 +110,25 @@
       }
     },
     methods: {
-      ...mapMutations([
-        'flashSampleLogin',
-        'flashSignIn',
-        'flashSignOut',
-      ]),
       ...mapActions([
         'sampleLogin',
         'signOut',
+        'createFlash'
       ]),
       triggerClick(action) {
         if (action === 'guestLogin') {
           this.sampleLogin()
-          this.flashSampleLogin() 
+          this.createFlash({
+            type: 'success',
+            message: 'ゲストユーザーとしてログインしました', 
+          })
         } else if(action === 'signOutUser') {
           this.signOut()
           this.$router.push({ name: 'Top' })
-          this.flashSignOut()
+          this.createFlash({
+            type: 'info',
+            message: 'ログアウトしました', 
+          })
         } 
       }
     }

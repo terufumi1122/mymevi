@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { mapMutations, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
 
   import axios from 'axios'
 
@@ -23,11 +23,9 @@
       }
     },
     methods: {
-      ...mapMutations([
-        'flashSignUp'
-      ]),
       ...mapActions([
-        'signUp'
+        'signUp',
+        'createFlash'
       ]),
       createUser: function() {
         const userParams = {
@@ -42,7 +40,10 @@
       }
         this.signUp(userParams)
         this.$router.push({ name: 'Top' })
-        this.flashSignUp()
+        this.createFlash({
+          type: 'success',
+          message: '新規登録・ログインに成功しました'
+        })
       }
     }
   }

@@ -20,18 +20,23 @@ export default ({
   mutations: {
     currentUser(state, payload) {
       state.currentUser = payload.user;
+      localStorage.setItem('currentUser', JSON.stringify(payload.user));
     },
-    signIn(state, payload) {
-      state.headers = {
+    headers(state, payload) {
+      let headers = {
         "access-token": payload["access-token"],
         "client": payload["client"],
         "uid": payload["uid"],
-      };
+      }
+      state.headers = headers
+      localStorage.setItem('headers', JSON.stringify(headers))
     },
     signOut(state) {
       state.headers = null;
       state.currentUser = null;
       state.sampleLogined = false;
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('headers');
     },
     sampleLogined(state) {
       state.sampleLogined = true;
@@ -57,7 +62,7 @@ export default ({
         .post('/api/v1/auth/sign_in', userParams)
         .then(function (response) {
           context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
+          context.commit('headers', response.headers);
         })
         .catch(function (error) {
           console.error(error);
@@ -80,14 +85,14 @@ export default ({
         .put('/api/v1/auth', userParams, { headers: context.state.headers })
         .then(function (response) {
           context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
+          context.commit('headers', response.headers);
         })
         .catch(function (error) {
           alert(error);
         })
-      },
+    },
     deleteUser(context) {
-        axios
+      axios
         .delete('/api/v1/auth', { headers: context.state.headers })
         .then(function () {
           context.commit('signOut')
@@ -95,18 +100,24 @@ export default ({
         .catch(function (error) {
           alert(error);
         })
-      },
-      sampleLogin(context) {
-        axios
+    },
+    sampleLogin(context) {
+      axios
         .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
         .then(function (response) {
-          context.commit('currentUser', { user: { data: response.data} });
-          context.commit('signIn', response.headers)
+          context.commit('currentUser', { user: response.data });
+          context.commit('headers', response.headers)
         })
         .catch(function (error) {
           alert(error);
         })
-        context.commit('sampleLogined')
+      context.commit('sampleLogined')
+    },
+    setCurrentUser(context, userParams) {
+      context.commit('currentUser', { user: userParams })
+    },
+    setHeaders(context, headersParams) {
+      context.commit('headers', headersParams)
     }
   },
 
