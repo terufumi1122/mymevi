@@ -12,13 +12,11 @@ export default ({
 
   mutations: {
 
-
     //Common
 
     deleteFlash(state) {
       state.flash = null;
     },
-    
 
     //User
 
@@ -52,7 +50,18 @@ export default ({
         "message": "アカウントを削除しました",
       };
     },
-
+    flashSampleLogin(state) {
+      state.flash = {
+        "type": "success",
+        "message": 'ゲストユーザーとしてログインしました'
+      };
+    },
+    flashCantDelete(state) {
+      state.flash = {
+        "type": "warning",
+        "message": 'ゲストユーザーを削除することは出来ません'
+      }
+    },
 
     //Habit
 
@@ -62,6 +71,12 @@ export default ({
         "message": "新しい習慣を登録しました",
       };
     },
+
   },
+  actions: {
+    flashCantDelete(context) {
+      context.commit('flashCantDelete');
+    }
+  }
 
 })

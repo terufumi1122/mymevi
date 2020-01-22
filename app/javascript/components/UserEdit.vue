@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'sampleLogined'
     ]),
     user() {
       return this.currentUser.data
@@ -41,7 +42,8 @@ export default {
     ]),
     ...mapActions([
       'updateUser',
-      'deleteUser'
+      'deleteUser',
+      'flashCantDelete'
     ]),
     updateUser1() {
       const userParams = {
@@ -59,9 +61,13 @@ export default {
       this.flashUpdateUser()
     },
     deleteUser1() {
-      this.deleteUser()
-      this.$router.push({ name: 'Top' })
-      this.flashDeleteUser()
+      if (this.sampleLogined === true) {
+        this.flashCantDelete()
+      } else {
+        this.deleteUser()
+        this.$router.push({ name: 'Top' })
+        this.flashDeleteUser()
+      }
     }
   }
 }

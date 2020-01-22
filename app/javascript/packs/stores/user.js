@@ -5,12 +5,16 @@ export default ({
   state: {
     currentUser: null,
     headers: null,
+    sampleLogined: false,
   },
 
   getters: {
     currentUser(state) {
       return state.currentUser;
     },
+    sampleLogined(state) {
+      return state.sampleLogined;
+    }
   },
 
   mutations: {
@@ -27,8 +31,11 @@ export default ({
     signOut(state) {
       state.headers = null;
       state.currentUser = null;
+      state.sampleLogined = false;
     },
-
+    sampleLogined(state) {
+      state.sampleLogined = true;
+    }
   },
 
   actions: {
@@ -78,9 +85,9 @@ export default ({
         .catch(function (error) {
           alert(error);
         })
-    },
+      },
     deleteUser(context) {
-      axios
+        axios
         .delete('/api/v1/auth', { headers: context.state.headers })
         .then(function () {
           context.commit('signOut')
@@ -88,7 +95,18 @@ export default ({
         .catch(function (error) {
           alert(error);
         })
-    },
+      },
+      sampleLogin(context) {
+        axios
+        .post('/api/v1/samplelogin')
+        .then(function (response) {
+          context.commit('currentUser', { user: { data: response.data} });
+        })
+        .catch(function (error) {
+          alert(error);
+        })
+        context.commit('sampleLogined')
+    }
   },
 
 })

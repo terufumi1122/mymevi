@@ -29,6 +29,21 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  def sample_login
+    user = User.find_or_create_by!(email: 'guest@sample.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = 'ゲスト'
+      user.nickname = 'ゲスト of ゲスト'
+      user.gender = 1
+      user.birth_year = 2000
+      user.birth_month = 1
+      user.birth_day = 1
+    end
+    
+    sign_in user
+    render json: user
+  end
+
   def update
     if @user.update_attributes(user_params)
       head :no_content

@@ -35,7 +35,7 @@
         <v-spacer></v-spacer>
         <v-btn @click="signInUser">ログイン</v-btn>
         <v-spacer></v-spacer>
-        <v-btn @click="signOut">ログアウト</v-btn>
+        <v-btn @click="signOutUser">ログアウト</v-btn>
         <v-spacer></v-spacer>
       </v-row>
       </v-form>
@@ -88,7 +88,7 @@ import { mapMutations, mapActions } from 'vuex';
         this.$router.push({ name: 'Top' })
         this.flashSignIn()
       },
-      signOut() {
+      signOutUser() {
         this.signOut()
         this.$router.push({ name: 'Top'})
         this.flashSignOut()

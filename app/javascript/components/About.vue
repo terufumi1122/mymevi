@@ -15,7 +15,7 @@
         <p><strong>マイメビ</strong>は、みんながうまくいった習慣を共有するサービスです。</p>
         <v-spacer></v-spacer>
       </v-row>
-      <v-row>
+      <v-row v-if="currentUser === null">
         <v-spacer></v-spacer>
         <router-link :to="{ name: 'LoginForm' }">
           <v-btn
@@ -30,6 +30,7 @@
           <v-btn
             color="#278040"
             dark
+            @click="guestLogin"
           >
             簡単ログイン
           </v-btn>
@@ -50,12 +51,30 @@
 </template>
 
 <script>
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
   import Button from './Button.vue'
 
   export default {
     name: 'About',
     components: {
       Button,
+    },
+    computed: {
+      ...mapGetters([
+        'currentUser'
+      ])
+    },
+    methods: {
+      ...mapMutations([
+        'flashSampleLogin'
+      ]),
+      ...mapActions([
+        'sampleLogin'
+      ]),
+      guestLogin() {
+        this.sampleLogin()
+        this.flashSampleLogin()
+      }
     }
   }
 </script>

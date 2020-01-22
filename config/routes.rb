@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:show]
       get 'allusers', to: 'users#all_users'
+      post 'samplelogin', to: 'users#sample_login'
       
       resources :habits, only: [:show, :create]
       get 'habits', to: 'habits#users_habits_show'

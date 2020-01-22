@@ -1,7 +1,6 @@
 <template>
   <v-content>
     <v-container>
-      <Flash/>
       <v-row>
         <v-col><About/></v-col>
       </v-row>
@@ -18,23 +17,13 @@ import { mapMutations } from 'vuex'
 
 import About from "./About.vue"
 import Demo from "./Demo.vue"
-import Flash from "./Flash.vue"
 
   export default {
     name: 'Top',
     components: {
       About,
       Demo,
-      Flash,
     },
-    methods: {
-      ...mapMutations([
-        'deleteFlash',
-      ])
-    },
-    destroyed() {
-      this.deleteFlash()
-    }
   }
 </script>
 
