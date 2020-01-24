@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-form>
-      <v-container>
+    <v-container>
+      <v-form>
         <h2>{{ formTitle }}</h2>
         <v-row>
           <v-col
@@ -99,13 +99,13 @@
             ></v-text-field>
           </v-col>
         </v-row>
-      </v-container>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn @click="$emit('clickButton')"><slot>初期値だよー。</slot></v-btn>
-        <v-spacer></v-spacer>
-      </v-row>
-    </v-form>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-btn @click="$emit('clickButton')"><slot>初期値だよー。</slot></v-btn>
+          <v-spacer></v-spacer>
+        </v-row>
+      </v-form>
+    </v-container>
   </div>
 </template>
 
