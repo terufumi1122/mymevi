@@ -14,7 +14,6 @@
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
-    <div class="vertical-spacer"></div>
     <v-pagination
       v-model="page"
       :length="habitsLength"
@@ -47,20 +46,6 @@
     >
     </v-pagination>
     <div class="vertical-spacer"></div>
-    <v-row>
-      <v-spacer></v-spacer>
-      <v-col cols="4">
-        <v-select
-          v-model="pageSize"
-          no-data="選択して下さい"
-          :items=pageSizeList
-          @change="changeDisplayHabits"
-          label="1ページあたりの表示件数"
-          dense
-        ></v-select>
-      </v-col>
-      <v-spacer></v-spacer>
-    </v-row>
   </v-container>
 </template>
 

@@ -4,7 +4,9 @@
     <div v-show="!loading">
       <Header/>
       <Flash/>
-      <router-view class="main__view--margin_bottom"></router-view>
+      <router-view
+      class="main__view--margin"
+      ></router-view>
       <Footer/>
     </div>
   </v-app>
@@ -63,7 +65,7 @@ export default {
   height: 100vh;
   overflow-y: scroll;
 }
-.main__view--margin_bottom {
+.main__view--margin {
   margin-bottom: 56px;
 }
 </style>

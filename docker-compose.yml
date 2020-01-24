@@ -22,6 +22,8 @@ services:
     stdin_open: true
     depends_on:
       - db
+    environment:
+      - EDITOR=vim
   data:
     image: busybox
     volumes:

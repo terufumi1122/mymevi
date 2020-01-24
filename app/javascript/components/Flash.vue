@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'Flash',
@@ -21,14 +21,14 @@
         'flash'
       ]),
     },
-    methods: {
-      ...mapMutations([
-        'deleteFlash',
-      ])
-    },
-    updated() {
-      setTimeout(this.deleteFlash, 3000);
-    }
+    // methods: {
+    //   ...mapMutations([
+    //     'deleteFlash',
+    //   ])
+    // },
+    // updated() {
+    //   // setTimeout(this.deleteFlash, 3000);
+    // }
   }
 </script>
 

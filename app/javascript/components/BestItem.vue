@@ -11,11 +11,6 @@
       </v-list-item-content>
     </v-list-item>
 
-    <!-- <v-card-text>
-      (習慣の説明が記載される)Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-    </v-card-text> -->
-    <!-- ここは詳細を押したら表示されるようにしたい -->
-
     <v-card-actions>
       <v-btn
         @click="toggleLike"

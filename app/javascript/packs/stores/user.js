@@ -53,7 +53,6 @@ export default ({
         })
         .catch(function (error) {
           console.error(error);
-          // context.commit('currentUser', { user: error });
           alert(error);
         });
     },
@@ -66,7 +65,6 @@ export default ({
         })
         .catch(function (error) {
           console.error(error);
-          // context.commit('currentUser', { user: error });
           alert(error)
         });
     },
