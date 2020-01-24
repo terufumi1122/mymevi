@@ -3,12 +3,12 @@
 # Table name: habits
 #
 #  id          :bigint           not null, primary key
-#  best        :integer
-#  description :string(255)
-#  name        :string(255)
+#  best        :integer          not null
+#  description :string(255)      not null
+#  name        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  user_id     :integer
+#  user_id     :integer          not null
 #
 
 class Habit < ApplicationRecord

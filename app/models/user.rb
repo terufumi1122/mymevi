@@ -6,16 +6,16 @@
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
-#  birth_day              :integer
-#  birth_month            :integer
-#  birth_year             :integer
+#  birth_day              :integer          not null
+#  birth_month            :integer          not null
+#  birth_year             :integer          not null
 #  current_sign_in_at     :datetime
-#  email                  :string(255)
+#  email                  :string(255)      not null
 #  encrypted_password     :string(255)      default(""), not null
-#  gender                 :integer
+#  gender                 :integer          not null
 #  image                  :string(255)
 #  last_sign_in_at        :datetime
-#  name                   :string(255)
+#  name                   :string(255)      not null
 #  nickname               :string(255)
 #  provider               :string(255)      default("email"), not null
 #  remember_created_at    :datetime
@@ -43,4 +43,5 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   has_many :habits, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :locations, dependent: :destroy
 end

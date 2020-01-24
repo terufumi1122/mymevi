@@ -11,6 +11,11 @@
 #  habit_id   :integer          not null
 #  user_id    :integer          not null
 #
+# Indexes
+#
+#  index_locations_on_lat_and_lng  (lat,lng) UNIQUE
+#
 
 class Location < ApplicationRecord
+  belongs_to :user
 end
