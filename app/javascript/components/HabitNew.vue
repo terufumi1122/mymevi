@@ -52,7 +52,7 @@
 
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import axios from 'axios';
 
@@ -80,11 +80,9 @@ import axios from 'axios';
       ]),
     },
     methods: {
-      ...mapMutations([
-        'flashCreateHabit'
-      ]),
       ...mapActions([
-        'addHabit'
+        'addHabit',
+        'createFlash'
       ]),
       addHabit1() {
         // axiosを使ってRails APIを叩く。引数にhabitParamsを渡す。
@@ -97,7 +95,10 @@ import axios from 'axios';
         }
         this.addHabit(habitParams)
         this.$router.push({ name: 'Top' })
-        this.flashCreateHabit()
+        this.createFlash({
+          type: 'success',
+          message: '新しい習慣を登録しました'
+        })
       }
     }
   }

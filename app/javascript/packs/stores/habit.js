@@ -56,7 +56,7 @@ export default ({
           alert(error)
         })
     },
-    addHabit(context) {
+    addHabit(context, habitParams) {
       axios
         .post('/api/v1/habits', habitParams)
         .then(function (response) {

@@ -11,57 +11,24 @@ export default ({
   },
 
   mutations: {
-
-
-    //Common
-
     deleteFlash(state) {
       state.flash = null;
     },
-    
+    createFlash(state, payload) {
+      state.flash = {
+        "type": payload.type,
+        "message": payload.message,
+      };
+    } 
 
-    //User
-
-    flashSignUp(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "新規登録・ログインに成功しました",
-      };
-    },
-    flashSignIn(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ログインに成功しました",
-      };
-    },
-    flashSignOut(state) {
-      state.flash = {
-        "type": "info", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ログアウトに成功しました",
-      };
-    },
-    flashUpdateUser(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "ユーザー情報を更新しました",
-      };
-    },
-    flashDeleteUser(state) {
-      state.flash = {
-        "type": "warning", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "アカウントを削除しました",
-      };
-    },
-
-
-    //Habit
-
-    flashCreateHabit(state) {
-      state.flash = {
-        "type": "success", //Vuetifyのv-alertのオプションに合わせて設定
-        "message": "新しい習慣を登録しました",
-      };
-    },
   },
+  actions: {
+    createFlash(context, flashParams) {
+      context.commit('createFlash', {type: flashParams.type, message: flashParams.message})
+      setTimeout(() => {
+        context.commit('deleteFlash')
+      }, 3000)
+    }
+  }
 
 })

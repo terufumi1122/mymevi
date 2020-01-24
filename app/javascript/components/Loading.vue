@@ -2,26 +2,15 @@
   <div v-show="loading">
     <div class="fullview">
       <div class="loading-spacer"></div>
-      <h3>読み込んでいます。。。</h3>
-      <!-- <vue-loading 
-        type="spiningDubbles"
-        color="#aaa"
-        :size="{ width: '100px', height: '100px' }"
-        >
-      </vue-loading> -->
+      <v-text-field color="success" loading disabled></v-text-field>
     </div>
   </div>
 </template>
 
 <script>
-// import { VueLoading } from 'vue-loading-template'
 
 export default {
-  name: 'loading',
-  components: {
-    // VueLoading,
-  },
-
+  name: 'Loading',
 }
 </script>
 
@@ -35,6 +24,6 @@ export default {
   left: 0;
 }
 .loading-spacer {
-  height: 30%;
+  height: 40vh;
 }
 </style>

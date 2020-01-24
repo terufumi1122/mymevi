@@ -10,6 +10,7 @@ import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
 import HabitDetail from '../components/HabitDetail.vue'
 import AllBestHabits from '../components/AllBestHabits.vue'
+import GoogleMap from '../components/GoogleMap.vue'
 
 import LoginForm from '../components/LoginForm.vue'
 import SignUpForm from '../components/SignUpForm.vue'
@@ -63,6 +64,11 @@ const router = new VueRouter({
       path: '/allhabits',
       name: 'AllBestHabits',
       component: AllBestHabits
+    },
+    {
+      path: '/map',
+      name: 'GoogleMap',
+      component: GoogleMap
     }
   ]
 })

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <v-card
+    <v-card
       :loading="loading"
       class="mx-auto my-12"
       max-width="374"
@@ -37,6 +37,7 @@
         >
           <v-icon
             color="red"
+            @click="toggleLike"
           >mdi-heart</v-icon>
         </v-badge>
 
@@ -111,8 +112,20 @@
     methods: {
       ...mapActions ([
         'setAllFavorites',
-        'setCurrentUserHabits'
-      ])
+        'setCurrentUserHabits',
+        'addLike',
+        'deleteLike'
+      ]),
+      toggleLike() {
+        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        if (this.isLike === false) {
+          this.addLike(likeParams)
+          console.log('いいねをつけました')
+        } else {
+          this.deleteLike(likeParams)
+          console.log('いいねを外しました')
+        }
+      },
     }
   }
 </script>

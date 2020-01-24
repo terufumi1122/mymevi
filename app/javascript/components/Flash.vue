@@ -1,11 +1,14 @@
 <template>
-  <v-alert
-    v-if="flash.status !== null"
-    :type="flash.type"
-    dismissible
-  >
-    {{ flash.message }}
-  </v-alert>
+  <div>
+    <v-alert
+      v-if="flash !== null"
+      :type="flash.type"
+      dismissible
+      transition="slide-y-transition"
+    >
+      {{ flash.message }}
+    </v-alert>
+  </div>
 </template>
 
 <script>
@@ -16,7 +19,21 @@
     computed: {
       ...mapGetters([
         'flash'
-      ])
+      ]),
     },
+    // methods: {
+    //   ...mapMutations([
+    //     'deleteFlash',
+    //   ])
+    // },
+    // updated() {
+    //   // setTimeout(this.deleteFlash, 3000);
+    // }
   }
 </script>
+
+<style>
+/* .alert--message {
+  position: fixed;
+} */
+</style>

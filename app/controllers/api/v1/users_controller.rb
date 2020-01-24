@@ -1,15 +1,10 @@
 class Api::V1::UsersController < ApiController
   skip_before_action :verify_authenticity_token, raise: false
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show]
 
   # rescue_from Exception, with: :render_status_500
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
-
-  def index
-    users = User.select(:id, :name, :email, :birth_year, :birthe_month, :birth_day, :gender)
-    render json: users
-  end
 
   def show
     render json: @user
@@ -18,28 +13,6 @@ class Api::V1::UsersController < ApiController
   def all_users
     all_users = User.select(:id, :name, :birth_year, :birth_month, :birth_day, :gender)
     render json: all_users
-  end
-
-  def create
-    user = User.new(user_params)
-    if user.save
-      render json: user, status: :created
-    else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @user.update_attributes(user_params)
-      head :no_content
-    else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @user.destroy!
-    head :no_content
   end
 
   private

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import axios from "axios";
 
@@ -28,20 +28,18 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'sampleLogined'
     ]),
     user() {
       return this.currentUser.data
     }
   },
   methods: {
-    ...mapMutations([
-      'flashUpdateUser',
-      'flashDeleteUser'
-    ]),
     ...mapActions([
       'updateUser',
-      'deleteUser'
+      'deleteUser',
+      'createFlash'
     ]),
     updateUser1() {
       const userParams = {
@@ -56,12 +54,25 @@ export default {
       }
       this.updateUser(userParams)
       this.$router.push({ name: 'Top' })
-      this.flashUpdateUser()
+      this.createFlash({
+        type: 'success',
+        message: 'ユーザー情報を更新しました'
+      })
     },
     deleteUser1() {
-      this.deleteUser()
-      this.$router.push({ name: 'Top' })
-      this.flashDeleteUser()
+      if (this.sampleLogined === true) {
+        this.createFlash({
+          type: 'warning',
+          message: 'ゲストユーザーを削除することは出来ません'
+        })
+      } else {
+        this.deleteUser()
+        this.$router.push({ name: 'Top' })
+        this.createFlash({
+          type: 'warning',
+          message: 'アカウントを削除しました'
+        })
+      }
     }
   }
 }
