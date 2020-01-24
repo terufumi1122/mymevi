@@ -48,24 +48,17 @@
         };
         this.map = new google.maps.Map(target, mapOptions);
 
-        // this.map.addListener('click', function(e) {
-        //   console.log(e.latLng.lat());
-        //   console.log(e.latLng.lng());
-        //   console.log(e.latLng.toString());
-        //   this.panTo(e.latLng);
-        // });
-
-        this.map.addListener('click', function(e) {
-          let marker = new google.maps.Marker({
+        this.map.addListener('click', (e) => {
+          this.marker = new google.maps.Marker({
             position: e.latLng,
             map: this.map,
             title: e.latLng.toString(),
             animation: google.maps.Animation.DROP
-          });
-          marker.addListener('click', function() {
-            this.setMap(null)
           })
-        });
+        })
+        //   marker.addListener('click', function() {
+        //     this.setMap(null)
+        //   })
 
         // infoWindow = new google.maps.InfoWindow({
         //   position: tokyo,
