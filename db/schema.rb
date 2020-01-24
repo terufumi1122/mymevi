@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_052240) do
+ActiveRecord::Schema.define(version: 2020_01_24_221904) do
 
   create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "user_id"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2020_01_14_052240) do
     t.string "description"
     t.integer "best"
     t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "lat", limit: 53, null: false
+    t.float "lng", limit: 53, null: false
+    t.integer "user_id", null: false
+    t.integer "habit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
