@@ -18,6 +18,7 @@
     data(){
       return {
         map: null,
+        marker: null,
         // 東京の緯度経度
         center: {
           lat: 35.658230,
@@ -47,24 +48,17 @@
         };
         this.map = new google.maps.Map(target, mapOptions);
 
-        map.addListener('click', function(e) {
-          console.log(e.latLng.lat());
-          console.log(e.latLng.lng());
-          console.log(e.latLng.toString());
-          this.panTo(e.latLng);
-        });
+        // this.map.addListener('click', function(e) {
+        //   console.log(e.latLng.lat());
+        //   console.log(e.latLng.lng());
+        //   console.log(e.latLng.toString());
+        //   this.panTo(e.latLng);
+        // });
 
-        marker = new google.maps.Marker({
-          position: tokyo,
-          map: map,
-          title: 'Tokyo!',
-          animation: google.maps.Animation.DROP
-        });
-
-        map.addListener('click', function(e) {
+        this.map.addListener('click', function(e) {
           let marker = new google.maps.Marker({
             position: e.latLng,
-            map: map,
+            map: this.map,
             title: e.latLng.toString(),
             animation: google.maps.Animation.DROP
           });
@@ -73,12 +67,12 @@
           })
         });
 
-        infoWindow = new google.maps.InfoWindow({
-          position: tokyo,
-          content: 'HELLO!!!!HELLO!!!!HELLO!!!!HELLO!!!!'
-        });
+        // infoWindow = new google.maps.InfoWindow({
+        //   position: tokyo,
+        //   content: 'HELLO!!!!HELLO!!!!HELLO!!!!HELLO!!!!'
+        // });
 
-        infoWindow.open(map);
+        // infoWindow.open(map);
       }
     }
   }

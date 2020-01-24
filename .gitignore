@@ -33,3 +33,4 @@ yarn-debug.log*
 ###
 .erd.dot
 .erd.png
+/config/credentials/development.key

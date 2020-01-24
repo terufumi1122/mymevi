@@ -15,6 +15,6 @@
   <body>
     <%= yield %>
     <script
-      src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= Rails.application.credentials.google%>&callback=initMap&libraries=places" async defer></script>
+      src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= Rails.application.credentials.api_keys[:google] %>&callback=initMap&libraries=places" async defer></script>
   </body>
 </html>
