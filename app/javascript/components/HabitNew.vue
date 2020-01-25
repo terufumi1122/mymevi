@@ -91,7 +91,7 @@ import axios from 'axios';
             "name": this.habit.name,
             "description": this.habit.description,
             "best": this.habit.best,
-            "user_id": this.currentUser.data.id
+            "user_id": this.currentUser.id
         }
         this.addHabit(habitParams)
         this.$router.push({ name: 'Top' })

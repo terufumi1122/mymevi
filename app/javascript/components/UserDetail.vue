@@ -39,9 +39,9 @@
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
 
        :habitId="habit.id"
-       :userId="currentUser.data.id"
+       :userId="currentUser.id"
        :favorites="favorites"
-       :isDisabled="habit.user_id === currentUser.data.id"
+       :isDisabled="habit.user_id === currentUser.id"
        />
       <div class="vertical-spacer"></div>
     </div>
@@ -97,16 +97,16 @@ export default {
       return this.allFavorites
     },
     currentUserGender() {
-      return this.currentUser.data.gender
+      return this.currentUser.gender
     }
   },
   created() {
-    const userId = this.currentUser.data.id
+    const userId = this.currentUser.id
     this.setCurrentUserHabits(userId)
     this.setAllFavorites()
   },
   mounted() {
-    const userId = this.currentUser.data.id
+    const userId = this.currentUser.id
     axios
       .get(`/api/v1/users/${userId}.json`)
       .then(response => (this.user = response.data))

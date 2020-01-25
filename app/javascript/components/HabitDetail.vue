@@ -84,7 +84,7 @@
         return this.allFavorites
       },
       currentUserGender() {
-        return this.currentUser.data.gender
+        return this.currentUser.gender
       },
       userGender() {
         if(this.currentUserGender === 1) {
@@ -97,14 +97,14 @@
       }
     },
     created() {
-      const userId = this.currentUser.data.id
+      const userId = this.currentUser.id
       this.setCurrentUserHabits(userId)
       this.setAllFavorites()
     },
     mounted() {
       this.loading = false
 
-      const userId = this.currentUser.data.id
+      const userId = this.currentUser.id
       axios
         .get(`/api/v1/users/${userId}.json`)
         .then(response => (this.user = response.data))

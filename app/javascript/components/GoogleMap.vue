@@ -75,7 +75,7 @@
               name: e.latLng.toString(),
               lat: e.latLng.lat(),
               lng: e.latLng.lng(),
-              user_id: this.currentUser.data.id,
+              user_id: this.currentUser.id,
               habit_id: 0
             }
             //location.jsで定義したactionsを呼び出す。

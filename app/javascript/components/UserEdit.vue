@@ -32,7 +32,7 @@ export default {
       'sampleLogined'
     ]),
     user() {
-      return this.currentUser.data
+      return this.currentUser
     }
   },
   methods: {

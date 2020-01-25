@@ -30,9 +30,9 @@
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
 
        :habitId="habit.id"
-       :userId="currentUser.data.id"
+       :userId="currentUser.id"
        :favorites="favorites"
-       :isDisabled="habit.user_id === currentUser.data.id"
+       :isDisabled="habit.user_id === currentUser.id"
        >
       </BestItem>
       <div class="vertical-spacer"></div>

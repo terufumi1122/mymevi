@@ -19,8 +19,8 @@ export default ({
 
   mutations: {
     currentUser(state, payload) {
-      state.currentUser = payload.user;
-      localStorage.setItem('currentUser', JSON.stringify(payload.user));
+      state.currentUser = payload.user.data;
+      localStorage.setItem('currentUser', JSON.stringify(payload.user.data));
     },
     headers(state, payload) {
       let headers = {
