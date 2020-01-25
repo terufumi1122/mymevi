@@ -49,7 +49,7 @@ export default ({
         .post('/api/v1/auth', userParams)
         .then(function (response) {
           context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
+          context.commit('headers', response.headers);
         })
         .catch(function (error) {
           console.error(error);
