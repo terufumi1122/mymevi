@@ -12,11 +12,13 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'GoogleMap',
     data(){
       return {
+        user_id: null,
         map: null,
         marker: null,
         // 東京の緯度経度
@@ -30,6 +32,11 @@
         infoWindow: '',
       }
     },
+    computed: {
+      ...mapGetters([
+        'currentUser'
+      ])
+    },
     created() {
       this.mapWidth = window.innerWidth - 50;
       this.mapHeight = window.innerHeight - 150;
@@ -38,6 +45,9 @@
       this.createMap()
     },
     methods: {
+      ...mapActions([
+        'addLocation'
+      ]),
       createMap() {
         const target = document.getElementById("target");
         const mapOptions = { 
@@ -55,6 +65,22 @@
             title: e.latLng.toString(),
             animation: google.maps.Animation.DROP
           })
+          console.log(e.latLng)
+          console.log(e.latLng.lat())
+          console.log(e.latLng.lat().toString())
+
+          if (this.currentUser) {
+          //位置情報を記録するために変数を宣言
+            let locationParams = {
+              name: e.latLng.toString(),
+              lat: e.latLng.lat(),
+              lng: e.latLng.lng(),
+              user_id: this.currentUser.data.id,
+              habit_id: 0
+            }
+            //location.jsで定義したactionsを呼び出す。
+            this.addLocation(locationParams);
+          }
         })
         //   marker.addListener('click', function() {
         //     this.setMap(null)

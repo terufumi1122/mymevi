@@ -1,14 +1,46 @@
 class Api::V1::LocationsController < ApplicationController
 
   def index
+    locations = Location.select("
+      name,
+      lat,
+      lng,
+      user_id,
+      habit_id
+    ")
+    render json: favorites
   end
-  
+
   def create
+    location = Location.new(location_params)
+    if location.save!
+      render json: location, status: :created
+    else
+      render json: { errors: location.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def update
+    location = Location.find(params[:id])
   end
 
   def destroy
+    location = Favorite.find_by(location_params)
+    if location.destroy
+      new_locations = Favorite.select("
+        id,
+        user_id,
+        habit_id
+        ")
+      render json: new_locations
+    else
+      render json: { errors: location.errors.full_messages }, status: :unprocessable_entity 
+    end
+  end
+
+  private
+
+  def location_params
+    params.permit(:name, :lat, :lng, :user_id, :habit_id)
   end
 end

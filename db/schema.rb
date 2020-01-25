@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_234750) do
+ActiveRecord::Schema.define(version: 2020_01_25_074017) do
 
   create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_234750) do
     t.float "lat", limit: 53, null: false
     t.float "lng", limit: 53, null: false
     t.integer "user_id", null: false
-    t.integer "habit_id", null: false
+    t.integer "habit_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lat", "lng"], name: "index_locations_on_lat_and_lng", unique: true
