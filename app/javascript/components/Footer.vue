@@ -14,12 +14,12 @@
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <router-link :to="{ name: 'GoogleMap' }">
-      <v-btn>
-        <span>GoogleMap</span>
+      <v-btn
+        :to="{name: 'GoogleMap'}"
+      >
+        <span>Map</span>
         <v-icon>mdi-map-marker</v-icon>
       </v-btn>
-    </router-link>
   </v-bottom-navigation>
 </template>
 
