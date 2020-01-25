@@ -3,7 +3,7 @@ import axios from 'axios'
 export default ({
 
   state: {
-    locations: null,
+    locations: [],
     currentLocation: null,
   },
 
@@ -21,7 +21,7 @@ export default ({
       state.locations = payload.locations
     },
     addLocation(state, payload) {
-      state.locations.push(payload.location)
+      state.locations.push(payload.location) 
     },
     currentLocation(state, payload) {
       state.currentLocation = payload.location
