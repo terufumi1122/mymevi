@@ -42,7 +42,8 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false
-    }, 1000);
+    }, 2000);
+
     if (localStorage.currentUser) {
       this.setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
     }
