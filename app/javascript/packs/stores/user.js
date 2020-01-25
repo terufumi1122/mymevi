@@ -19,8 +19,8 @@ export default ({
 
   mutations: {
     currentUser(state, payload) {
-      state.currentUser = payload.user.data;
-      localStorage.setItem('currentUser', JSON.stringify(payload.user.data));
+      state.currentUser = payload.user;
+      localStorage.setItem('currentUser', JSON.stringify(payload.user));
     },
     headers(state, payload) {
       let headers = {
@@ -48,7 +48,7 @@ export default ({
       axios
         .post('/api/v1/auth', userParams)
         .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
         })
         .catch(function (error) {
@@ -60,7 +60,7 @@ export default ({
       axios
         .post('/api/v1/auth/sign_in', userParams)
         .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
         })
         .catch(function (error) {
@@ -82,7 +82,7 @@ export default ({
       axios
         .put('/api/v1/auth', userParams, { headers: context.state.headers })
         .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
         })
         .catch(function (error) {
@@ -103,7 +103,7 @@ export default ({
       axios
         .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
         .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers)
         })
         .catch(function (error) {

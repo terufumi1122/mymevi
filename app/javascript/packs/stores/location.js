@@ -21,7 +21,7 @@ export default ({
       state.locations = payload.locations
     },
     addLocation(state, payload) {
-      state.locations = payload.locations
+      state.locations.push(payload.location)
     },
     currentLocation(state, payload) {
       state.currentLocation = payload.location
@@ -33,7 +33,8 @@ export default ({
       axios
         .post('/api/v1/locations', locationParams)
         .then(function (response) {
-          context.commit('locations', response.data)
+          context.commit('addLocation', { location: response.data })
+          context.commit('currentLocation', { location: response.data })
         })
         .catch(function (error) {
           console.error(error);
