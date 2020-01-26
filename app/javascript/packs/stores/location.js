@@ -40,6 +40,17 @@ export default ({
           console.error(error);
           alert(error);
         })
+    },
+    setLocations(context) {
+      axios
+        .get('/api/v1/locations')
+        .then(function (response) {
+          context.commit('locations', { locations: response.data })
+        })
+        .catch(function (error) {
+          console.error(error);
+          alert(error);
+        })
     }
   }
 

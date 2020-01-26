@@ -2,13 +2,14 @@ class Api::V1::LocationsController < ApplicationController
 
   def index
     locations = Location.select("
+      id,
       name,
       lat,
       lng,
       user_id,
       habit_id
     ")
-    render json: favorites
+    render json: locations
   end
 
   def create

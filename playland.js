@@ -1,92 +1,96 @@
-//JavaScriptの構文が正しいかをQuakkaで検証するためのスペース
-
-import { mapGetters, mapActions } from 'vuex'
-
-export default {
-  name: 'GoogleMap',
-  data() {
-    return {
-      user_id: null,
-      map: null,
-      marker: null,
-      // 東京の緯度経度
-      center: {
-        lat: 35.658230,
-        lng: 139.701642
-      },
-      zoom: 12,
-      mapWidth: 300,
-      mapHeight: 300,
-      infoWindow: '',
+map.addListener('click', function (e) {
+  geocoder.geocode({
+    location: e.latLng
+  }, function (results, status) {
+    if (status !== 'OK') {
+      alert('Failed: ' + status);
+      return;
     }
-  },
-  computed: {
-    ...mapGetters([
-      'currentUser'
-    ])
-  },
-  created() {
-    this.mapWidth = window.innerWidth - 50;
-    this.mapHeight = window.innerHeight - 150;
-  },
-  mounted() {
-    this.createMap()
-  },
-  methods: {
-    ...mapActions([
-      'addLocation'
-    ]),
-    createMap() {
-      const target = document.getElementById("target");
-      const mapOptions = {
-        center: this.center,
-        zoom: this.zoom,
-        disableDefaultUI: true,
-        zoomControl: true
-      };
-      this.map = new google.maps.Map(target, mapOptions);
-
-      this.map.addListener('click', (e) => {
-        this.marker = new google.maps.Marker({
-          position: e.latLng,
-          map: this.map,
-          title: e.latLng.toString(),
-          animation: google.maps.Animation.DROP
-        })
-        console.log(e.latLng)
-        console.log(e.latLng.lat())
-        console.log(e.latLng.lat().toString())
-
-        const currentUser = {
-          data: {
-            id: 1,
-            name: 'iini'
-          }
-        };
-
-        if (currentUser) {
-          //位置情報を記録するために変数を宣言
-          let locationParams = {
-            name: e.latLng.toString(),
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-            user_id: currentUser.data.id,
-            habit_id: 0
-          }
-          //location.jsで定義したactionsを呼び出す。
-          this.addLocation(locationParams);
-        }
-      })
-      //   marker.addListener('click', function() {
-      //     this.setMap(null)
-      //   })
-
-      // infoWindow = new google.maps.InfoWindow({
-      //   position: tokyo,
-      //   content: 'HELLO!!!!HELLO!!!!HELLO!!!!HELLO!!!!'
-      // });
-
-      // infoWindow.open(map);
+    // results[0].formatted_address
+    if (results[0]) {
+      new google.maps.Marker({
+        position: e.latLng,
+        map: map,
+        title: results[0].formatted_address,
+        animation: google.maps.Animation.DROP
+      });
+    } else {
+      alert('No results found');
+      return;
     }
-  }
+  });
+});
+
+// Promise
+
+function getName() {
+  setTimeout(() => {
+    console.log("Johndoe");
+  }, 2000);
 }
+getName();
+
+function getName2() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("iini");
+    }, 2000);
+  });
+}
+getName2()
+  .then(name => {
+  console.log(name);
+    return 20;
+  })
+  .then(getAge)
+  .then((age) => {
+    console.log(age);
+})
+
+// let func_one = function (callback) {
+//   console.log("The first ...");
+//   if (callback) {
+//     callback();
+//   }
+// };
+// let func_second = function (callback) {
+//   console.log("The second ...");
+//   if (callback) {
+//     callback();
+//   }
+// };
+// let func_third = function (callback) {
+//   console.log("... and the third!!!");
+//   if (callback) {
+//     callback();
+//   }
+// };
+
+// func_one(function () {
+//   func_second(function () {
+//     func_third();
+//   });
+// });
+
+// func_one();
+// func_second();
+// func_third();
+
+// const locations = [
+//   {lat: 22.222, lng: 44.555},
+//   {lat: 22.222, lng: 44.555},
+//   {lat: 22.222, lng: 44.555},
+//   {lat: 22.222, lng: 44.555},
+//   {lat: 22.222, lng: 44.555},
+//   {lat: 22.222, lng: 44.555},
+// ]
+
+// locations.forEach((location) => {
+//   new google.maps.Marker({
+//     position: {
+//       lat: location.lat,
+//       lng: location.lng,
+//     },
+//     map: this.map,
+//   })
+// })
