@@ -76,15 +76,12 @@
     methods: {
       ...mapActions([
         'sampleLogin',
-        'createFlash'
       ]),
       guestLogin() {
-        this.sampleLogin()
-        // this.flashSampleLogin()
-        this.createFlash({
-          type: 'success',
-          message: 'ゲストログインしました'
-          })
+        this.sampleLogin(this.routeTo('Top'))
+      },
+      routeTo(routeName) {
+        this.$router.push({ name: routeName })
       }
     }
   }

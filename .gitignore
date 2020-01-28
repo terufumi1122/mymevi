@@ -36,4 +36,4 @@ yarn-debug.log*
 /config/credentials/development.key
 
 ### 検証用ファイル
-./playland.js
+playland/

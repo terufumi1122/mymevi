@@ -89,23 +89,16 @@
       ...mapActions([
         'sampleLogin',
         'signOut',
-        'createFlash'
       ]),
       triggerClick(action) {
         if (action === 'guestLogin') {
-          this.sampleLogin()
-          this.createFlash({
-            type: 'success',
-            message: 'ゲストユーザーとしてログインしました', 
-          })
+          this.sampleLogin(this.routeTo('Top'))
         } else if(action === 'signOutUser') {
-          this.signOut()
-          this.$router.push({ name: 'Top' })
-          this.createFlash({
-            type: 'info',
-            message: 'ログアウトしました', 
-          })
+          this.signOut(this.routeTo('Top'))
         } 
+      },
+      routeTo(routeName) {
+        this.$router.push({ name: routeName })
       }
     }
   }

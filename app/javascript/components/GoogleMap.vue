@@ -92,6 +92,7 @@
         })
         console.log('マーカー配置実行直後の行です');
       },
+
       createMap() {
         const target = document.getElementById("target");
         const mapOptions = { 
@@ -160,6 +161,7 @@
           }
         })
       },
+
       setCurrentLocation() {
         //Geolocationが使えないブラウザであればアラートを出す。
         if (!navigator.geolocation) {
@@ -186,6 +188,8 @@
             title: '現在位置',
             animation: google.maps.Animation.DROP
           })
+
+          //ログイン後は位置情報を記録する
           if (this.currentUser) {
           //位置情報を記録するために変数を宣言
             let locationParams = {

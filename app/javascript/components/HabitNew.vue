@@ -82,23 +82,18 @@ import axios from 'axios';
     methods: {
       ...mapActions([
         'addHabit',
-        'createFlash'
       ]),
       addHabit1() {
-        // axiosを使ってRails APIを叩く。引数にhabitParamsを渡す。
-        // 渡したhabitParamsをRails側で読み取り、DBに保存する。
         const habitParams = {
             "name": this.habit.name,
             "description": this.habit.description,
             "best": this.habit.best,
             "user_id": this.currentUser.id
         }
-        this.addHabit(habitParams)
-        this.$router.push({ name: 'Top' })
-        this.createFlash({
-          type: 'success',
-          message: '新しい習慣を登録しました'
-        })
+        this.addHabit(habitParams, this.routeTo('Top'))
+      },
+      routeTo(routeName) {
+        this.$router.push({ name: routeName })
       }
     }
   }

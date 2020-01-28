@@ -91,13 +91,16 @@ export default {
   created() {
     this.setAllHabits();
     this.setAllFavorites();
-    this.displayHabits = this.allHabits.slice(0, this.pageSize)
+    this.setDisplayHabits();
   },
   methods: {
     ...mapActions([
       'setAllHabits',
       'setAllFavorites'
     ]),
+    setDisplayHabits() {
+      this.displayHabits = this.allHabits.slice(0, this.pageSize)
+    },
     changeDisplayHabits(){
       this.displayHabits = this.allHabits.slice(0, this.pageSize)
     },

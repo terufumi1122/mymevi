@@ -25,25 +25,22 @@
     methods: {
       ...mapActions([
         'signUp',
-        'createFlash'
       ]),
       createUser: function() {
         const userParams = {
-        "name": this.user.name,
-        "email": this.user.email,
-        "birth_year": this.user.birth_year,
-        "birth_month": this.user.birth_month,
-        "birth_day": this.user.birth_day,
-        "gender": this.user.gender,
-        "password": this.user.password,
-        "password_confirmation": this.user.password_confirmation,
-      }
-        this.signUp(userParams)
-        this.$router.push({ name: 'Top' })
-        this.createFlash({
-          type: 'success',
-          message: '新規登録・ログインに成功しました'
-        })
+          "name": this.user.name,
+          "email": this.user.email,
+          "birth_year": this.user.birth_year,
+          "birth_month": this.user.birth_month,
+          "birth_day": this.user.birth_day,
+          "gender": this.user.gender,
+          "password": this.user.password,
+          "password_confirmation": this.user.password_confirmation,
+        }
+        this.signUp(userParams, this.routeTo('Top'))
+      },
+      routeTo(routeName) {
+        this.$router.push({name: routeName})
       }
     }
   }

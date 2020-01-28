@@ -21,19 +21,8 @@
         'flash'
       ]),
     },
-    // methods: {
-    //   ...mapMutations([
-    //     'deleteFlash',
-    //   ])
-    // },
-    // updated() {
-    //   // setTimeout(this.deleteFlash, 3000);
-    // }
   }
 </script>
 
 <style>
-/* .alert--message {
-  position: fixed;
-} */
 </style>
