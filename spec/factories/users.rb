@@ -36,6 +36,10 @@ FactoryBot.define do
   factory :user do
     sequence(:name) { |n| "User#{n}" }
     sequence(:email) { |n| "tester#{n}@example.com" }
+    gender { rand(1..4) }
+    birth_year { rand(1930..2010) }
+    birth_month { rand(1..13) }
+    birth_day { rand(1..29) }
     password { "password" }
     password_confirmation { "password" }
   end

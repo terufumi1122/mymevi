@@ -32,30 +32,30 @@ export default ({
     setAllFavorites(context) {
       axios
         .get('/api/v1/favorites')
-        .then(function (response) {
+        .then(response => {
           context.commit('allFavorites', { favorites: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
           alert(error)
         })
     },
     setCurrentUserFavorites(context, userId) {
       axios
         .get('/api/v1/user_favorites', { params: { id: userId }})
-        .then(function (response) {
+        .then(response => {
           context.commit('allFavorites', { favorites: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
           alert(error)
         })
     },
     addLike(context, likeParams) {
       axios
         .post('/api/v1/favorite/create',  likeParams)
-        .then(function (response) {
+        .then(response => {
           context.commit('addLike', { newLike: { id: response.data.id, user_id: response.data.user_id, habit_id: response.data.habit_id } });
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
           alert(error);
         });
@@ -64,10 +64,10 @@ export default ({
       context.commit('deleteLike', likeParams)
       axios
         .delete('/api/v1/favorite', {params: likeParams })
-        .then(function (response) {
+        .then(response => {
           context.commit('allFavorites', { favorites: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
           alert(error);
         })

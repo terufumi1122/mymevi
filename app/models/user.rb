@@ -44,4 +44,5 @@ class User < ActiveRecord::Base
   has_many :habits, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :locations, dependent: :destroy
+  validates_uniqueness_of :email, case_sensitive: true
 end

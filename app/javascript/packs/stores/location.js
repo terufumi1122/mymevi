@@ -32,11 +32,11 @@ export default ({
     addLocation(context, locationParams) {
       axios
         .post('/api/v1/locations', locationParams)
-        .then(function (response) {
+        .then(response => {
           context.commit('addLocation', { location: response.data })
           context.commit('currentLocation', { location: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
           alert(error);
         })
@@ -44,10 +44,10 @@ export default ({
     setLocations(context) {
       axios
         .get('/api/v1/locations')
-        .then(function (response) {
+        .then(response => {
           context.commit('locations', { locations: response.data })
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
           alert(error);
         })
