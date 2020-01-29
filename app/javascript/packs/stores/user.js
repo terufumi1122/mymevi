@@ -4,7 +4,7 @@ export default ({
 
   state: {
     currentUser: null,
-    headers: null,
+    headers: [],
     sampleLogined: false,
   },
 
