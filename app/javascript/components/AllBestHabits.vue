@@ -64,7 +64,6 @@ export default {
       pageNumber: 1,
       pageSize: 5,
       pageSizeList: [5, 10, 15, 20, 25, 30],
-      // displayHabits: [],
       avatorColor: {
         1: 'yellow',
         2: 'grey lighten-2',
@@ -80,23 +79,10 @@ export default {
       'displayHabits',
       'habitsLength'
     ]),
-    // habits() {
-    //   return this.allHabits
-    // },
-    // habitsLength() {
-    //   return Math.ceil(this.allHabits.length / this.pageSize)
-    // },
-    // favorites() {
-    //   return this.allFavorites
-    // },
-    // displayHabits() {
-    //   return this.allHabits.slice(0, this.pageSize)
-    // }
   },
   created() {
     this.setAllHabits();
     this.setAllFavorites();
-    // this.setDisplayHabits();
   },
   methods: {
     ...mapActions([
@@ -105,15 +91,6 @@ export default {
       'changePageSize',
       'changePageNumber'
     ]),
-    // setDisplayHabits() {
-    //   this.displayHabits = this.allHabits.slice(0, this.pageSize)
-    // },
-    // changeDisplayHabits(){
-    //   this.displayHabits = this.allHabits.slice(0, this.pageSize)
-    // },
-    // pageChange(number){
-    //   this.displayHabits = this.allHabits.slice(this.pageSize*(number -1), this.pageSize*(number));
-    // },
     changeNumber() {
       this.changePageNumber(this.pageNumber)
     },
