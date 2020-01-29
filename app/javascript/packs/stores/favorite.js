@@ -3,7 +3,7 @@ import axios from 'axios';
 export default ({
 
   state: {
-    favorites: null,
+    favorites: [],
   },
 
   getters: {

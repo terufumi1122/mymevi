@@ -7,7 +7,7 @@
           v-model="pageSize"
           no-data="選択して下さい"
           :items=pageSizeList
-          @change="changeDisplayHabits"
+          @change="changeSize"
           label="1ページあたりの表示件数"
           dense
         ></v-select>
@@ -15,9 +15,9 @@
       <v-spacer></v-spacer>
     </v-row>
     <v-pagination
-      v-model="page"
+      v-model="pageNumber"
       :length="habitsLength"
-      @input="pageChange"
+      @input="changeNumber"
       circle
     >
     </v-pagination>
@@ -31,7 +31,7 @@
 
        :habitId="habit.id"
        :userId="currentUser.id"
-       :favorites="favorites"
+       :favorites="allFavorites"
        :isDisabled="habit.user_id === currentUser.id"
        >
       </BestItem>
@@ -39,9 +39,9 @@
     </div>
     <div class="vertical-spacer"></div>
     <v-pagination
-      v-model="page"
+      v-model="pageNumber"
       :length="habitsLength"
-      @input="pageChange"
+      @input="changeNumber"
       circle
     >
     </v-pagination>
@@ -61,10 +61,10 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      pageNumber: 1,
       pageSize: 5,
       pageSizeList: [5, 10, 15, 20, 25, 30],
-      displayHabits: [],
+      // displayHabits: [],
       avatorColor: {
         1: 'yellow',
         2: 'grey lighten-2',
@@ -77,35 +77,48 @@ export default {
       'allHabits',
       'allFavorites',
       'currentUser',
+      'displayHabits',
+      'habitsLength'
     ]),
-    habits() {
-      return this.allHabits
-    },
-    habitsLength() {
-      return Math.ceil(this.allHabits.length / this.pageSize)
-    },
-    favorites() {
-      return this.allFavorites
-    },
+    // habits() {
+    //   return this.allHabits
+    // },
+    // habitsLength() {
+    //   return Math.ceil(this.allHabits.length / this.pageSize)
+    // },
+    // favorites() {
+    //   return this.allFavorites
+    // },
+    // displayHabits() {
+    //   return this.allHabits.slice(0, this.pageSize)
+    // }
   },
   created() {
     this.setAllHabits();
     this.setAllFavorites();
-    this.setDisplayHabits();
+    // this.setDisplayHabits();
   },
   methods: {
     ...mapActions([
       'setAllHabits',
-      'setAllFavorites'
+      'setAllFavorites',
+      'changePageSize',
+      'changePageNumber'
     ]),
-    setDisplayHabits() {
-      this.displayHabits = this.allHabits.slice(0, this.pageSize)
+    // setDisplayHabits() {
+    //   this.displayHabits = this.allHabits.slice(0, this.pageSize)
+    // },
+    // changeDisplayHabits(){
+    //   this.displayHabits = this.allHabits.slice(0, this.pageSize)
+    // },
+    // pageChange(number){
+    //   this.displayHabits = this.allHabits.slice(this.pageSize*(number -1), this.pageSize*(number));
+    // },
+    changeNumber() {
+      this.changePageNumber(this.pageNumber)
     },
-    changeDisplayHabits(){
-      this.displayHabits = this.allHabits.slice(0, this.pageSize)
-    },
-    pageChange(number){
-      this.displayHabits = this.allHabits.slice(this.pageSize*(number -1), this.pageSize*(number));
+    changeSize() {
+      this.changePageSize(this.pageSize)
     }
   }
 }

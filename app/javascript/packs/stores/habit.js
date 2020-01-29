@@ -3,9 +3,11 @@ import axios from 'axios'
 export default ({
 
   state: {
-    habits: null,
+    habits: [],
     currentHabitId: null,
-    allHabits: null,
+    allHabits: [],
+    pageNumber: 1,
+    pageSize: 5,
   },
 
   getters: {
@@ -17,6 +19,12 @@ export default ({
     },
     allHabits(state) {
       return state.allHabits;
+    },
+    displayHabits(state) {
+      return state.allHabits.slice(state.pageSize * (state.pageNumber - 1), state.pageSize * (state.pageNumber))
+    },
+    habitsLength(state) {
+      return Math.ceil(state.allHabits.length / state.pageSize)
     },
   },
 
@@ -30,6 +38,15 @@ export default ({
     allHabits(state, payload) {
       state.allHabits = payload.allHabits
     },
+    pageSize(state, payload) {
+      state.pageSize = payload.pageSize
+    },
+    pageNumber(state, payload) {
+      state.pageNumber = payload.pageNumber
+    },
+    pageNumberInit(state) {
+      state.pageNumber = 1
+    }
   },
 
   actions: {
@@ -56,7 +73,7 @@ export default ({
           alert(error)
         })
       },
-      addHabit(context, habitParams,) {
+      addHabit(context, habitParams) {
         axios
         .post('/api/v1/habits', habitParams)
         .then(response => {
@@ -67,6 +84,13 @@ export default ({
           console.error(error);
           context.commit('createFlash', {type: 'success', message: '新しい習慣の登録に失敗しました'})
         })
+    },
+    changePageSize(context, pageSize) {
+      context.commit('pageSize', { pageSize: pageSize }),
+        context.commit('pageNumberInit')
+    },
+    changePageNumber(context, pageNumber) {
+      context.commit('pageNumber', { pageNumber: pageNumber })
     }
   },
 
