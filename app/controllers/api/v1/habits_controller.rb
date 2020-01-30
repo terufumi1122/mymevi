@@ -34,6 +34,20 @@ class Api::V1::HabitsController < ApiController
     render json: current_user_habits
   end
 
+  def habit_detail
+    habit_detail = Habit.where(id: params[:habit_id]).joins(:user)
+    .select("
+      habits.id,
+      habits.name,
+      description,
+      best,
+      user_id,
+      users.name AS user_name,
+      users.gender AS user_gender
+    ")
+    render json: habit_detail
+  end
+
   def create
     habit = Habit.new(habit_params)
     if habit.save

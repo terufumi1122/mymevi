@@ -14,7 +14,8 @@ export default ({
     },
     sampleLogined(state) {
       return state.sampleLogined;
-    }
+    },
+
   },
 
   mutations: {
@@ -40,7 +41,8 @@ export default ({
     },
     sampleLogined(state) {
       state.sampleLogined = true;
-    }
+    },
+
   },
 
   actions: {

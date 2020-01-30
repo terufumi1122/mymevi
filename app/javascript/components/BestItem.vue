@@ -77,7 +77,7 @@
       ...mapActions([
         'addLike',
         'deleteLike',
-        'setCurrentHabitId'
+        'setCurrentHabit'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.userId, habit_id: this.habitId}
@@ -90,7 +90,7 @@
         }
       },
       setHabit() {
-        this.setCurrentHabitId(this.habitId)
+        this.setCurrentHabit(this.habitId)
       }
     }
   }

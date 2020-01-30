@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       resources :habits, only: [:show, :create]
       get 'habits', to: 'habits#users_habits_show'
       get 'allhabits', to: 'habits#all_habits_show'
+      get 'habit_detail', to: 'habits#habit_detail'
       
       get 'favorites', to: 'favorites#index'
       get 'user_favorites', to: 'favorites#current_user_index'

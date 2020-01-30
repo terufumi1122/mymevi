@@ -8,6 +8,7 @@ export default ({
     allHabits: [],
     pageNumber: 1,
     pageSize: 5,
+    habitDetail: {},
   },
 
   getters: {
@@ -26,6 +27,13 @@ export default ({
     habitsLength(state) {
       return Math.ceil(state.allHabits.length / state.pageSize)
     },
+    currentHabit(state) {
+      return state.allHabits.find(habit => habit.id === state.currentHabitId )
+    },
+    habitDetail(state) {
+      return state.habitDetail
+    }
+
   },
 
   mutations: {
@@ -46,7 +54,11 @@ export default ({
     },
     pageNumberInit(state) {
       state.pageNumber = 1
+    },
+    habitDetail(state, payload) {
+      state.habitDetail = payload.habit
     }
+
   },
 
   actions: {
@@ -60,8 +72,16 @@ export default ({
           console.error(error)
         })
       },
-      setCurrentHabitId(context, habitId) {
+      setCurrentHabit(context, habitId) {
         context.commit('currentHabitId', { currentHabitId: habitId })
+        axios
+          .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
+          .then(response => {
+            context.commit('habitDetail', { habit: response.data[0] })
+          })
+          .catch(error => {
+            console.error(error)
+          })
       },
       setAllHabits(context) {
         axios

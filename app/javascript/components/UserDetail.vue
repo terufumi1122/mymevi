@@ -40,7 +40,7 @@
 
        :habitId="habit.id"
        :userId="currentUser.id"
-       :favorites="favorites"
+       :favorites="allFavorites"
        :isDisabled="habit.user_id === currentUser.id"
        />
       <div class="vertical-spacer"></div>
@@ -85,35 +85,30 @@ export default {
       'currentUser',
     ]),
     userGender() {
-      if(this.currentUserGender === 1) {
+      if(this.currentUser.gender === 1) {
         return '男性'
-      } else if(this.currentUserGender === 2 ) {
+      } else if(this.currentUser.gender === 2 ) {
         return '女性'
       } else {
         return ''
       }
     },
-    favorites() {
-      return this.allFavorites
-    },
-    currentUserGender() {
-      return this.currentUser.gender
-    }
   },
   created() {
     const userId = this.currentUser.id
     this.setCurrentUserHabits(userId)
+    this.setAllHabits()
     this.setAllFavorites()
   },
   mounted() {
-    const userId = this.currentUser.id
     axios
-      .get(`/api/v1/users/${userId}.json`)
+      .get(`/api/v1/users/${this.currentUser.id}.json`)
       .then(response => (this.user = response.data))
   },
   methods: {
     ...mapActions([
       'setAllFavorites',
+      'setAllHabits',
       'setCurrentUserHabits'
     ])
   }

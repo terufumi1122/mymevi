@@ -10,7 +10,7 @@
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
 
-      <v-card-title>{{ currentHabit.name }}</v-card-title>
+      <v-card-title>{{ habitDetail.name }}</v-card-title>
 
       <v-card-text>
 
@@ -18,14 +18,16 @@
           詳細
         </div>
 
-        <div>{{ currentHabit.description }}</div>
+        <div>{{ habitDetail.description }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>こんな人がオススメしています！</v-card-title>
 
-      <div class="my-4 subtitle-1 grey--text">年代、性別、職業などが登録されている分だけ出る</div>
+      <div class="my-4 subtitle-1 grey--text">
+        {{ habitDetail.user_name }}{{ userGender }}さんの{{ habitDetail.best }}番目のオススメ習慣です！
+      </div>
 
       <v-row
         align="center"
@@ -72,11 +74,12 @@
         'currentHabitId',
         'allFavorites',
         'currentUser',
-        'allHabits'
+        'habitDetail',
+        'currentHabitUser'
       ]),
-      currentHabit() {
-        return this.allHabits.find(habit => habit.id === this.currentHabitId)
-      },
+      // habitDetail() {
+      //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
+      // },
       likesCount() {
         return this.allFavorites.filter( favorite => favorite.habit_id === this.currentHabitId ).length
       },
@@ -87,10 +90,10 @@
         return this.currentUser.gender
       },
       userGender() {
-        if(this.currentUserGender === 1) {
-          return '男性'
-        } else if(this.currentUserGender === 2 ) {
-          return '女性'
+        if(this.habitDetail.user_gender === 1) {
+          return '(男性)'
+        } else if(this.habitDetail.user_gender === 2 ) {
+          return '(女性)'
         } else {
           return ''
         }
