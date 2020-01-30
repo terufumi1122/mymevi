@@ -1,8 +1,7 @@
 <template>
   <v-speed-dial
     v-model="fab"
-    :direction="top"
-    :open-on-hover="hover"
+    direction="top"
     :transition="transition"
     fixed
     class="speed-dial__position"
@@ -68,7 +67,6 @@
       return {
         fab: false,
         fling: false,
-        hover: false,
         tabs: null,
         transition: 'slide-y-reverse-transition',
       }
