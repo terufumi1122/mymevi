@@ -3,7 +3,9 @@
     <HabitForm
       formTitle="習慣を修正"
       buttonName="上記内容で修正する"
-      :habit="habit"
+      :habit="habitDetail"
+      buttonColor="teal"
+      @clickButton="editHabit"
     ></HabitForm>
   </div>
 </template>
@@ -18,26 +20,27 @@ import HabitForm from './HabitForm.vue'
     components: {
       HabitForm,
     },
-    data() {
-      return {
-        habit: {},
-      }
-    },
     computed: {
       ...mapGetters([
-        'currentHabit'
-      ])
+        'habitDetail'
+      ]),
     },
     methods: {
-      // ...mapActions([
-      //   'setCurrentHabit'
-      // ]),
-      setCurrentHabit() {
-        this.habit = this.currentHabit
-      }
-    },
-    created() {
-
+      ...mapActions([
+        'updateHabit',
+      ]),
+      editHabit() {
+        const habitParams = {
+          "id": this.habitDetail.id,
+          "name": this.habitDetail.name,
+          "description": this.habitDetail.description,
+          "best": this.habitDetail.best,
+        }
+        this.updateHabit(habitParams, this.routeTo('Top'))
+        },
+      routeTo(routeName) {
+        this.$router.push({ name: routeName })
+      },
     }
   }
 </script>

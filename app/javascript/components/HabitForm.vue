@@ -43,7 +43,23 @@
       </v-container>
       <v-row>
         <v-spacer></v-spacer>
-        <v-btn @click="clickButton"><v-icon>mdi-plus-box</v-icon>{{ buttonName }}</v-btn>
+        <v-btn
+          :color="buttonColor"
+          dark
+          @click="$emit('clickButton')"
+        >
+          <v-icon>mdi-plus-box</v-icon>
+          {{ buttonName }}
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="red"
+          dark
+          @click="destroy"
+        >
+          <v-icon>mdi-delete</v-icon>
+          削除する
+        </v-btn>
         <v-spacer></v-spacer>
       </v-row>
     </v-form>
@@ -52,7 +68,7 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
@@ -63,10 +79,11 @@ import { mapGetters, mapActions } from 'vuex';
       formTitle: '',
       buttonName: '',
       habit: {},
+      buttonColor: '',
+      clickButton: '',
     },
     data() {
       return {
-        // habit: {},
         items: habitAmount,
         nameRules: [
           v => !!v || '習慣名の入力は必須です',
@@ -77,31 +94,12 @@ import { mapGetters, mapActions } from 'vuex';
         ],
       }
     },
-    computed: {
-      ...mapGetters([
-        'currentUser'
-      ]),
-    },
     methods: {
       ...mapActions([
-        'addHabit',
-        'updateHabit',
+        'destroyHabit'
       ]),
-      clickButton() {
-        const habitParams = {
-            "name": this.habit.name,
-            "description": this.habit.description,
-            "best": this.habit.best,
-            "user_id": this.currentUser.id
-        }
-        if (this.buttonName === '新しい習慣を登録する') {
-          this.addHabit(habitParams, this.routeTo('Top'))
-        } else if (this.buttonName === '上記内容で修正する') {
-          this.updateHabit(habitParams, this.routeTo('Top'))
-        }
-      },
-      routeTo(routeName) {
-        this.$router.push({ name: routeName })
+      destroy() {
+        this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))
       }
     }
   }

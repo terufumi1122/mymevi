@@ -64,14 +64,15 @@
           </v-btn>
         </router-link>
         <v-spacer></v-spacer>
-        <v-btn
-          v-if="isCurrentUser"
-          text
-          color="deep-purple accent-4"
-          :to="{ name: 'HabitEdit' }"
-        >
-          編集する
-        </v-btn>
+        <router-link :to="{ name: 'HabitEdit' }">
+          <v-btn
+            v-if="isCurrentUser"
+            text
+            color="deep-purple accent-4"
+          >
+            編集する
+          </v-btn>
+        </router-link>
       </v-card-actions>
     </v-card>
   </div>
@@ -144,7 +145,8 @@
         'setAllFavorites',
         'setCurrentUserHabits',
         'addLike',
-        'deleteLike'
+        'deleteLike',
+        'setCurrentHabit'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habitDetail.id}
@@ -156,6 +158,9 @@
           console.log('いいねを外しました')
         }
       },
+      // setHabit() {
+      //   this.setCurrentHabit(this.habitDetail.id)
+      // }
     }
   }
 </script>

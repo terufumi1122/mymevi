@@ -97,21 +97,45 @@ export default ({
         axios
         .post('/api/v1/habits', habitParams)
         .then(() => {
-          context.commit('createFlash', {type: 'success', message: '新しい習慣を登録しました'})
+          context.commit('createFlash', { type: 'success', message: '新しい習慣を登録しました' });
           return routeTo;
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', {type: 'error', message: '新しい習慣の登録に失敗しました'})
+          context.commit('createFlash', { type: 'error', message: '新しい習慣の登録に失敗しました' });
         })
     },
+    updateHabit(context, habitParams, routeTo) {
+      axios
+        .patch(`/api/v1/habits/${habitParams.id}`, habitParams)
+        .then(() => {
+          context.commit('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
+          return routeTo;
+        })
+        .catch(error => {
+          console.error(error);
+          context.commit('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
+        })
+      },
+    destroyHabit(context, habitId, routeTo) {
+      axios
+        .delete(`/api/v1/habits/${habitId}`, { id: habitId })
+        .then(() => {
+          context.commit('createFlash', { type: 'info', message: '習慣の削除に成功しました' });
+          return routeTo;
+        })
+        .catch(error => {
+          console.error(error)
+          context.commit('createFlash', { type: 'error', message: '習慣の削除に失敗しました' });
+        })
+      },
     changePageSize(context, pageSize) {
-      context.commit('pageSize', { pageSize: pageSize }),
-        context.commit('pageNumberInit')
+      context.commit('pageSize', { pageSize: pageSize });
+      context.commit('pageNumberInit');
     },
     changePageNumber(context, pageNumber) {
       context.commit('pageNumber', { pageNumber: pageNumber })
-    }
+    },
   },
 
 })

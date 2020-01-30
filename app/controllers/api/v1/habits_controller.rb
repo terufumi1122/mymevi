@@ -50,9 +50,23 @@ class Api::V1::HabitsController < ApiController
 
   def create
     habit = Habit.new(habit_params)
-    if habit.save
+    if habit.save!
       render json: habit, status: :created
     else
+      render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    habit = Habit.find_by(habit_params)
+    unless habit.update!(habit_params)
+      render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+  
+  def destroy
+    habit = Habit.find(params[:id])
+    unless habit.destroy!
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
     end
   end
@@ -60,6 +74,6 @@ class Api::V1::HabitsController < ApiController
   private
 
   def habit_params
-    params.permit(:name, :description, :best, :user_id)
+    params.permit(:id, :name, :description, :best, :user_id)
   end
 end

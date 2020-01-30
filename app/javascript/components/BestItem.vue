@@ -35,13 +35,15 @@
       </v-btn>
       <div v-if="isCurrentUser">
         <v-spacer></v-spacer>
-        <v-btn
-          text
-          color="deep-purple accent-4"
-          :to="{ name: 'HabitEdit' }"
-        >
-          編集する
-        </v-btn>
+        <router-link :to="{ name: 'HabitEdit' }">
+          <v-btn
+            text
+            color="deep-purple accent-4"
+            @click="setHabit"
+          >
+            編集する
+          </v-btn>
+        </router-link>
       </div>
       <v-spacer></v-spacer>
       <router-link :to="{ name: 'HabitDetail' }">
