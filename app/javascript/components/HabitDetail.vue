@@ -85,7 +85,6 @@
         'allFavorites',
         'currentUser',
         'habitDetail',
-        'currentHabitUser'
       ]),
       // habitDetail() {
       //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
