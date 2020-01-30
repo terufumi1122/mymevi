@@ -17,6 +17,7 @@ import UserForm from "./UserForm.vue"
 import Dialog from "./Dialog.vue"
 
 export default {
+  name: 'UserEdit',
   components: {
     UserForm,
     Dialog,

@@ -9,6 +9,7 @@ import UserEdit from '../components/UserEdit.vue'
 import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
 import HabitDetail from '../components/HabitDetail.vue'
+import HabitEdit from '../components/HabitEdit.vue'
 import AllBestHabits from '../components/AllBestHabits.vue'
 import GoogleMap from '../components/GoogleMap.vue'
 
@@ -44,6 +45,11 @@ const router = new VueRouter({
       path: '/newhabit',
       name: 'HabitNew',
       component: HabitNew
+    },
+    {
+      path: '/habit/edit',
+      name: 'HabitEdit',
+      component: HabitEdit
     },
     {
       path: '/habitdetail',

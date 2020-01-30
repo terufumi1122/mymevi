@@ -15,7 +15,7 @@
       <v-btn
         @click="toggleLike"
         icon
-        :disabled="isDisabled"
+        :disabled="isCurrentUser"
       >
         <v-badge
           color="pink"
@@ -33,6 +33,16 @@
         <v-icon>mdi-share-variant</v-icon>
         <!-- ここを押すとTwitterでシェアしたり出来る -->
       </v-btn>
+      <div v-if="isCurrentUser">
+        <v-spacer></v-spacer>
+        <v-btn
+          text
+          color="deep-purple accent-4"
+          :to="{ name: 'HabitEdit' }"
+        >
+          編集する
+        </v-btn>
+      </div>
       <v-spacer></v-spacer>
       <router-link :to="{ name: 'HabitDetail' }">
         <v-btn
@@ -60,7 +70,7 @@
       habitId: '',
       userId: '',
       favorites: '',
-      isDisabled: ''
+      isCurrentUser: '',
     },
     computed: {
       likesCount(){
@@ -71,7 +81,7 @@
       },
       isLike() {
         return this.LikedUsers.includes(this.userId)
-      }
+      },
     },
     methods: {
       ...mapActions([

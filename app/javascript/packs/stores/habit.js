@@ -93,16 +93,16 @@ export default ({
           alert(error)
         })
       },
-      addHabit(context, habitParams) {
+      addHabit(context, habitParams, routeTo) {
         axios
         .post('/api/v1/habits', habitParams)
-        .then(response => {
+        .then(() => {
           context.commit('createFlash', {type: 'success', message: '新しい習慣を登録しました'})
           return routeTo;
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', {type: 'success', message: '新しい習慣の登録に失敗しました'})
+          context.commit('createFlash', {type: 'error', message: '新しい習慣の登録に失敗しました'})
         })
     },
     changePageSize(context, pageSize) {

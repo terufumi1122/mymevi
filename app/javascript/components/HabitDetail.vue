@@ -36,7 +36,7 @@
         <v-btn
           @click="toggleLike"
           icon
-          :disabled="isDisabled"
+          :disabled="isCurrentUser"
         >
           <v-badge
             color="pink"
@@ -63,6 +63,15 @@
             みんなの習慣一覧に戻る
           </v-btn>
         </router-link>
+        <v-spacer></v-spacer>
+        <v-btn
+          v-if="isCurrentUser"
+          text
+          color="deep-purple accent-4"
+          :to="{ name: 'HabitEdit' }"
+        >
+          編集する
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -89,7 +98,7 @@
       // habitDetail() {
       //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
       // },
-      isDisabled() {
+      isCurrentUser() {
         return this.habitDetail.user_id === this.currentUser.id
       },
       likesCount() {

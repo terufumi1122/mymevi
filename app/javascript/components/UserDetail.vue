@@ -41,7 +41,7 @@
        :habitId="habit.id"
        :userId="currentUser.id"
        :favorites="allFavorites"
-       :isDisabled="habit.user_id === currentUser.id"
+       :isCurrentUser="habit.user_id === currentUser.id"
        />
       <div class="vertical-spacer"></div>
     </div>
