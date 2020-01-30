@@ -1,12 +1,11 @@
 <template>
   <v-speed-dial
     v-model="fab"
-    bottom
-    right
     :direction="top"
     :open-on-hover="hover"
     :transition="transition"
     fixed
+    class="speed-dial__position"
   >
     <template v-slot:activator>
       <v-btn
@@ -67,15 +66,10 @@
 
     data() {
       return {
-        // direction: 'left',
         fab: false,
         fling: false,
         hover: false,
         tabs: null,
-        // top: false,
-        // right: true,
-        // bottom: true,
-        // left: false,
         transition: 'slide-y-reverse-transition',
       }
     },
@@ -91,19 +85,12 @@
       },
     },
 
-    // watch: {
-    //   top (val) {
-    //     this.bottom = !val
-    //   },
-    //   right (val) {
-    //     this.left = !val
-    //   },
-    //   bottom (val) {
-    //     this.top = !val
-    //   },
-    //   left (val) {
-    //     this.right = !val
-    //   },
-    // },
   }
 </script>
+
+<style>
+.speed-dial__position {
+  bottom: 100px;
+  right: 80px;
+}
+</style>
