@@ -51,7 +51,7 @@ export default ({
           console.error(error);
           alert(error);
         })
-    }
+    },
   }
 
 })

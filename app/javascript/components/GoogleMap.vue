@@ -67,7 +67,11 @@ export default {
     this.createMap();
   },
   methods: {
-    ...mapActions(["addLocation", "setLocations"]),
+    ...mapActions([
+      'addLocation',
+      'setLocations',
+      'createFlash'
+      ]),
     setMarker() {
       console.log("これからマーカー配置です");
       //for文で、state.locationsにあるデータをマッピング
@@ -82,6 +86,7 @@ export default {
         });
         console.log(location);
       });
+      this.createFlash({ type: "success", message: "みんなのオススメスポットをマッピングしました！" })
       console.log("マーカー配置実行直後の行です");
     },
 
