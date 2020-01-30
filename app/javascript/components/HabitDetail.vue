@@ -33,15 +33,25 @@
         align="center"
         class="mx-0"
       >
-        <v-badge
-          color="pink"
-          :value="likesCount"
+        <v-btn
+          @click="toggleLike"
+          icon
+          :disabled="isDisabled"
         >
-          <v-icon
-            color="red"
-            @click="toggleLike"
-          >mdi-heart</v-icon>
-        </v-badge>
+          <v-badge
+            color="pink"
+            :value="likesCount"
+            :content="likesCount"
+          >
+            <v-icon
+              v-if="isLike === true"
+              color="red"
+            >mdi-heart</v-icon>
+            <v-icon
+              v-else
+            >mdi-heart</v-icon>
+          </v-badge>
+        </v-btn>
 
       </v-row>
       <v-card-actions>
@@ -80,8 +90,17 @@
       // habitDetail() {
       //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
       // },
+      isDisabled() {
+        return this.habitDetail.user_id === this.currentUser.id
+      },
       likesCount() {
-        return this.allFavorites.filter( favorite => favorite.habit_id === this.currentHabitId ).length
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id ).length
+      },
+      LikedUsers() {
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id).map( f => f.user_id )
+      },
+      isLike() {
+        return this.LikedUsers.includes(this.currentUser.id)
       },
       favorites() {
         return this.allFavorites
@@ -120,7 +139,7 @@
         'deleteLike'
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        let likeParams = {user_id: this.currentUser.id, habit_id: this.habitDetail.id}
         if (this.isLike === false) {
           this.addLike(likeParams)
           console.log('いいねをつけました')

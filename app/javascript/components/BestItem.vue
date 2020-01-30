@@ -19,8 +19,8 @@
       >
         <v-badge
           color="pink"
-          :value="likeCount"
-          :content="likeCount"
+          :value="likesCount"
+          :content="likesCount"
         >
           <v-icon
             v-if="isLike === true"
@@ -63,7 +63,7 @@
       isDisabled: ''
     },
     computed: {
-      likeCount(){
+      likesCount(){
         return this.favorites.filter(favorite => favorite.habit_id === this.habitId).length
       },
       LikedUsers() {
