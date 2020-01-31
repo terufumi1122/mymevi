@@ -1,6 +1,29 @@
 <template>
   <div>
       <v-card id="target" :style="{width: mapWidth + 'px', height: mapHeight + 'px'}"></v-card>
+
+    <div v-for="marker in markers" :key="marker.id">
+      <InfoWindow
+        :id="marker.id"
+
+        :isCurrentUser="marker.currentUser"
+        title="あなたが登録した場所です！"
+        :address="marker.title"
+
+        color1="blue"
+        icon1="mdi-link-variant"
+        routeTo1=""
+        routeToText1="自分の習慣を紐付ける"
+        @clickButton1="sampleAlert"
+
+        color2="red"
+        icon2='mdi-delete'
+        routeTo2=""
+        routeToText2="削除する"
+        @clickButton2="deletePoint"
+      ></InfoWindow>
+    </div>
+
     <SpeedDial
       mainIcon="mdi-google-maps"
       icon1="mdi-map-marker-radius"
@@ -20,34 +43,33 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import SpeedDial from "./SpeedDial";
+import InfoWindow from "./InfoWindow";
 
 export default {
   name: "GoogleMap",
   components: {
-    SpeedDial
+    SpeedDial,
+    InfoWindow,
   },
   data() {
     return {
       user_id: null,
       map: null,
-      marker: null,
+      markers: [],
       address: null,
       icon: null,
-      // 東京の緯度経度
-      center: {
+      center: { //東京の緯度経度
         lat: 35.65823,
         lng: 139.701642
       },
       zoom: 12,
-      mapWidth: 300,
-      mapHeight: 300,
-      infoWindow: ""
     };
   },
   computed: {
     ...mapGetters([
       'currentUser',
-      'locations'
+      'locations',
+      'currentLocation'
     ]),
     allLocations() {
       return this.locations;
@@ -60,7 +82,8 @@ export default {
   },
   created() {
     this.mapWidth = window.innerWidth;
-    this.mapHeight = window.innerHeight - 112;
+    this.mapHeight = window.innerHeight - 500;
+    // this.mapHeight = window.innerHeight - 112;
     this.setLocations();
   },
   mounted() {
@@ -70,32 +93,62 @@ export default {
     ...mapActions([
       'addLocation',
       'setLocations',
+      'deleteLocation',
       'createFlash'
       ]),
+
+    sampleAlert() {
+      alert('いいに！')
+    },
+
+    sampleMethod(arg) {
+      console.log(arg)
+    },
+
+    deletePoint() {
+      console.log('delete it!!')
+      // this.deleteLocation(locationId)
+    },
+
     setMarker() {
-      console.log("これからマーカー配置です");
       //for文で、state.locationsにあるデータをマッピング
       this.locations.forEach(location => {
-        this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //デフォルトは赤
+        let isCurrentUser = location.user_id === this.currentUser.id
 
+        //アイコンの色をログイン中のユーザーかどうかで変更
+        this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
         if (this.currentUser !== null ){
-          if (location.user_id === this.currentUser.id) {
-            this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //currentUser用のアイコンをここで定義
+          if (isCurrentUser) {
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
           }
         }
-        new google.maps.Marker({
+
+        let marker = new google.maps.Marker({
+          currentUser: isCurrentUser,
+          id: (this.markers.length + 1),
           position: {
             lat: location.lat,
             lng: location.lng
           },
           icon: this.icon,
           map: this.map,
+          title: location.name,
           animation: google.maps.Animation.DROP
         });
-        console.log(location);
-      });
-      this.createFlash({ type: "success", message: "みんなのMy定番スポットをマッピングしました！" })
-      console.log("マーカー配置実行直後の行です");
+        this.markers.push(marker)
+        //時間差がないとうまく反映されなかったためやむなくsetTimeoutで調整
+        setTimeout(()=>{
+        //マーカーをクリックしたときのウインドウに表示する内容を定義する
+          let infoWindow = new google.maps.InfoWindow({
+            content: document.getElementById(marker.id)
+          });
+          //マーカーをクリックしたらウインドウが開くようにする
+          marker.addListener("click", () => {
+            infoWindow.open(this.map, marker);
+          });
+        },1000)
+      })
+      this.createFlash({ type: "success", message: "みんなのMy定番スポットをマッピングしています..." })
     },
 
     createMap() {
@@ -175,7 +228,6 @@ export default {
         (results, status) => {
           const regExp = /〒\d{3}-\d{4} (.+)/
         const address = (results[0].formatted_address).match(regExp)
-        console.log(status)
         if (status !== "OK") {
           alert("Failed: " + status);
           return;
@@ -184,9 +236,6 @@ export default {
         if (results[0]) {
           // this.address = results[0].formatted_address;
           this.address = address[1];
-          console.log(`this.addressは`)
-          //検証用
-          console.log(this.address);
         } else {
           alert("No results!");
           return;
@@ -194,26 +243,35 @@ export default {
       })
     },
     addMarker(e) {
+      console.log('addMarkerを開始します')
         //マーカーを定義する
         let marker = new google.maps.Marker({
+          currentUser: true,
+          id: (this.markers.length + 1),
           position: e.latLng,
           map: this.map,
           title: this.address,
           animation: google.maps.Animation.DROP
         });
-        //マーカーをクリックしたときのウインドウに表示する内容を定義する
-        let infoWindow = new google.maps.InfoWindow({
-          content: e.latLng.toString()
-        });
-        //マーカーをクリックしたらウインドウが開くようにする
-        marker.addListener("click", () => {
-          infoWindow.open(this.map, marker);
-        });
+        console.log(marker)
+        this.markers.push(marker)
+        // コンポーネント内dataのmarkersに上記を加える
+        // 時間差がないとうまく反映されなかったためやむなくsetTimeoutで調整
+        setTimeout(()=>{
+          //マーカーをクリックしたときのウインドウに表示する内容を定義する
+          let infoWindow = new google.maps.InfoWindow({
+            content: document.getElementById(marker.id)
+          });
+          //マーカーをクリックしたらウインドウが開くようにする
+          marker.addListener("click", () => {
+            infoWindow.open(this.map, marker);
+          });
+        }, 2000)
     },
     setLocationParams(e) {
+      console.log('setLocationParamsを開始します')
         if (this.currentUser) {
           //位置情報を記録するために変数を宣言
-        console.log(`currentUserは${this.currentUser}です`)
         let locationParams = {
           name: this.address,
           lat: e.latLng.lat(),
@@ -221,8 +279,6 @@ export default {
           user_id: this.currentUser.id,
           habit_id: 0
         };
-        console.log(`locationParamsは${locationParams}です`)
-        console.log(locationParams)
 
         if (locationParams.name === null) {
           alert('住所情報の取得に失敗しました。処理を中断します。')
@@ -230,8 +286,9 @@ export default {
         }
         //location.jsで定義したactionsを呼び出す。
         this.addLocation(locationParams);
+
       }
-    }
+    },
   }
 };
 </script>

@@ -39,6 +39,16 @@
               required
             ></v-select>
           </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-select
+              v-model="habit.location_id"
+              :items="myLocations"
+              label="My定番スポットと紐付ける"
+            ></v-select>
+          </v-col>
         </v-row>
       </v-container>
       <v-row>
@@ -68,7 +78,7 @@
 
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
@@ -94,13 +104,27 @@ import { mapActions } from 'vuex';
         ],
       }
     },
+    computed: {
+      ...mapGetters([
+        'locations'
+      ]),
+      myLocations() {
+        return this.locations.map( location => {
+          return { value: location.id, text: location.name }
+          })
+      }
+    },
     methods: {
       ...mapActions([
-        'destroyHabit'
+        'destroyHabit',
+        'setLocations'
       ]),
       destroy() {
         this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))
       }
+    },
+    created() {
+      this.setLocations()
     }
   }
 </script>

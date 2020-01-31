@@ -12,7 +12,8 @@ class Api::V1::HabitsController < ApiController
       users.birth_year AS user_birth_year,
       users.birth_month AS user_birth_month,
       users.birth_day AS user_birth_day,
-      users.gender AS user_gender
+      users.gender AS user_gender,
+      location_id
       ")
     render json: all_habits
   end
@@ -29,7 +30,8 @@ class Api::V1::HabitsController < ApiController
       users.birth_year AS user_birth_year,
       users.birth_month AS user_birth_month,
       users.birth_day AS user_birth_day,
-      users.gender AS user_gender
+      users.gender AS user_gender,
+      location_id
       ")
     render json: current_user_habits
   end
@@ -43,7 +45,8 @@ class Api::V1::HabitsController < ApiController
       best,
       user_id,
       users.name AS user_name,
-      users.gender AS user_gender
+      users.gender AS user_gender,
+      location_id
     ")
     render json: habit_detail
   end
@@ -74,6 +77,6 @@ class Api::V1::HabitsController < ApiController
   private
 
   def habit_params
-    params.permit(:id, :name, :description, :best, :user_id)
+    params.permit(:id, :name, :description, :best, :user_id, :location_id)
   end
 end

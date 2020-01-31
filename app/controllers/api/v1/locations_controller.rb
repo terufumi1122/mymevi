@@ -23,13 +23,29 @@ class Api::V1::LocationsController < ApplicationController
 
   def update
     location = Location.find(params[:id])
+    if location.update!(location_params)
+      new_locations = Location.select("
+        id,
+        name,
+        lat,
+        lng,
+        user_id,
+        habit_id
+        ")
+      render json: new_locations
+    else
+      render json: { errors: location.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    location = Favorite.find_by(location_params)
+    location = Location.find_by(location_params)
     if location.destroy
-      new_locations = Favorite.select("
+      new_locations = Location.select("
         id,
+        name,
+        lat,
+        lng,
         user_id,
         habit_id
         ")
