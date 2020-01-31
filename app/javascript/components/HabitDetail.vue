@@ -13,12 +13,8 @@
       <v-card-title>{{ habitDetail.name }}</v-card-title>
 
       <v-card-text>
-
-        <div class="my-4 subtitle-1 black--text">
-          詳細
-        </div>
-
-        <div>{{ habitDetail.description }}</div>
+        <div>詳細：{{ habitDetail.description }}</div>
+        <div>場所：{{ habitLocation.name }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -95,6 +91,7 @@
         'allFavorites',
         'currentUser',
         'habitDetail',
+        'habitLocation'
       ]),
       // habitDetail() {
       //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
@@ -125,7 +122,7 @@
         } else {
           return ''
         }
-      }
+      },
     },
     created() {
       const userId = this.currentUser.id

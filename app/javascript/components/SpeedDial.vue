@@ -3,6 +3,7 @@
     v-model="fab"
     direction="top"
     :transition="transition"
+    open-on-hover
     fixed
     class="speed-dial__position"
   >
@@ -17,33 +18,19 @@
         <v-icon v-else>{{ mainIcon }}</v-icon>
       </v-btn>
     </template>
-    <v-btn
-      fab
-      dark
-      small
-      :color="color1"
-      @click="click1"
-    >
-      <v-icon>{{ icon1 }}</v-icon>
-    </v-btn>
-    <v-btn
-      fab
-      dark
-      small
-      :color="color2"
-      @click="click2"
-    >
-      <v-icon>{{ icon2 }}</v-icon>
-    </v-btn>
-    <v-btn
-      fab
-      dark
-      small
-      :color="color3"
-      @click="click3"
-    >
-      <v-icon>{{ icon3 }}</v-icon>
-    </v-btn>
+    <div v-for="button in buttons" :key="button.id">
+      <v-btn
+        :rounded="button.rounded"
+        :fab="button.fab"
+        dark
+        :color="button.color"
+        @click="$emit('click-button', button.click)"
+      >
+        <v-icon>{{ button.icon }}</v-icon>
+        {{ button.text }}
+      </v-btn>
+      {{ button.click }}
+    </div>
   </v-speed-dial>
 </template>
 
@@ -52,15 +39,7 @@
     name: 'SpeedDial',
     props: {
       mainIcon: '',
-      icon1: '',
-      icon2: '',
-      icon3: '',
-      color1: '',
-      color2: '',
-      color3: '',
-      click1: '',
-      click2: '',
-      click3: '',
+      buttons: '',
     },
 
     data() {

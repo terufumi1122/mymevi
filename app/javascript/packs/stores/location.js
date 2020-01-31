@@ -13,6 +13,13 @@ export default ({
     },
     currentLocation(state) {
       return state.currentLocation;
+    },
+    habitLocation(state, getters) {
+      if (getters.habitDetail.location_id) {
+        return state.locations.find( location => location.id === getters.habitDetail.location_id)
+      } else {
+        return { name: '名もなき場所' }
+      }
     }
   },
 

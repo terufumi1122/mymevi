@@ -57,7 +57,7 @@ export default ({
     },
     habitDetail(state, payload) {
       state.habitDetail = payload.habit
-    }
+    },
 
   },
 
@@ -78,6 +78,9 @@ export default ({
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
             context.commit('habitDetail', { habit: response.data[0] })
+            if (response.data[0].location_id !== null) {
+              context.dispatch('setLocations')
+            }
           })
           .catch(error => {
             console.error(error)

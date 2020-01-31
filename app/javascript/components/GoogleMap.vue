@@ -26,15 +26,8 @@
 
     <SpeedDial
       mainIcon="mdi-google-maps"
-      icon1="mdi-map-marker-radius"
-      color1="blue"
-      :click1="setCurrentLocation"
-      icon2="mdi-map-marker-multiple"
-      color2="teal"
-      :click2="setMarker"
-      icon3="mdi-delete"
-      color3="red"
-      :click3="setMarker"
+      :buttons="buttons"
+      @click-button="triggerClick"
       class="zzz"
     ></SpeedDial>
   </div>
@@ -53,6 +46,11 @@ export default {
   },
   data() {
     return {
+      buttons: [
+        {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地をセット"},
+        {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
+        {id: 3, rouded: true, fab: false, color: "red", click: "deletePoint", icon: "mdi-delete", text: "登録地点を削除"},
+      ],
       user_id: null,
       map: null,
       markers: [],
@@ -96,6 +94,17 @@ export default {
       'deleteLocation',
       'createFlash'
       ]),
+
+    triggerClick(action) {
+      console.log(`引数actionは${action}です`)
+      if ( action === "setCurrentLocation" ) {
+        this.setCurrentLocation()
+      } else if ( action === "setMarker" ) {
+        this.setMarker()
+      } else if ( action === "deletePoint" ) {
+        this.deletePoint()
+      }
+    },
 
     sampleAlert() {
       alert('いいに！')

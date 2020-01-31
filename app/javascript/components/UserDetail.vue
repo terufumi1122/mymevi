@@ -11,8 +11,10 @@
         <v-list-item-avatar
           circle
           size="130" 
-          color="red"
-        ></v-list-item-avatar>
+          color="#990011"
+        >
+          <img src="../../assets/images/infinity.svg" width="100" height="100" alt="プロフィール画像">
+        </v-list-item-avatar>
   
         <v-list-item-content>
           <div class="overline mb-4">About Me!</div>
