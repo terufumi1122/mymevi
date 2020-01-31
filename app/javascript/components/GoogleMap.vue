@@ -36,6 +36,7 @@ export default {
       map: null,
       marker: null,
       address: null,
+      icon: null,
       // 東京の緯度経度
       center: {
         lat: 35.65823,
@@ -48,7 +49,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentUser", "locations"]),
+    ...mapGetters([
+      'currentUser',
+      'locations'
+    ]),
     allLocations() {
       return this.locations;
     },
@@ -76,17 +80,25 @@ export default {
       console.log("これからマーカー配置です");
       //for文で、state.locationsにあるデータをマッピング
       this.locations.forEach(location => {
+        this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //デフォルトは赤
+
+        if (this.currentUser !== null ){
+          if (location.user_id === this.currentUser.id) {
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //currentUser用のアイコンをここで定義
+          }
+        }
         new google.maps.Marker({
           position: {
             lat: location.lat,
             lng: location.lng
           },
+          icon: this.icon,
           map: this.map,
           animation: google.maps.Animation.DROP
         });
         console.log(location);
       });
-      this.createFlash({ type: "success", message: "みんなのオススメスポットをマッピングしました！" })
+      this.createFlash({ type: "success", message: "みんなのMy定番スポットをマッピングしました！" })
       console.log("マーカー配置実行直後の行です");
     },
 
@@ -128,7 +140,6 @@ export default {
         let marker = new google.maps.Marker({
           position: e.latLng,
           map: this.map,
-          // title: e.latLng.toString(),
           title: this.address,
           animation: google.maps.Animation.DROP
         });
@@ -179,6 +190,7 @@ export default {
           };
           console.log(this.center);
           // 新しいMapを描画する
+          // 今のMapに描画すべきなので変更する。
           let currentMap = new google.maps.Map(target, {
             center: this.center,
             zoom: 15
