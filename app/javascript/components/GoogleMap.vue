@@ -1,10 +1,6 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-spacer></v-spacer>
+  <div>
       <v-card id="target" :style="{width: mapWidth + 'px', height: mapHeight + 'px'}"></v-card>
-      <v-spacer></v-spacer>
-    </v-row>
     <SpeedDial
       mainIcon="mdi-google-maps"
       icon1="mdi-map-marker-radius"
@@ -18,7 +14,7 @@
       :click3="setMarker"
       class="zzz"
     ></SpeedDial>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -63,8 +59,8 @@ export default {
     }
   },
   created() {
-    this.mapWidth = window.innerWidth - 50;
-    this.mapHeight = window.innerHeight - 150;
+    this.mapWidth = window.innerWidth;
+    this.mapHeight = window.innerHeight - 112;
     this.setLocations();
   },
   mounted() {
