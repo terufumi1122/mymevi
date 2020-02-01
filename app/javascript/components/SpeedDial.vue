@@ -1,5 +1,6 @@
 <template>
   <v-speed-dial
+    floating
     v-model="fab"
     direction="top"
     :transition="transition"
@@ -29,7 +30,6 @@
         <v-icon>{{ button.icon }}</v-icon>
         {{ button.text }}
       </v-btn>
-      {{ button.click }}
     </div>
   </v-speed-dial>
 </template>
@@ -67,7 +67,7 @@
 
 <style>
 .speed-dial__position {
-  bottom: 100px;
-  right: 80px;
+  bottom: 75px;
+  right: 60px;
 }
 </style>

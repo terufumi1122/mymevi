@@ -32,7 +32,7 @@ export default ({
     },
     habitDetail(state) {
       return state.habitDetail
-    }
+    },
 
   },
 
@@ -57,6 +57,48 @@ export default ({
     },
     habitDetail(state, payload) {
       state.habitDetail = payload.habit
+    },
+
+    ascTime(state, sortKey) {
+      console.log('ascTimeです')
+      const newHabits = state.allHabits
+      newHabits.sort((a, b) => {
+        let compare = 0
+        if (a[sortKey] > b[sortKey]) {
+          compare = 1
+        } else if (b[sortKey] > a[sortKey]) {
+          compare = -1
+        }
+        console.log(a[sortKey])
+        return compare
+      })
+      state.allHabits = newHabits
+    },
+    descTime(state, sortKey) {
+      console.log('descTimeです')
+      const newHabits = state.allHabits
+      newHabits.sort((a, b) => {
+        let compare = 0
+        if (a[sortKey] > b[sortKey]) {
+          compare = -1
+        } else if (b[sortKey] > a[sortKey]) {
+          compare = 1
+        }
+        console.log(a[sortKey])
+        return compare
+      })
+      state.allHabits = newHabits
+    },
+
+    ascLikes(state) {
+      state.allHabits = state.allHabits.sort((a, b) => {
+        a.id - b.id
+      })
+    },
+    ascLiked(state) {
+      state.allHabits = state.allHabits.sort((a, b) => {
+        b.id - a.id
+      })
     },
 
   },
@@ -139,6 +181,20 @@ export default ({
     changePageNumber(context, pageNumber) {
       context.commit('pageNumber', { pageNumber: pageNumber })
     },
+
+    ascTime(context, sortKey) {
+      context.commit('ascTime', sortKey)
+    },
+    descTime(context, sortKey) {
+      context.commit('descTime', sortKey)
+    },
+    ascLikes(context) {
+      context.commit('ascLikes')
+    },
+    descLikes(context) {
+      context.commit('descLikes')
+    },
+
   },
 
 })

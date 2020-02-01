@@ -30,6 +30,27 @@
       @click-button="triggerClick"
       class="zzz"
     ></SpeedDial>
+
+    <div class="input__button--fixed">
+      <input type="text" id="keyword">
+      <button id='search'>検索する</button>
+    </div>
+
+    <SearchBox
+      @search="searchPoint"
+      @gps="gps"
+      @change-radius="dialog = true"
+      class="input__button--fixed"
+    ></SearchBox>
+
+    <Slider
+      :dialog="dialog"
+      @close-dialog="dialog = false"
+      title="検索範囲を変更 半径(m)を選んで下さい"
+      :max="max"
+      :min="min"
+      @end="slider"
+    ></Slider>
   </div>
 </template>
 
@@ -37,17 +58,25 @@
 import { mapGetters, mapActions } from "vuex";
 import SpeedDial from "./SpeedDial";
 import InfoWindow from "./InfoWindow";
+import SearchBox from "./SearchBox";
+import Slider from "./Slider"
 
 export default {
   name: "GoogleMap",
   components: {
     SpeedDial,
     InfoWindow,
+    SearchBox,
+    Slider,
   },
   data() {
     return {
+      radius: 500,
+      dialog: false,
+      max: 5000,
+      min: 500,
       buttons: [
-        {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地をセット"},
+        {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地を保存"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
         {id: 3, rouded: true, fab: false, color: "red", click: "deletePoint", icon: "mdi-delete", text: "登録地点を削除"},
       ],
@@ -56,6 +85,7 @@ export default {
       markers: [],
       address: null,
       icon: null,
+      label: null,
       center: { //東京の緯度経度
         lat: 35.65823,
         lng: 139.701642
@@ -80,8 +110,7 @@ export default {
   },
   created() {
     this.mapWidth = window.innerWidth;
-    this.mapHeight = window.innerHeight - 500;
-    // this.mapHeight = window.innerHeight - 112;
+    this.mapHeight = window.innerHeight - 112;
     this.setLocations();
   },
   mounted() {
@@ -96,7 +125,6 @@ export default {
       ]),
 
     triggerClick(action) {
-      console.log(`引数actionは${action}です`)
       if ( action === "setCurrentLocation" ) {
         this.setCurrentLocation()
       } else if ( action === "setMarker" ) {
@@ -107,7 +135,7 @@ export default {
     },
 
     sampleAlert() {
-      alert('いいに！')
+      alert('サンプルアラート')
     },
 
     sampleMethod(arg) {
@@ -119,16 +147,114 @@ export default {
       // this.deleteLocation(locationId)
     },
 
+    //現在位置に移動するメソッド
+    gps() {
+      //geolocationが使えるか確認
+      if (!navigator.geolocation) {
+        alert("Geolocation not supported!");
+        return;
+      }
+      console.log('gps()を開始します。') //後で消す
+      //現在位置の取得を行う
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          //Vueコンポーネントのcenterに現在位置を代入
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          console.log(this.center); //後で消す
+          this.map.panTo(this.center) //現在位置にmapの表示位置を移動させる
+        }
+      );
+    },
+
+    slider(value) {
+      console.log(`sliderから${value}を受け取りました`) //後で消す
+      this.radius = value
+      console.log(this.radius) //後で消す
+    },
+
+    searchPoint(keyword) {
+      console.log('検索します')//後で消す
+      console.log(keyword)//後で消す
+
+      if (keyword === '') {
+        alert('住所やキーワードを入力して下さい')
+        return
+      }
+      //検索
+        new google.maps.places.PlacesService(this.map).nearbySearch({
+          location: this.center,
+          radius: this.radius,
+          name: keyword
+        }, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            results.forEach( result => {
+              console.log(result)
+              new google.maps.Marker({
+                map: this.map,
+                position: result.geometry.location,
+                title: result.name,
+                icon: {
+                  fillColor: "#990011",
+                  fillOpacity: 0.7,
+                  path: google.maps.SymbolPath.CIRCLE,
+                  scale: 16,
+                  strokeColor: "#fff",
+                  strokeWeight: 1.0
+                },
+                label: {
+                  text: 'New',
+                  color: '#fff',
+                  fontSize: '10px'
+                }
+              })
+            })
+          } else if (status === "ZERO_RESULTS") {
+            alert('検索結果が見つかりませんでした')
+          }
+        })
+    },
+
+    //現在登録済の位置情報を一括でマッピングする
     setMarker() {
       //for文で、state.locationsにあるデータをマッピング
       this.locations.forEach(location => {
         let isCurrentUser = location.user_id === this.currentUser.id
 
         //アイコンの色をログイン中のユーザーかどうかで変更
-        this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
+        // this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
+        this.icon = {
+            fillColor: "#0f4c81",
+            fillOpacity: 0.7,
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 16,
+            strokeColor: "#fff",
+            strokeWeight: 1.0
+        }
+        this.label = {
+          text: 'Others',
+          color: '#fff',
+          fontSize: '8px'
+        }
+
         if (this.currentUser !== null ){
           if (isCurrentUser) {
-            this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
+            // this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
+            this.icon = {
+                fillColor: "#990011",
+                fillOpacity: 0.7,
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 16,
+                strokeColor: "#fff",
+                strokeWeight: 1.0
+            }
+            this.label = {
+              text: 'Yours',
+              color: '#fff',
+              fontSize: '8px'
+            }
           }
         }
 
@@ -140,6 +266,7 @@ export default {
             lng: location.lng
           },
           icon: this.icon,
+          label: this.label,
           map: this.map,
           title: location.name,
           animation: google.maps.Animation.DROP
@@ -251,6 +378,8 @@ export default {
         }
       })
     },
+
+    //自分がクリック or タップしたらマーカーを表示し、DBに位置情報を保存する
     addMarker(e) {
       console.log('addMarkerを開始します')
         //マーカーを定義する
@@ -260,7 +389,20 @@ export default {
           position: e.latLng,
           map: this.map,
           title: this.address,
-          animation: google.maps.Animation.DROP
+          animation: google.maps.Animation.DROP,
+          icon: {
+            fillColor: "#990011",
+            fillOpacity: 1.0,
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 16,
+            strokeColor: "#fff",
+            strokeWeight: 1.0
+          },
+          label: {
+            text: 'New',
+            color: '#fff',
+            fontSize: '10px'
+          }
         });
         console.log(marker)
         this.markers.push(marker)
@@ -306,4 +448,17 @@ export default {
 .zzz {
   z-index: 1000;
 }
+.input__button--fixed {
+  z-index: 1000;
+  position: fixed;
+  bottom: 80px;
+  left: 10px;
+}
+/* .slider--fixed {
+  z-index: 1000;
+  position: fixed;
+  bottom: 50px;
+  left: 10px;
+  width: 60%;
+} */
 </style>

@@ -12,6 +12,18 @@
           dense
         ></v-select>
       </v-col>
+      <v-col cols="4">
+        <v-select
+          v-model="selectedSort"
+          no-data="選択して下さい"
+          item-text="name"
+          :items="sortList"
+          @change="toggleSort(selectedSort.method)"
+          label="並び替え"
+          return-object
+          dense
+        ></v-select>
+      </v-col>
       <v-spacer></v-spacer>
     </v-row>
     <v-pagination
@@ -64,6 +76,13 @@ export default {
       pageNumber: 1,
       pageSize: 5,
       pageSizeList: [5, 10, 15, 20, 25, 30],
+      selectedSort: {id: 2, name: '新着（降順）', method: 'sortDescTime'},
+      sortList: [
+        {id: 1, name: '新着（昇順）', method: 'sortAscTime'},
+        {id: 2, name: '新着（降順）', method: 'sortDescTime'},
+        {id: 3, name: 'いいね数（昇順）', method: 'sortAscLikes'},
+        {id: 4, name: 'いいね数（降順）', method: 'sortDescLikes'},
+      ],
       avatorColor: {
         1: 'yellow',
         2: 'grey lighten-2',
@@ -89,13 +108,41 @@ export default {
       'setAllHabits',
       'setAllFavorites',
       'changePageSize',
-      'changePageNumber'
+      'changePageNumber',
+      'ascTime',
+      'descTime',
+      'ascLikes',
+      'descLikes'
     ]),
     changeNumber() {
       this.changePageNumber(this.pageNumber)
     },
     changeSize() {
       this.changePageSize(this.pageSize)
+    },
+    toggleSort(method) {
+      console.log(method)
+      if (method === "sortAscTime") {
+        this.sortAscTime()
+      } else if ( method === "sortDescTime" ) {
+        this.sortDescTime()
+      } else if ( method === "sortAscLikes" ) {
+        this.sortAscLikes()
+      } else if ( method === "sortDescLikes" ) {
+        this.sortDescLikes()
+      }
+    },
+    sortAscTime() {
+      this.ascTime('id')
+    },
+    sortDescTime() {
+      this.descTime('id')
+    },
+    sortAscLikes() {
+      this.ascLikes()
+    },
+    sortDescLikes() {
+      this.descLikes()
     }
   }
 }
