@@ -93,9 +93,7 @@
         'habitDetail',
         'habitLocation'
       ]),
-      // habitDetail() {
-      //   return this.allHabits.find(habit => habit.id === this.currentHabitId)
-      // },
+
       isCurrentUser() {
         return this.habitDetail.user_id === this.currentUser.id
       },
@@ -155,9 +153,6 @@
           console.log('いいねを外しました')
         }
       },
-      // setHabit() {
-      //   this.setCurrentHabit(this.habitDetail.id)
-      // }
     }
   }
 </script>

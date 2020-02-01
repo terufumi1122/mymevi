@@ -60,7 +60,6 @@ export default ({
     },
 
     ascTime(state, sortKey) {
-      console.log('ascTimeです')
       const newHabits = state.allHabits
       newHabits.sort((a, b) => {
         let compare = 0
@@ -69,13 +68,11 @@ export default ({
         } else if (b[sortKey] > a[sortKey]) {
           compare = -1
         }
-        console.log(a[sortKey])
         return compare
       })
       state.allHabits = newHabits
     },
     descTime(state, sortKey) {
-      console.log('descTimeです')
       const newHabits = state.allHabits
       newHabits.sort((a, b) => {
         let compare = 0
@@ -84,7 +81,6 @@ export default ({
         } else if (b[sortKey] > a[sortKey]) {
           compare = 1
         }
-        console.log(a[sortKey])
         return compare
       })
       state.allHabits = newHabits
