@@ -10,36 +10,44 @@
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
 
-      <v-card-title>{{ currentHabit.name }}</v-card-title>
+      <v-card-title>{{ habitDetail.name }}</v-card-title>
 
       <v-card-text>
-
-        <div class="my-4 subtitle-1 black--text">
-          詳細
-        </div>
-
-        <div>{{ currentHabit.description }}</div>
+        <div>詳細：{{ habitDetail.description }}</div>
+        <div>場所：{{ habitLocation.name }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>こんな人がオススメしています！</v-card-title>
 
-      <div class="my-4 subtitle-1 grey--text">年代、性別、職業などが登録されている分だけ出る</div>
+      <div class="my-4 subtitle-1 grey--text">
+        {{ habitDetail.user_name }}{{ userGender }}さんの{{ habitDetail.best }}番目のオススメ習慣です！
+      </div>
 
       <v-row
         align="center"
         class="mx-0"
       >
-        <v-badge
-          color="pink"
-          :value="likesCount"
+        <v-btn
+          @click="toggleLike"
+          icon
+          :disabled="isCurrentUser"
         >
-          <v-icon
-            color="red"
-            @click="toggleLike"
-          >mdi-heart</v-icon>
-        </v-badge>
+          <v-badge
+            color="pink"
+            :value="likesCount"
+            :content="likesCount"
+          >
+            <v-icon
+              v-if="isLike === true"
+              color="red"
+            >mdi-heart</v-icon>
+            <v-icon
+              v-else
+            >mdi-heart</v-icon>
+          </v-badge>
+        </v-btn>
 
       </v-row>
       <v-card-actions>
@@ -49,6 +57,16 @@
             text
           >
             みんなの習慣一覧に戻る
+          </v-btn>
+        </router-link>
+        <v-spacer></v-spacer>
+        <router-link :to="{ name: 'HabitEdit' }">
+          <v-btn
+            v-if="isCurrentUser"
+            text
+            color="deep-purple accent-4"
+          >
+            編集する
           </v-btn>
         </router-link>
       </v-card-actions>
@@ -72,39 +90,47 @@
         'currentHabitId',
         'allFavorites',
         'currentUser',
-        'allHabits'
+        'habitDetail',
+        'habitLocation'
       ]),
-      currentHabit() {
-        return this.allHabits.find(habit => habit.id === this.currentHabitId)
+
+      isCurrentUser() {
+        return this.habitDetail.user_id === this.currentUser.id
       },
       likesCount() {
-        return this.allFavorites.filter( favorite => favorite.habit_id === this.currentHabitId ).length
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id ).length
+      },
+      LikedUsers() {
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id).map( f => f.user_id )
+      },
+      isLike() {
+        return this.LikedUsers.includes(this.currentUser.id)
       },
       favorites() {
         return this.allFavorites
       },
       currentUserGender() {
-        return this.currentUser.data.gender
+        return this.currentUser.gender
       },
       userGender() {
-        if(this.currentUserGender === 1) {
-          return '男性'
-        } else if(this.currentUserGender === 2 ) {
-          return '女性'
+        if(this.habitDetail.user_gender === 1) {
+          return '(男性)'
+        } else if(this.habitDetail.user_gender === 2 ) {
+          return '(女性)'
         } else {
           return ''
         }
-      }
+      },
     },
     created() {
-      const userId = this.currentUser.data.id
+      const userId = this.currentUser.id
       this.setCurrentUserHabits(userId)
       this.setAllFavorites()
     },
     mounted() {
       this.loading = false
 
-      const userId = this.currentUser.data.id
+      const userId = this.currentUser.id
       axios
         .get(`/api/v1/users/${userId}.json`)
         .then(response => (this.user = response.data))
@@ -114,10 +140,11 @@
         'setAllFavorites',
         'setCurrentUserHabits',
         'addLike',
-        'deleteLike'
+        'deleteLike',
+        'setCurrentHabit'
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        let likeParams = {user_id: this.currentUser.id, habit_id: this.habitDetail.id}
         if (this.isLike === false) {
           this.addLike(likeParams)
           console.log('いいねをつけました')

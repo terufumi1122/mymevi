@@ -15,12 +15,12 @@
       <v-btn
         @click="toggleLike"
         icon
-        :disabled="isDisabled"
+        :disabled="isCurrentUser"
       >
         <v-badge
           color="pink"
-          :value="likeCount"
-          :content="likeCount"
+          :value="likesCount"
+          :content="likesCount"
         >
           <v-icon
             v-if="isLike === true"
@@ -33,6 +33,18 @@
         <v-icon>mdi-share-variant</v-icon>
         <!-- ここを押すとTwitterでシェアしたり出来る -->
       </v-btn>
+      <div v-if="isCurrentUser">
+        <v-spacer></v-spacer>
+        <router-link :to="{ name: 'HabitEdit' }">
+          <v-btn
+            text
+            color="deep-purple accent-4"
+            @click="setHabit"
+          >
+            編集する
+          </v-btn>
+        </router-link>
+      </div>
       <v-spacer></v-spacer>
       <router-link :to="{ name: 'HabitDetail' }">
         <v-btn
@@ -60,10 +72,10 @@
       habitId: '',
       userId: '',
       favorites: '',
-      isDisabled: ''
+      isCurrentUser: '',
     },
     computed: {
-      likeCount(){
+      likesCount(){
         return this.favorites.filter(favorite => favorite.habit_id === this.habitId).length
       },
       LikedUsers() {
@@ -71,13 +83,13 @@
       },
       isLike() {
         return this.LikedUsers.includes(this.userId)
-      }
+      },
     },
     methods: {
       ...mapActions([
         'addLike',
         'deleteLike',
-        'setCurrentHabitId'
+        'setCurrentHabit'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.userId, habit_id: this.habitId}
@@ -90,7 +102,7 @@
         }
       },
       setHabit() {
-        this.setCurrentHabitId(this.habitId)
+        this.setCurrentHabit(this.habitId)
       }
     }
   }

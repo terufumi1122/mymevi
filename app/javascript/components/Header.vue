@@ -4,12 +4,19 @@
       dark
     >
       <v-toolbar-title>
-        <router-link :to="{ name: 'Top' }">
-          <div class="my-4 title white--text inline-flex">
+        <!-- <router-link :to="{ name: 'Top' }"> -->
+          <v-btn
+            :to="{ name: 'Top' }"
+            color="transparent"
+          >
             <img src="../../assets/images/infinity.svg" alt="ヘッダーロゴ" width="25px" height="25px">
-            MyMevi
-          </div>
-        </router-link>
+              <span>
+                MyMevi
+              </span>
+          </v-btn>
+          <!-- <div class="my-4 title white--text inline-flex"> -->
+          <!-- </div> -->
+        <!-- </router-link> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
@@ -82,23 +89,16 @@
       ...mapActions([
         'sampleLogin',
         'signOut',
-        'createFlash'
       ]),
       triggerClick(action) {
         if (action === 'guestLogin') {
-          this.sampleLogin()
-          this.createFlash({
-            type: 'success',
-            message: 'ゲストユーザーとしてログインしました', 
-          })
+          this.sampleLogin(this.routeTo('Top'))
         } else if(action === 'signOutUser') {
-          this.signOut()
-          this.$router.push({ name: 'Top' })
-          this.createFlash({
-            type: 'info',
-            message: 'ログアウトしました', 
-          })
+          this.signOut(this.routeTo('Top'))
         } 
+      },
+      routeTo(routeName) {
+        this.$router.push({ name: routeName })
       }
     }
   }

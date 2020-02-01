@@ -1,9 +1,8 @@
 <template>
-  <div v-show="loading">
-    <div class="fullview">
-      <div class="loading-spacer"></div>
-      <v-text-field color="success" loading disabled></v-text-field>
-    </div>
+  <div>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -11,19 +10,20 @@
 
 export default {
   name: 'Loading',
+  data() {
+    return {
+      overlay: true,
+    }
+  },
+  watch: {
+    overlay (val) {
+      val && setTimeout(() => {
+        this.overlay = false
+      }, 3000)
+    }
+  }
 }
 </script>
 
 <style>
-.fullview {
-  width: 100%;
-  height: 100%;
-  background: #fefefe;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-.loading-spacer {
-  height: 40vh;
-}
 </style>

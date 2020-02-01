@@ -1,6 +1,6 @@
 <template>
   <div>
-    <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="user" @clickButton="updateUser1">入力の通りに更新する</user-form>
+    <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="currentUser" @clickButton="updateUser1">入力の通りに更新する</user-form>
     <Dialog @clickDialogButton="deleteUser1">
         <v-icon>mdi-trash-can</v-icon>
         アカウントを削除する
@@ -17,6 +17,7 @@ import UserForm from "./UserForm.vue"
 import Dialog from "./Dialog.vue"
 
 export default {
+  name: 'UserEdit',
   components: {
     UserForm,
     Dialog,
@@ -32,7 +33,7 @@ export default {
       'sampleLogined'
     ]),
     user() {
-      return this.currentUser.data
+      return this.currentUser
     }
   },
   methods: {
@@ -43,21 +44,16 @@ export default {
     ]),
     updateUser1() {
       const userParams = {
-        "name": this.user.name,
-        "email": this.user.email,
-        "birth_year": this.user.birth_year,
-        "birth_month": this.user.birth_month,
-        "birth_day": this.user.birth_day,
-        "gender": this.user.gender,
-        "password": this.user.password,
-        "password_confirmation": this.user.password_confirmation,
+        "name": this.currentUser.name,
+        "email": this.currentUser.email,
+        "birth_year": this.currentUser.birth_year,
+        "birth_month": this.currentUser.birth_month,
+        "birth_day": this.currentUser.birth_day,
+        "gender": this.currentUser.gender,
+        "password": this.currentUser.password,
+        "password_confirmation": this.currentUser.password_confirmation,
       }
-      this.updateUser(userParams)
-      this.$router.push({ name: 'Top' })
-      this.createFlash({
-        type: 'success',
-        message: 'ユーザー情報を更新しました'
-      })
+      this.updateUser(userParams, this.routeTo('Top'))
     },
     deleteUser1() {
       if (this.sampleLogined === true) {
@@ -66,13 +62,11 @@ export default {
           message: 'ゲストユーザーを削除することは出来ません'
         })
       } else {
-        this.deleteUser()
-        this.$router.push({ name: 'Top' })
-        this.createFlash({
-          type: 'warning',
-          message: 'アカウントを削除しました'
-        })
+        this.deleteUser(this.routeTo('Top'))
       }
+    },
+    routeTo(routeName) {
+      this.$router.push({ name: routeName })
     }
   }
 }

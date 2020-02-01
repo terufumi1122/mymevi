@@ -33,3 +33,7 @@ yarn-debug.log*
 ###
 .erd.dot
 .erd.png
+/config/credentials/development.key
+
+### 検証用ファイル
+playland/

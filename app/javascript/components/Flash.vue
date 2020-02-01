@@ -1,14 +1,14 @@
 <template>
-  <div>
     <v-alert
       v-if="flash !== null"
       :type="flash.type"
+      width="100%"
       dismissible
-      transition="slide-y-transition"
+      transition="scale-transition"
+      class="flash-message__position"
     >
       {{ flash.message }}
     </v-alert>
-  </div>
 </template>
 
 <script>
@@ -21,19 +21,14 @@
         'flash'
       ]),
     },
-    // methods: {
-    //   ...mapMutations([
-    //     'deleteFlash',
-    //   ])
-    // },
-    // updated() {
-    //   // setTimeout(this.deleteFlash, 3000);
-    // }
   }
 </script>
 
 <style>
-/* .alert--message {
+.flash-message__position {
   position: fixed;
-} */
+  top: 56px;
+  left: 0;
+  z-index: 100;
+}
 </style>

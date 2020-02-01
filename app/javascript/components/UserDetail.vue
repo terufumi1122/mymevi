@@ -11,8 +11,10 @@
         <v-list-item-avatar
           circle
           size="130" 
-          color="red"
-        ></v-list-item-avatar>
+          color="#990011"
+        >
+          <img src="../../assets/images/infinity.svg" width="100" height="100" alt="プロフィール画像">
+        </v-list-item-avatar>
   
         <v-list-item-content>
           <div class="overline mb-4">About Me!</div>
@@ -39,9 +41,9 @@
        :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
 
        :habitId="habit.id"
-       :userId="currentUser.data.id"
-       :favorites="favorites"
-       :isDisabled="habit.user_id === currentUser.data.id"
+       :userId="currentUser.id"
+       :favorites="allFavorites"
+       :isCurrentUser="habit.user_id === currentUser.id"
        />
       <div class="vertical-spacer"></div>
     </div>
@@ -85,35 +87,30 @@ export default {
       'currentUser',
     ]),
     userGender() {
-      if(this.currentUserGender === 1) {
+      if(this.currentUser.gender === 1) {
         return '男性'
-      } else if(this.currentUserGender === 2 ) {
+      } else if(this.currentUser.gender === 2 ) {
         return '女性'
       } else {
         return ''
       }
     },
-    favorites() {
-      return this.allFavorites
-    },
-    currentUserGender() {
-      return this.currentUser.data.gender
-    }
   },
   created() {
-    const userId = this.currentUser.data.id
+    const userId = this.currentUser.id
     this.setCurrentUserHabits(userId)
+    this.setAllHabits()
     this.setAllFavorites()
   },
   mounted() {
-    const userId = this.currentUser.data.id
     axios
-      .get(`/api/v1/users/${userId}.json`)
+      .get(`/api/v1/users/${this.currentUser.id}.json`)
       .then(response => (this.user = response.data))
   },
   methods: {
     ...mapActions([
       'setAllFavorites',
+      'setAllHabits',
       'setCurrentUserHabits'
     ])
   }

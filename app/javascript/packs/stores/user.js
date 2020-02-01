@@ -4,7 +4,7 @@ export default ({
 
   state: {
     currentUser: null,
-    headers: null,
+    headers: [],
     sampleLogined: false,
   },
 
@@ -14,7 +14,8 @@ export default ({
     },
     sampleLogined(state) {
       return state.sampleLogined;
-    }
+    },
+
   },
 
   mutations: {
@@ -40,74 +41,95 @@ export default ({
     },
     sampleLogined(state) {
       state.sampleLogined = true;
-    }
+    },
+
   },
 
   actions: {
-    signUp(context, userParams) {
+    signUp(context, userParams, routeTo) {
       axios
         .post('/api/v1/auth', userParams)
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('signIn', response.headers);
+        .then(response => {
+          context.commit('currentUser', { user: response.data.data });
+          context.commit('headers', response.headers);
+          context.dispatch('createFlash', { type: 'success', message: '新規登録・ログインに成功しました' });
+          return routeTo;
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
-          alert(error);
+          context.dispatch('createFlash', { type: 'error', message: '新規登録・ログインに失敗しました' });
         });
     },
-    signIn(context, userParams) {
+    signIn(context, userParams, routeTo) {
       axios
         .post('/api/v1/auth/sign_in', userParams)
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+        .then(response => {
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
+          context.dispatch('createFlash', { type: 'success', message: 'ログインしました' });
+          console.log('routeToの上です')
+          console.log(routeTo)
+          return routeTo;
         })
-        .catch(function (error) {
+        .catch(error => {
           console.error(error);
-          alert(error)
+          console.log('createFlashの上です')
+          context.dispatch('createFlash', {type: 'error', message: 'ログインに失敗しました'})
+          console.log('createFlashの下です')
         });
-    },
-    signOut(context) {
-      axios
+      },
+      signOut(context, routeTo) {
+        axios
         .delete('/api/v1/auth/sign_out', { headers: context.state.headers })
-        .then(function () {
+        .then(() => {
           context.commit('signOut');
+          context.dispatch('createFlash', { type: 'info', message: 'ログアウトに成功しました' });
+          return routeTo;
         })
-        .catch(function (error) {
-          alert(error);
+        .catch(error => {
+          context.dispatch('createFlash', {type: 'error', message: 'ログアウトに失敗しました'})
+          console.error(error);
         })
-    },
-    updateUser(context, userParams) {
-      axios
+      },
+      updateUser(context, userParams, routeTo) {
+        axios
         .put('/api/v1/auth', userParams, { headers: context.state.headers })
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
+        .then(response => {
+          context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
+          context.dispatch('createFlash', { type: 'success', message: 'ユーザー情報を更新しました' });
+          return routeTo;
         })
-        .catch(function (error) {
-          alert(error);
-        })
+        .catch(error => {
+          console.error(error);
+          context.dispatch('createFlash', { type: 'error', message: 'ユーザー情報の更新に失敗しました' });
+      })
     },
-    deleteUser(context) {
+    deleteUser(context, routeTo) {
       axios
-        .delete('/api/v1/auth', { headers: context.state.headers })
-        .then(function () {
-          context.commit('signOut')
-        })
-        .catch(function (error) {
-          alert(error);
-        })
+      .delete('/api/v1/auth', { headers: context.state.headers })
+      .then(() => {
+        context.commit('signOut');
+        context.dispatch('createFlash', { type: 'warning', message: 'アカウントを削除しました' });
+        return routeTo;
+      })
+      .catch(error => {
+        console.error(error);
+        context.dispatch('createFlash', { type: 'error', message: 'アカウントの削除に失敗しました' });
+      })
     },
-    sampleLogin(context) {
+    sampleLogin(context, routeTo) {
       axios
-        .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
-        .then(function (response) {
-          context.commit('currentUser', { user: response.data });
-          context.commit('headers', response.headers)
+      .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
+      .then(response => {
+          context.commit('currentUser', { user: response.data.data });
+          context.commit('headers', response.headers);
+        context.dispatch('createFlash', { type: 'success', message: 'ゲストユーザーとしてログインしました' });
+        return routeTo;
         })
-        .catch(function (error) {
-          alert(error);
+        .catch(error => {
+          context.dispatch('createFlash', { type: 'error', message: 'ゲストユーザーログインに失敗しました' });
+          console.error(error);
         })
       context.commit('sampleLogined')
     },
