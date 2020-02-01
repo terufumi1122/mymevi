@@ -12,35 +12,35 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import HabitForm from './HabitForm.vue'
+import { mapGetters, mapActions } from "vuex";
+import HabitForm from "./HabitForm.vue";
 
-  export default {
-    name: 'HabitNew',
-    components: {
-      HabitForm,
+export default {
+  name: "HabitEdit",
+  components: {
+    HabitForm,
+  },
+  computed: {
+    ...mapGetters([
+      'habitDetail',
+    ])
+  },
+  methods: {
+    ...mapActions([
+      "updateHabit",
+    ]),
+    editHabit() {
+      const habitParams = {
+        id: this.habitDetail.id,
+        name: this.habitDetail.name,
+        description: this.habitDetail.description,
+        best: this.habitDetail.best
+      };
+      this.updateHabit(habitParams, this.routeTo("Top"));
     },
-    computed: {
-      ...mapGetters([
-        'habitDetail'
-      ]),
-    },
-    methods: {
-      ...mapActions([
-        'updateHabit',
-      ]),
-      editHabit() {
-        const habitParams = {
-          "id": this.habitDetail.id,
-          "name": this.habitDetail.name,
-          "description": this.habitDetail.description,
-          "best": this.habitDetail.best,
-        }
-        this.updateHabit(habitParams, this.routeTo('Top'))
-        },
-      routeTo(routeName) {
-        this.$router.push({ name: routeName })
-      },
+    routeTo(routeName) {
+      this.$router.push({ name: routeName });
     }
   }
+};
 </script>
