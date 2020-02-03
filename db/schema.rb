@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_063119) do
+ActiveRecord::Schema.define(version: 2020_02_02_223344) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
+    t.string "name", limit: 255, null: false
+    t.string "record_type", limit: 255, null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 2020_02_01_063119) do
   end
 
   create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
+    t.string "key", limit: 255, null: false
+    t.string "filename", limit: 255, null: false
+    t.string "content_type", limit: 255
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum", limit: 255, null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2020_02_01_063119) do
   end
 
   create_table "habits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
+    t.string "name", limit: 255, null: false
+    t.text "description", null: false
     t.integer "best", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_02_01_063119) do
   end
 
   create_table "locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.float "lat", limit: 53, null: false
     t.float "lng", limit: 53, null: false
     t.integer "user_id", null: false
@@ -63,17 +63,17 @@ ActiveRecord::Schema.define(version: 2020_02_01_063119) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+    t.string "provider", limit: 255, default: "email", null: false
+    t.string "uid", limit: 255, default: "", null: false
+    t.string "encrypted_password", limit: 255, default: "", null: false
+    t.string "reset_password_token", limit: 255
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.string "name", null: false
-    t.string "nickname"
-    t.string "image"
-    t.string "email", null: false
+    t.string "name", limit: 255, null: false
+    t.string "nickname", limit: 255
+    t.string "image", limit: 255
+    t.string "email", limit: 255, null: false
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

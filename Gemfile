@@ -34,6 +34,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
+
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop', require: false
+
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+
   gem 'annotate'
   gem 'pry-rails'
   gem 'pry-byebug'

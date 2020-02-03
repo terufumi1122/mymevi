@@ -15,6 +15,7 @@
       <v-card-text>
         <div>詳細：{{ habitDetail.description }}</div>
         <div>場所：{{ habitLocation.name }}</div>
+        <div>場所：{{ habitDetail.location_name }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>

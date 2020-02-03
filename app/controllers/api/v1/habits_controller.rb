@@ -16,6 +16,25 @@ class Api::V1::HabitsController < ApiController
       ")
     render json: all_habits
   end
+    
+  #生SQL版（途中）
+  # def all_habits_show
+  #   sql =  'SELECT
+  #   habits.id,
+  #   habits.name,
+  #   description,
+  #   best,
+  #   habits.user_id AS user_id,
+  #   users.name AS user_name,
+  #   users.birth_year AS user_birth_year,
+  #   users.birth_month AS user_birth_month,
+  #   users.birth_day AS user_birth_day,
+  #   users.gender AS user_gender,
+  #   locations.name AS location_name
+  #   FROM `habits` INNER JOIN `users` ON `users`.`id` = `habits`.`user_id` INNER JOIN `locations` ON `locations`.`id` = `habits`.`location_id` ORDER BY id DESC'
+  #   all_habits = Habit.find_by_sql(sql)
+  #   render json: all_habits
+  # end
 
   def users_habits_show
     current_user_habits = Habit.where(user_id: params[:user_id]).joins(:user)
@@ -52,6 +71,7 @@ class Api::V1::HabitsController < ApiController
   def create
     habit = Habit.new(habit_params)
     if habit.save!
+      habit.eyecatch = (habit_params[:image]) #追記。画像がないときはどうするのか？初期値設定？
       render json: habit, status: :created
     else
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
@@ -75,6 +95,6 @@ class Api::V1::HabitsController < ApiController
   private
 
   def habit_params
-    params.permit(:id, :name, :description, :best, :user_id, :location_id)
+    params.permit(:id, :name, :description, :best, :user_id, :location_id, :image)
   end
 end

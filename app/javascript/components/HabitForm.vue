@@ -39,6 +39,19 @@
               required
             ></v-select>
           </v-col>
+          <!-- <v-col
+            cols="12"
+            md="4"
+          >
+            <v-file-input
+              v-model="uploadedImage"
+              :rules="fileRules"
+              accept="image/png, image/jpeg, image/bmp"
+              placeholder="写真・画像を登録する"
+              prepend-icon="mdi-camera"
+              @change="$emit('fileInput')"
+            ></v-file-input>
+          </v-col> -->
           <v-col
             cols="12"
             md="4"
@@ -49,6 +62,7 @@
               label="My定番スポットと紐付ける"
             ></v-select>
           </v-col>
+          <slot></slot>
         </v-row>
       </v-container>
       <v-row>
@@ -89,6 +103,7 @@ import { mapGetters, mapActions } from 'vuex';
       formTitle: '',
       buttonName: '',
       habit: {},
+      uploadedImage: '',
       buttonColor: '',
       clickButton: '',
     },
@@ -96,12 +111,15 @@ import { mapGetters, mapActions } from 'vuex';
       return {
         items: habitAmount,
         nameRules: [
-          v => !!v || '習慣名の入力は必須です',
-          v => v.length <= 20 || '習慣名は20文字以内で入力して下さい'
+          value => !!value || '習慣名の入力は必須です',
+          value => value.length <= 20 || '習慣名は20文字以内で入力して下さい'
         ],
         descriptionRules: [
-          v => v.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',
+          value => value.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',
         ],
+        // fileRules: [
+        //   value => !value || value.size < 2000000 || 'ファイルサイズは2MB以下でお願いします',
+        // ],
       }
     },
     computed: {
@@ -111,7 +129,7 @@ import { mapGetters, mapActions } from 'vuex';
       myLocations() {
         return this.locations.map( location => {
           return { value: location.id, text: location.name }
-          })
+        })
       }
     },
     methods: {
@@ -121,7 +139,34 @@ import { mapGetters, mapActions } from 'vuex';
       ]),
       destroy() {
         this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))
-      }
+      },
+
+      //これは要る。
+      // onFileChange() {
+      //   let file = event.target.files[0] || event.dataTransfer.files
+      //   let reader = new FileReader()
+      //   reader.onload = () => {
+      //     this.uploadedImage = event.target.result
+      //     this.habit.image = this.uplpadedImage
+      //   }
+      //   reader.readAsDataURL(file)
+      // },
+
+      //これはhabit.jsのaddHabitでいける。
+      // postItem() {
+      //   return new Promise((resolve, _) => {
+      //     axios
+      //       .post('/api/v1/habits', this.habit )
+      //       .then(response => {
+      //         this.habit = {}
+      //         this.uploadedImage = ''
+      //         this.$refs.file.value = ''
+      //         resolve(response)
+      //       }).catch( error => {
+      //         console.error(error)
+      //       })
+      //   })
+      // }
     },
     created() {
       this.setLocations()

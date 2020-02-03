@@ -50,8 +50,11 @@
 
     <v-row>
       <v-spacer></v-spacer>
-      <v-btn>
-        <router-link :to="{ name: 'HabitNew' }"><v-icon>mdi-plus-box</v-icon>新規習慣の作成</router-link>
+      <v-btn
+        :to="{ name: 'HabitNew'}"
+      >
+        <v-icon>mdi-plus-box</v-icon>
+        新規習慣の作成
       </v-btn>
       <v-spacer></v-spacer>
     </v-row>

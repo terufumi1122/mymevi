@@ -344,7 +344,7 @@ export default {
               lat: this.center.lat,
               lng: this.center.lng,
               user_id: this.currentUser.id,
-              habit_id: 0
+              habit_id: 30 //サンプル
             };
             //location.jsで定義したactionsを呼び出す。
             this.addLocation(locationParams);

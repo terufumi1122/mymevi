@@ -4,7 +4,7 @@
 #
 #  id          :bigint           not null, primary key
 #  best        :integer          not null
-#  description :string(255)      not null
+#  description :text(65535)      not null
 #  name        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -27,7 +27,6 @@ RSpec.describe Habit, type: :model do
     #   user_id: 1 
     # )
     habit = FactoryBot.create(:habit)
-    expect(habit
-    ).to be_valid
+    expect(habit).to be_valid
   end
 end

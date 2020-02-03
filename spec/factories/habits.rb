@@ -4,7 +4,7 @@
 #
 #  id          :bigint           not null, primary key
 #  best        :integer          not null
-#  description :string(255)      not null
+#  description :text(65535)      not null
 #  name        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -18,5 +18,8 @@ FactoryBot.define do
     sequence(:description) { |n| "Habit#{n}'s describe" }
     best { rand(1..4) }
     user_id { 1 }
+
+    association :user
+
   end
 end

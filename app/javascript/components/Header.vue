@@ -20,15 +20,19 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <v-btn icon v-if="logined">
-        <router-link :to="{ name: 'AllBestHabits' }">
+      <v-btn
+        :to="{ name: 'AllBestHabits' }"
+        icon
+        v-if="logined"
+      >
           <v-icon>mdi-heart</v-icon>
-        </router-link>
       </v-btn>
-      <v-btn icon v-if="logined">
-        <router-link :to="{ name: 'UserDetail' }">
+      <v-btn
+        :to="{ name: 'UserDetail' }"
+        icon
+        v-if="logined"
+      >
           <v-icon>mdi-account-circle</v-icon>
-        </router-link>
       </v-btn>
 
       <v-menu>
