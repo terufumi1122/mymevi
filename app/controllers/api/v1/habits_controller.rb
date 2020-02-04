@@ -66,7 +66,7 @@ class Api::V1::HabitsController < ApiController
       location_id
       ")
     
-    habit = habit_detail.as_json #アイキャッチ画像がなければここまでのデータを返す
+    habit = habit_detail[0].as_json #アイキャッチ画像がなければここまでのデータを返す
       
     eyecatch = habit_detail[0].eyecatch
     if eyecatch.present? #アイキャッチ画像があればDBから引っ張る
@@ -125,9 +125,6 @@ class Api::V1::HabitsController < ApiController
       FileUtils.rm("#{Rails.root}/tmp/#{filename}") #作業用に作成した一時ファイルを削除
     end
 
-    # if habit.update!(habit_params)
-      # render json: { message: "habit updated!" }, status: :updated
-    # else
     unless habit.update!(habit_params)
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
     end

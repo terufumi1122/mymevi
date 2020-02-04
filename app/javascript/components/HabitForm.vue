@@ -60,15 +60,18 @@
             cols="12"
             md="4"
           >
-            <label>
-              <v-img :src="habit.image" ></v-img>
+              <v-img
+                v-show="imageShow"
+                :src="habit.image"
+              ></v-img>
               <ImageUploader
                 v-bind="habit"
                 :value="habit.image"
                 @change="updateHabit($event, 'image')"
                 :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
+                :deleteShow="habit.image !== null"
+                @deleteClick="deleteHabitImage()"
               ></ImageUploader>
-            </label>
           </v-col>
 
         </v-row>
@@ -144,12 +147,11 @@ import ImageUploader from './ImageUploader'
       ...mapActions([
         'destroyHabit',
         'setLocations',
-        'setHabit'
+        'setHabit',
+        'deleteHabitImage'
       ]),
 
       updateHabit(event, keyName) {
-        console.log(event)
-        console.log(keyName)
         this.$store.commit('updateHabit', { value: event, keyName })
       },
 

@@ -2,8 +2,14 @@
   <v-container>
     <v-row>
       <v-spacer></v-spacer>
+      <div>
+        <p id="error" v-show="error">{{ error }}</p>
+      </div>
+      <v-spacer></v-spacer>
+    </v-row>
+    <v-row>
+      <v-spacer></v-spacer>
         <div>
-          <p id="error" v-show="error">{{ error }}</p>
           <v-btn
             color="green"
             dark
@@ -21,6 +27,17 @@
             @change="onImageChange"
           />
         </div>
+        <v-spacer></v-spacer>
+        <div v-if="deleteShow" >
+          <v-btn
+            color="red"
+            dark
+            @click="$emit('deleteClick')"
+          >
+            <v-icon>mdi-trash</v-icon>
+            画像を削除する
+          </v-btn>
+        </div>
       <v-spacer></v-spacer>
     </v-row>
   </v-container>
@@ -31,7 +48,8 @@ export default {
   name: 'ImageUploder',
   props: {
     id: Number,
-    currentImage: String
+    currentImage: String,
+    deleteShow: Boolean,
   },
   model: {
     prop: 'currentImage',

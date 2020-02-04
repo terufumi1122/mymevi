@@ -8,7 +8,6 @@ import flashStore from './stores/flash.js'
 import favoriteStore from './stores/favorite.js'
 import locationStore from './stores/location.js'
 
-
 Vue.use(Vuex)
 
 const store = new Vuex.Store({

@@ -43,9 +43,14 @@ export default ({
     clearHabit(state) {
       state.habit = {}
     },
+    deleteHabitImage(state) {
+      delete state.habit.image
+    },
+
     updateHabit(state, { value, keyName }) {
       state.habit[keyName] = value
     },
+
     currentUserHabits(state, payload) {
       state.habits = payload.habits
     },
@@ -101,6 +106,9 @@ export default ({
     },
     clearHabit(context) {
       context.commit('clearHabit')
+    },
+    deleteHabitImage(context) {
+      context.commit('deleteHabitImage')
     },
 
     setCurrentUserHabits(context, currentUserId) {

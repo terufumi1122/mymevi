@@ -1,79 +1,81 @@
 <template>
-  <div>
     <v-container>
       <v-form>
         <h2>{{ formTitle }}</h2>
+        <div v-if="mode === 'full'">
+          <v-row>
+              <v-text-field
+                :value="user.name"
+                @input="updateUserParams($event, 'name')"
+                :rules="nameRules"
+                :counter="20"
+                label="名前"
+                required
+              ></v-text-field>
+          </v-row>
+        </div>
         <v-row>
-          <v-col
-            cols="12"
-            md="4"
-          >
             <v-text-field
-              v-model="user.name"
-              :rules="nameRules"
-              :counter="20"
-              label="名前"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="user.email"
+              :value="user.email"
+              @input="updateUserParams($event, 'email')"
               :rules="emailRules"
               label="メールアドレス"
               required
             ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
+        </v-row>
+        <div v-if="mode === 'full'">
+          <v-row>
+              <v-select
+                :value="user.birth_year"
+                @input="updateUserParams($event, 'birth_year')"
+                :items="years"
+                label="西暦"
+              ></v-select>
+          </v-row>
+          <v-row>
+              <v-select
+                :value="user.birth_month"
+                @input="updateUserParams($event, 'birth_month')"
+                :items="months"
+                label="月"
+              ></v-select>
+          </v-row>
+          <v-row>
+              <v-select
+                :value="user.birth_day"
+                @input="updateUserParams($event, 'birth_day')"
+                :items="days"
+                label="日"
+              ></v-select>
+          </v-row>
+              <!-- 要修正1      1¡ -->
+          <v-row>
+            <v-radio-group
+              label="性別"
+              :value="user.gender"
+              @change="updateUserParams($event, 'gender')"
+              row
+            >
+              <v-radio
+                :label="`男性`"
+                :value="1"
+              ></v-radio>
+              <v-radio
+                :label="`女性`"
+                :value="2"
+              ></v-radio>
+              <v-radio
+                :label="`その他`"
+                :value="3"
+              ></v-radio>
+            </v-radio-group>
+          </v-row>
+        </div>
           <!-- 要修正 -->
-            <v-select
-              v-model="user.birth_year"
-              :items="years"
-              label="西暦"
-            ></v-select>
-            <v-select
-              v-model="user.birth_month"
-              :items="months"
-              label="月"
-            ></v-select>
-            <v-select
-              v-model="user.birth_day"
-              :items="days"
-              label="日"
-            ></v-select>
-            <!-- 要修正1      1¡ -->
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-          <v-radio-group label="性別" v-model="user.gender" row>
-            <v-radio
-              :label="`男性`"
-              :value="1"
-            ></v-radio>
-            <v-radio
-              :label="`女性`"
-              :value="2"
-            ></v-radio>
-            <v-radio
-              :label="`その他`"
-              :value="3"
-            ></v-radio>
-          </v-radio-group>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="user.password"
+        <v-row>
+             <v-text-field
+              :value="user.password"
+              @input="updateUserParams($event, 'password')"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="passwordRules"
               :type="show1 ? 'text' : 'password'"
@@ -82,22 +84,34 @@
               required
               @click:append="show1 = !show1"
             ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="user.password_confirmation"
-              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="passwordRules"
-              :type="show2 ? 'text' : 'password'"
-              :counter="16"
-              label="パスワード(確認用)"
-              required
-              @click:append="show2 = !show2"
-            ></v-text-field>
-          </v-col>
+        </v-row>
+        <div v-if="mode === 'full'">
+          <v-row>
+              <v-text-field
+                :value="user.password_confirmation"
+                @input="updateUserParams($event, 'password_confirmation')"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="passwordRules"
+                :type="show2 ? 'text' : 'password'"
+                :counter="16"
+                label="パスワード(確認用)"
+                required
+                @click:append="show2 = !show2"
+              ></v-text-field>
+          </v-row>
+        </div>
+        <v-row>
+          <v-img
+            :src="user.image"
+          ></v-img>
+          <ImageUploader
+            v-bind="user"
+            :value="user.image"
+            @change="updateUserParams($event, 'image')"
+            :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
+            :deleteShow="user.image !== null"
+            @deleteClick="deleteImage()"
+          ></ImageUploader>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
@@ -106,10 +120,12 @@
         </v-row>
       </v-form>
     </v-container>
-  </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import ImageUploader from './ImageUploader'
+
   const maxAge = 117; //要修正
   const ageRange = [...Array(maxAge).keys()] //要修正
 
@@ -119,9 +135,13 @@
 
   export default {
     name: 'UserForm',
+    components: {
+      ImageUploader,
+    },
     props: {
-      formTitle: '',
-      user: {},
+      formTitle: String,
+      user: Object,
+      mode: String,
     },
     data() {
       return {
@@ -148,5 +168,17 @@
         ],
       }
     },
+    destroyed() {
+      this.clearUser()
+    },
+    methods: {
+      ...mapActions ([
+        'clearUser'
+      ]),
+      updateUserParams(event,keyName) {
+        console.log(event)
+        this.$store.commit('updateUserParams', { value: event, keyName })
+      }
+    }
   }
 </script>

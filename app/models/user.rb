@@ -47,4 +47,6 @@ class User < ActiveRecord::Base
   # validates_uniqueness_of :email, case_sensitive: true
   # validates :email, uniqueness: true, case_sensitive: true
   validates :email, uniqueness: true
+  has_one_attached :eyecatch
+  attr_accessor :image
 end

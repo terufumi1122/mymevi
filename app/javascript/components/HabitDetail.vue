@@ -145,7 +145,7 @@
         .then(response => (this.user = response.data))
     },
     destroyed() {
-      this.deleteHabit()
+      this.clearHabit()
     },
     methods: {
       ...mapActions ([
@@ -153,8 +153,7 @@
         'setCurrentUserHabits',
         'addLike',
         'deleteLike',
-        'deleteHabitImage',
-        'deleteHabit'
+        'clearHabit'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}

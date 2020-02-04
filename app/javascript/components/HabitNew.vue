@@ -20,11 +20,6 @@ import HabitForm from './HabitForm.vue'
     components: {
       HabitForm,
     },
-    data() {
-      return {
-        // habit: {},
-      }
-    },
     computed: {
       ...mapGetters([
         'habit',

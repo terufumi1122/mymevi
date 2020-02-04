@@ -1,7 +1,15 @@
 <template>
   <div>
-    <user-form formTitle="ユーザー情報の変更" :errors="errors" :user="currentUser" @clickButton="updateUser1">入力の通りに更新する</user-form>
-    <Dialog @clickDialogButton="deleteUser1">
+    <UserForm
+      mode="full"
+      formTitle="ユーザー情報の変更"
+      :errors="errors"
+      :user="currentUser"
+      @clickButton="updateUser1"
+    >入力の通りに更新する</UserForm>
+    <Dialog
+      @clickDialogButton="deleteUser1"
+    >
         <v-icon>mdi-trash-can</v-icon>
         アカウントを削除する
     </Dialog>
@@ -32,9 +40,6 @@ export default {
       'currentUser',
       'sampleLogined'
     ]),
-    user() {
-      return this.currentUser
-    }
   },
   methods: {
     ...mapActions([
