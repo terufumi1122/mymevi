@@ -1,7 +1,8 @@
 <template>
   <div>
     <p id="error" v-show="error">{{ error }}</p>
-      <div>
+      <div
+      >
         <input
           type="file"
           id="image_name"

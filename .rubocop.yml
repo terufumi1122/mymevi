@@ -28,4 +28,4 @@ Stype/FrozenStringLiteralComment:
   Enabled: false
 
 StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes

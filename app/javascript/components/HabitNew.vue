@@ -50,7 +50,6 @@ import ImageUploader from './ImageUploader.vue'
         habit: {},
         //親コンポーネントで動くか検証
         error: '',
-        // habit.image: '',
         message: '',
         uploadedImage: '',
         fileRules: [
@@ -69,49 +68,6 @@ import ImageUploader from './ImageUploader.vue'
         'addHabit',
       ]),
 
-      //ここから写経
-      // setError(error, text) {
-      //   this.error = (error.response && error.response.data && error.response.data.error) || text
-      // },
-      // getBase64(file) {
-      //   return new Promise( (resolve, reject) => {
-      //     const reader = new FileReader()
-      //     reader.readAsDataURL(file)
-      //     reader.onload = () => resolve(reader.result)
-      //     reader.onerror = error => reject(error)
-      //   })
-      // },
-      // onImageChange(event) {
-      //   const images = event.target.files || event.dataTransfer.files
-      //   this.getBase64(images[0])
-      //     .then(image => this.habit.image = image)
-      //     .catch(error => this.setError(error, '画像のアップロードに失敗しました'))
-      // },
-      upload() {
-        if (this.habit.image) {
-          //ここにaxiosでpostリクエストを投げる処理を書く
-          console.log('画像アップしました！...コードを書けばね。')
-          //
-          this.message = 'アップロードしました'
-          this.error = ''
-        } else {
-          this.error = '画像がありません'
-        }
-      },
-
-
-
-
-      //以下は一旦使わない。
-      // onFileChange() {
-      //   let file = event.target.files[0] || event.dataTransfer.files
-      //   let reader = new FileReader()
-      //   reader.onload = (event) => {
-      //     this.uploadedImage = event.target.result
-      //     this.habit.image = this.uploadedImage
-      //   }
-      //   reader.readAsDataURL(file)
-      // },
       newHabit() {
         if (!this.habit.location_id) {
           this.habit.location_id = 1

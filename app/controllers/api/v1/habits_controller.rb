@@ -71,7 +71,23 @@ class Api::V1::HabitsController < ApiController
   def create
     habit = Habit.new(habit_params)
     if habit.save!
-      habit.eyecatch = (habit_params[:image]) #追記。画像がないときはどうするのか？初期値設定？
+      
+      #Habitモデルに画像を添付する
+      if habit_params[:image].present?
+        image = habit_params[:image]
+        prefix = image[/(image|application)(\/.*)(?=\;)/] #prefixをBase64でエンコードした文字列の中から正規表現で抜き出す
+        type = prefix.sub(/(image|application)(\/)/, '') #画像の拡張子をprefixから正規表現で抜き出す
+        data = Base64.decode64(image.sub(/data:#{prefix};base64,/, '')) #Vue.js側でエンコードした文字列をデコードする
+        filename = "#{Time.zone.now.strftime('%Y%m%d%H%M%S%L')}.#{type}" #現在時刻でファイル名作成
+
+        File.open("#{Rails.root}/tmp/#{filename}", 'wb') do |f| #tmp/ディレクトリにファイルを仮作成
+          f.write(data) #デコードした画像データを作成したファイルに書き込み
+        end
+
+        habit.eyecatch.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)  #habit.eyecatchにデコードした画像データファイルを添付する
+        FileUtils.rm("#{Rails.root}/tmp/#{filename}") #作業用に作成した一時ファイルを削除
+      end
+      
       render json: habit, status: :created
     else
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
