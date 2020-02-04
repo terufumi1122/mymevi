@@ -8,6 +8,7 @@ import habitStore from './stores/habit.js'
 import flashStore from './stores/flash.js'
 import favoriteStore from './stores/favorite.js'
 import locationStore from './stores/location.js'
+import imageStore from './stores/image.js'
 
 // import axios from 'axios'
 
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
     habitStore,
     flashStore,
     favoriteStore,
-    locationStore
+    locationStore,
+    imageStore,
   },
 
 })

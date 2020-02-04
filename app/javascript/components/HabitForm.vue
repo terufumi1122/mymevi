@@ -39,6 +39,20 @@
               required
             ></v-select>
           </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <v-select
+              v-model="habit.location_id"
+              :items="myLocations"
+              label="My定番スポットと紐付ける"
+            ></v-select>
+          </v-col>
+
+          <slot></slot>
+
+          <!-- ここに画像登録ボタンがほしい -->
           <!-- <v-col
             cols="12"
             md="4"
@@ -52,17 +66,7 @@
               @change="$emit('fileInput')"
             ></v-file-input>
           </v-col> -->
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-select
-              v-model="habit.location_id"
-              :items="myLocations"
-              label="My定番スポットと紐付ける"
-            ></v-select>
-          </v-col>
-          <slot></slot>
+
         </v-row>
       </v-container>
       <v-row>

@@ -86,18 +86,8 @@ export default ({
       state.allHabits = newHabits
     },
 
-    ascLikes(state) {
-      state.allHabits = state.allHabits.sort((a, b) => {
-        a.id - b.id
-      })
-    },
-    ascLiked(state) {
-      state.allHabits = state.allHabits.sort((a, b) => {
-        b.id - a.id
-      })
-    },
-
   },
+
 
   actions: {
     setCurrentUserHabits(context, currentUserId) {
@@ -109,13 +99,18 @@ export default ({
         .catch(error => {
           console.error(error)
         })
-      },
+    },
+    
       setCurrentHabit(context, habitId) {
         context.commit('currentHabitId', { currentHabitId: habitId })
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
             context.commit('habitDetail', { habit: response.data[0] })
+            //ここに画像のエンコード処理を書く
+            if (response.data[1]) {
+              context.dispatch('setHabitImage', response.data[1] )
+            }
             if (response.data[0].location_id !== null) {
               context.dispatch('setLocations')
             }
@@ -123,7 +118,8 @@ export default ({
           .catch(error => {
             console.error(error)
           })
-      },
+    },
+      
       setAllHabits(context) {
         axios
         .get('/api/v1/allhabits')
@@ -133,7 +129,8 @@ export default ({
         .catch(error => {
           alert(error)
         })
-      },
+    },
+      
       addHabit(context, habitParams, routeTo) {
         axios
         .post('/api/v1/habits', habitParams)
@@ -146,6 +143,7 @@ export default ({
           context.commit('createFlash', { type: 'error', message: '新しい習慣の登録に失敗しました' });
         })
     },
+      
     updateHabit(context, habitParams, routeTo) {
       axios
         .patch(`/api/v1/habits/${habitParams.id}`, habitParams)
@@ -157,7 +155,8 @@ export default ({
           console.error(error);
           context.commit('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
         })
-      },
+    },
+    
     destroyHabit(context, habitId, routeTo) {
       axios
         .delete(`/api/v1/habits/${habitId}`, { id: habitId })
@@ -169,11 +168,13 @@ export default ({
           console.error(error)
           context.commit('createFlash', { type: 'error', message: '習慣の削除に失敗しました' });
         })
-      },
+    },
+    
     changePageSize(context, pageSize) {
       context.commit('pageSize', { pageSize: pageSize });
       context.commit('pageNumberInit');
     },
+
     changePageNumber(context, pageNumber) {
       context.commit('pageNumber', { pageNumber: pageNumber })
     },
@@ -183,12 +184,6 @@ export default ({
     },
     descTime(context, sortKey) {
       context.commit('descTime', sortKey)
-    },
-    ascLikes(context) {
-      context.commit('ascLikes')
-    },
-    descLikes(context) {
-      context.commit('descLikes')
     },
 
   },

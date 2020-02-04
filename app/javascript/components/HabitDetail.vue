@@ -6,8 +6,16 @@
       max-width="374"
     >
       <v-img
+        v-if="habitImage"
+        haight="250"
+        :src="habitImage"
+        alt="登録した習慣の画像"
+      ></v-img>
+      <v-img
+        v-else
         height="250"
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        alt="デフォルト画像"
       ></v-img>
 
       <v-card-title>{{ habitDetail.name }}</v-card-title>
@@ -92,7 +100,8 @@
         'allFavorites',
         'currentUser',
         'habitDetail',
-        'habitLocation'
+        'habitLocation',
+        'habitImage'
       ]),
 
       isCurrentUser() {
@@ -154,6 +163,7 @@
           console.log('いいねを外しました')
         }
       },
+
     }
   }
 </script>

@@ -8,27 +8,20 @@
       buttonColor="blue"
       @clickButton="newHabit"
     >
-    <!-- 親コンポーネントに入れてみたらどうなるか検証 -->
           <v-col
             cols="12"
             md="4"
           >
             <label>
-              <img
-                :src="habit.image"
-                alt="habit.image"
-              >
+              <v-img :src="habit.image" ></v-img>
               <ImageUploader
                 v-bind="habit"
                 v-model="habit.image"
                 :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
               ></ImageUploader>
             </label>
-
           </v-col>
 
-
-    <!-- 親コンポーネントに入れてみたらどうなるか検証 -->
     </HabitForm>
   </div>
 </template>
