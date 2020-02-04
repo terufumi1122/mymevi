@@ -39,7 +39,7 @@
           <v-btn
             text
             color="deep-purple accent-4"
-            @click="setHabit"
+            @click="setHabitDetail(habitId)"
           >
             編集する
           </v-btn>
@@ -50,7 +50,7 @@
         <v-btn
           text
           color="deep-purple accent-4"
-          @click="setHabit"
+          @click="setHabitDetail(habitId)"
         >
           詳細を見る
         </v-btn>
@@ -89,7 +89,7 @@
       ...mapActions([
         'addLike',
         'deleteLike',
-        'setCurrentHabit'
+        'setHabitDetail'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.userId, habit_id: this.habitId}
@@ -101,9 +101,6 @@
           console.log('いいねを外しました')
         }
       },
-      setHabit() {
-        this.setCurrentHabit(this.habitId)
-      }
     }
   }
 </script>

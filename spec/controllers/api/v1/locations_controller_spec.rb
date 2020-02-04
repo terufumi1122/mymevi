@@ -1,24 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::LocationsController, type: :controller do
+RSpec.describe Api::V1::LocationsController, type: :request do
+
+  before do
+    @location = FactoryBot.create(:location)
+  end
 
   describe "GET #create" do
     it "returns http success" do
-      get :create
+      post :create
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #update" do
+  describe "PATCH #update" do
     it "returns http success" do
-      get :update
+      patch :update, params: { id: @location.id }
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #destroy" do
+  describe "DELETE #destroy" do
     it "returns http success" do
-      get :destroy
+      delete :destroy, params: { id: @location.id } 
       expect(response).to have_http_status(:success)
     end
   end

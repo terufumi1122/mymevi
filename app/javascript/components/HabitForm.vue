@@ -9,7 +9,8 @@
             md="4"
           >
             <v-text-field
-              v-model="habit.name"
+              :value="habit.name"
+              @input="updateHabit($event, 'name')"
               :rules="nameRules"
               :counter="20"
               label="習慣名"
@@ -21,7 +22,8 @@
             md="4"
           >
             <v-text-field
-              v-model="habit.description"
+              :value="habit.description"
+              @input="updateHabit($event, 'description')"
               :rules="descriptionRules"
               :counter="140"
               label="習慣詳細"
@@ -33,7 +35,8 @@
             md="4"
           >
             <v-select
-              v-model="habit.best"
+              :value="habit.best"
+              @input="updateHabit($event, 'best')"
               :items=items
               label="自分の中の習慣ランキング"
               required
@@ -44,11 +47,33 @@
             md="4"
           >
             <v-select
-              v-model="habit.location_id"
+              :value="habit.location_id"
+              @input="updateHabit($event, 'location_id')"
               :items="myLocations"
               label="My定番スポットと紐付ける"
             ></v-select>
           </v-col>
+
+          <slot></slot>
+
+          <v-col
+            cols="12"
+            md="4"
+          >
+              <v-img
+                v-show="imageShow"
+                :src="habit.image"
+              ></v-img>
+              <ImageUploader
+                v-bind="habit"
+                :value="habit.image"
+                @change="updateHabit($event, 'image')"
+                :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
+                :deleteShow="habit.image !== null"
+                @deleteClick="deleteHabitImage()"
+              ></ImageUploader>
+          </v-col>
+
         </v-row>
       </v-container>
       <v-row>
@@ -79,12 +104,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import ImageUploader from './ImageUploader'
 
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
 
   export default {
     name: 'HabitForm',
+    components: {
+      ImageUploader,
+    },
     props: {
       formTitle: '',
       buttonName: '',
@@ -96,11 +125,11 @@ import { mapGetters, mapActions } from 'vuex';
       return {
         items: habitAmount,
         nameRules: [
-          v => !!v || '習慣名の入力は必須です',
-          v => v.length <= 20 || '習慣名は20文字以内で入力して下さい'
+          value => !!value || '習慣名の入力は必須です',
+          value => value.length <= 20 || '習慣名は20文字以内で入力して下さい'
         ],
         descriptionRules: [
-          v => v.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',
+          value => value.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',
         ],
       }
     },
@@ -111,17 +140,25 @@ import { mapGetters, mapActions } from 'vuex';
       myLocations() {
         return this.locations.map( location => {
           return { value: location.id, text: location.name }
-          })
+        })
       }
     },
     methods: {
       ...mapActions([
         'destroyHabit',
-        'setLocations'
+        'setLocations',
+        'setHabit',
+        'deleteHabitImage'
       ]),
+
+      updateHabit(event, keyName) {
+        this.$store.commit('updateHabit', { value: event, keyName })
+      },
+
+
       destroy() {
         this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))
-      }
+      },
     },
     created() {
       this.setLocations()

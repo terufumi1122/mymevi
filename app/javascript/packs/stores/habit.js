@@ -3,15 +3,18 @@ import axios from 'axios'
 export default ({
 
   state: {
+    habit: {},
     habits: [],
     currentHabitId: null,
     allHabits: [],
     pageNumber: 1,
     pageSize: 5,
-    habitDetail: {},
   },
 
   getters: {
+    habit(state) {
+      return state.habit
+    },
     habits(state) {
       return state.habits;
     },
@@ -30,13 +33,24 @@ export default ({
     currentHabit(state) {
       return state.allHabits.find(habit => habit.id === state.currentHabitId )
     },
-    habitDetail(state) {
-      return state.habitDetail
-    },
 
   },
 
   mutations: {
+    habit(state, payload) {
+      state.habit = payload
+    },
+    clearHabit(state) {
+      state.habit = {}
+    },
+    deleteHabitImage(state) {
+      delete state.habit.image
+    },
+
+    updateHabit(state, { value, keyName }) {
+      state.habit[keyName] = value
+    },
+
     currentUserHabits(state, payload) {
       state.habits = payload.habits
     },
@@ -54,9 +68,6 @@ export default ({
     },
     pageNumberInit(state) {
       state.pageNumber = 1
-    },
-    habitDetail(state, payload) {
-      state.habitDetail = payload.habit
     },
 
     ascTime(state, sortKey) {
@@ -86,20 +97,20 @@ export default ({
       state.allHabits = newHabits
     },
 
-    ascLikes(state) {
-      state.allHabits = state.allHabits.sort((a, b) => {
-        a.id - b.id
-      })
-    },
-    ascLiked(state) {
-      state.allHabits = state.allHabits.sort((a, b) => {
-        b.id - a.id
-      })
-    },
-
   },
 
+
   actions: {
+    setHabit(context, habitObj) {
+      context.commit('habit', habitObj )
+    },
+    clearHabit(context) {
+      context.commit('clearHabit')
+    },
+    deleteHabitImage(context) {
+      context.commit('deleteHabitImage')
+    },
+
     setCurrentUserHabits(context, currentUserId) {
       axios
         .get('/api/v1/habits', { params: { user_id: currentUserId } })
@@ -109,21 +120,24 @@ export default ({
         .catch(error => {
           console.error(error)
         })
-      },
-      setCurrentHabit(context, habitId) {
+    },
+    
+      setHabitDetail(context, habitId) {
         context.commit('currentHabitId', { currentHabitId: habitId })
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
-            context.commit('habitDetail', { habit: response.data[0] })
-            if (response.data[0].location_id !== null) {
+            context.commit('habit', response.data )
+            //ここに画像のエンコード処理を書く
+            if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
           })
           .catch(error => {
             console.error(error)
           })
-      },
+    },
+   
       setAllHabits(context) {
         axios
         .get('/api/v1/allhabits')
@@ -133,7 +147,8 @@ export default ({
         .catch(error => {
           alert(error)
         })
-      },
+    },
+      
       addHabit(context, habitParams, routeTo) {
         axios
         .post('/api/v1/habits', habitParams)
@@ -146,9 +161,10 @@ export default ({
           context.commit('createFlash', { type: 'error', message: '新しい習慣の登録に失敗しました' });
         })
     },
-    updateHabit(context, habitParams, routeTo) {
+      
+    updateHabit(context, habit, routeTo) {
       axios
-        .patch(`/api/v1/habits/${habitParams.id}`, habitParams)
+        .patch(`/api/v1/habits/${habit.id}`, habit)
         .then(() => {
           context.commit('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
           return routeTo;
@@ -157,7 +173,8 @@ export default ({
           console.error(error);
           context.commit('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
         })
-      },
+    },
+    
     destroyHabit(context, habitId, routeTo) {
       axios
         .delete(`/api/v1/habits/${habitId}`, { id: habitId })
@@ -169,11 +186,13 @@ export default ({
           console.error(error)
           context.commit('createFlash', { type: 'error', message: '習慣の削除に失敗しました' });
         })
-      },
+    },
+    
     changePageSize(context, pageSize) {
       context.commit('pageSize', { pageSize: pageSize });
       context.commit('pageNumberInit');
     },
+
     changePageNumber(context, pageNumber) {
       context.commit('pageNumber', { pageNumber: pageNumber })
     },
@@ -183,12 +202,6 @@ export default ({
     },
     descTime(context, sortKey) {
       context.commit('descTime', sortKey)
-    },
-    ascLikes(context) {
-      context.commit('ascLikes')
-    },
-    descLikes(context) {
-      context.commit('descLikes')
     },
 
   },

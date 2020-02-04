@@ -3,12 +3,17 @@ import axios from 'axios'
 export default ({
 
   state: {
+    user: {},
     currentUser: null,
     headers: [],
     sampleLogined: false,
   },
 
   getters: {
+    user(state) {
+      return state.user
+    },
+
     currentUser(state) {
       return state.currentUser;
     },
@@ -19,10 +24,25 @@ export default ({
   },
 
   mutations: {
+    user(state, payload) {
+      state.user = payload
+    },
+    clearUser(state) {
+      state.user = {}
+    },
+    deleteUserImage(state) {
+      delete state.user.image
+    },
+
+    updateUserParams(state, { value, keyName }) {
+      state.user[keyName] = value
+    },
+
     currentUser(state, payload) {
       state.currentUser = payload.user;
       localStorage.setItem('currentUser', JSON.stringify(payload.user));
     },
+
     headers(state, payload) {
       let headers = {
         "access-token": payload["access-token"],
@@ -46,6 +66,16 @@ export default ({
   },
 
   actions: {
+    setUser(context, userObj) {
+      context.commit('user', userObj)
+    },
+    clearUser(context) {
+      context.commit('clearUser')
+    },
+    deleteUserImage(context) {
+      context.commit('deleteUserImage')
+    },
+
     signUp(context, userParams, routeTo) {
       axios
         .post('/api/v1/auth', userParams)

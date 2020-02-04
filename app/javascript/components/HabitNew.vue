@@ -20,13 +20,9 @@ import HabitForm from './HabitForm.vue'
     components: {
       HabitForm,
     },
-    data() {
-      return {
-        habit: {},
-      }
-    },
     computed: {
       ...mapGetters([
+        'habit',
         'currentUser'
       ])
     },
@@ -34,13 +30,18 @@ import HabitForm from './HabitForm.vue'
       ...mapActions([
         'addHabit',
       ]),
+
       newHabit() {
+        if (!this.habit.location_id) {
+          this.habit.location_id = 1
+        }
         const habitParams = {
             name: this.habit.name,
             description: this.habit.description,
             best: this.habit.best,
             user_id: this.currentUser.id,
-            location_id: this.habit.location_id
+            location_id: this.habit.location_id,
+            image: this.habit.image
         }
           this.addHabit(habitParams, this.routeTo('Top'))
         },

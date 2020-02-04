@@ -2,12 +2,25 @@
 #
 #                                Prefix Verb     URI Pattern                                                                              Controller#Action
 #                                  root GET      /                                                                                        home#index
-#                          api_v1_users GET      /api/v1/users(.:format)                                                                  api/v1/users#index {:format=>/json/}
-#                                       POST     /api/v1/users(.:format)                                                                  api/v1/users#create {:format=>/json/}
 #                           api_v1_user GET      /api/v1/users/:id(.:format)                                                              api/v1/users#show {:format=>/json/}
-#                                       PATCH    /api/v1/users/:id(.:format)                                                              api/v1/users#update {:format=>/json/}
-#                                       PUT      /api/v1/users/:id(.:format)                                                              api/v1/users#update {:format=>/json/}
-#                                       DELETE   /api/v1/users/:id(.:format)                                                              api/v1/users#destroy {:format=>/json/}
+#                       api_v1_allusers GET      /api/v1/allusers(.:format)                                                               api/v1/users#all_users {:format=>/json/}
+#                         api_v1_habits POST     /api/v1/habits(.:format)                                                                 api/v1/habits#create {:format=>/json/}
+#                          api_v1_habit GET      /api/v1/habits/:id(.:format)                                                             api/v1/habits#show {:format=>/json/}
+#                                       PATCH    /api/v1/habits/:id(.:format)                                                             api/v1/habits#update {:format=>/json/}
+#                                       PUT      /api/v1/habits/:id(.:format)                                                             api/v1/habits#update {:format=>/json/}
+#                                       DELETE   /api/v1/habits/:id(.:format)                                                             api/v1/habits#destroy {:format=>/json/}
+#                                       GET      /api/v1/habits(.:format)                                                                 api/v1/habits#users_habits_show {:format=>/json/}
+#                      api_v1_allhabits GET      /api/v1/allhabits(.:format)                                                              api/v1/habits#all_habits_show {:format=>/json/}
+#                   api_v1_habit_detail GET      /api/v1/habit_detail(.:format)                                                           api/v1/habits#habit_detail {:format=>/json/}
+#                      api_v1_favorites GET      /api/v1/favorites(.:format)                                                              api/v1/favorites#index {:format=>/json/}
+#                 api_v1_user_favorites GET      /api/v1/user_favorites(.:format)                                                         api/v1/favorites#current_user_index {:format=>/json/}
+#                api_v1_favorite_create POST     /api/v1/favorite/create(.:format)                                                        api/v1/favorites#create {:format=>/json/}
+#                       api_v1_favorite DELETE   /api/v1/favorite(.:format)                                                               api/v1/favorites#destroy {:format=>/json/}
+#                      api_v1_locations GET      /api/v1/locations(.:format)                                                              api/v1/locations#index {:format=>/json/}
+#                                       POST     /api/v1/locations(.:format)                                                              api/v1/locations#create {:format=>/json/}
+#                       api_v1_location PATCH    /api/v1/locations/:id(.:format)                                                          api/v1/locations#update {:format=>/json/}
+#                                       PUT      /api/v1/locations/:id(.:format)                                                          api/v1/locations#update {:format=>/json/}
+#                                       DELETE   /api/v1/locations/:id(.:format)                                                          api/v1/locations#destroy {:format=>/json/}
 #                  new_api_user_session GET      /api/v1/auth/sign_in(.:format)                                                           devise_token_auth/sessions#new {:format=>/json/}
 #                      api_user_session POST     /api/v1/auth/sign_in(.:format)                                                           devise_token_auth/sessions#create {:format=>/json/}
 #              destroy_api_user_session DELETE   /api/v1/auth/sign_out(.:format)                                                          devise_token_auth/sessions#destroy {:format=>/json/}

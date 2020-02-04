@@ -6,15 +6,24 @@
       max-width="374"
     >
       <v-img
+        v-if="habit.image"
+        haight="250"
+        :src="habit.image"
+        alt="登録した習慣の画像"
+      ></v-img>
+      <v-img
+        v-else
         height="250"
         src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        alt="デフォルト画像"
       ></v-img>
 
-      <v-card-title>{{ habitDetail.name }}</v-card-title>
+      <v-card-title>{{ habit.name }}</v-card-title>
 
       <v-card-text>
-        <div>詳細：{{ habitDetail.description }}</div>
+        <div>詳細：{{ habit.description }}</div>
         <div>場所：{{ habitLocation.name }}</div>
+        <div>場所：{{ habit.location_name }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -22,7 +31,7 @@
       <v-card-title>こんな人がオススメしています！</v-card-title>
 
       <div class="my-4 subtitle-1 grey--text">
-        {{ habitDetail.user_name }}{{ userGender }}さんの{{ habitDetail.best }}番目のオススメ習慣です！
+        {{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！
       </div>
 
       <v-row
@@ -90,18 +99,18 @@
         'currentHabitId',
         'allFavorites',
         'currentUser',
-        'habitDetail',
-        'habitLocation'
+        'habit',
+        'habitLocation',
       ]),
 
       isCurrentUser() {
-        return this.habitDetail.user_id === this.currentUser.id
+        return this.habit.user_id === this.currentUser.id
       },
       likesCount() {
-        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id ).length
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habit.id ).length
       },
       LikedUsers() {
-        return this.allFavorites.filter( favorite => favorite.habit_id === this.habitDetail.id).map( f => f.user_id )
+        return this.allFavorites.filter( favorite => favorite.habit_id === this.habit.id).map( f => f.user_id )
       },
       isLike() {
         return this.LikedUsers.includes(this.currentUser.id)
@@ -113,9 +122,9 @@
         return this.currentUser.gender
       },
       userGender() {
-        if(this.habitDetail.user_gender === 1) {
+        if(this.habit.user_gender === 1) {
           return '(男性)'
-        } else if(this.habitDetail.user_gender === 2 ) {
+        } else if(this.habit.user_gender === 2 ) {
           return '(女性)'
         } else {
           return ''
@@ -135,16 +144,19 @@
         .get(`/api/v1/users/${userId}.json`)
         .then(response => (this.user = response.data))
     },
+    destroyed() {
+      this.clearHabit()
+    },
     methods: {
       ...mapActions ([
         'setAllFavorites',
         'setCurrentUserHabits',
         'addLike',
         'deleteLike',
-        'setCurrentHabit'
+        'clearHabit'
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.currentUser.id, habit_id: this.habitDetail.id}
+        let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
         if (this.isLike === false) {
           this.addLike(likeParams)
           console.log('いいねをつけました')
@@ -153,6 +165,7 @@
           console.log('いいねを外しました')
         }
       },
+
     }
   }
 </script>
