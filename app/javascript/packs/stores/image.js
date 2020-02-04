@@ -25,6 +25,10 @@ export default {
 
     userImages(state, payload) {
       state.userImages = payload
+    },
+
+    deleteHabitImage(state) {
+      state.habitImage = null
     }
 
   },
@@ -34,6 +38,10 @@ export default {
 
     setHabitImage(context, file) {
       context.commit('habitImage', file)
+    },
+
+    deleteHabitImage(context) {
+      context.commit('deleteHabitImage')
     },
 
     setUserImages(context, file) {

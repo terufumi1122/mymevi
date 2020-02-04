@@ -52,20 +52,19 @@
 
           <slot></slot>
 
-          <!-- ここに画像登録ボタンがほしい -->
-          <!-- <v-col
+          <v-col
             cols="12"
             md="4"
           >
-            <v-file-input
-              v-model="uploadedImage"
-              :rules="fileRules"
-              accept="image/png, image/jpeg, image/bmp"
-              placeholder="写真・画像を登録する"
-              prepend-icon="mdi-camera"
-              @change="$emit('fileInput')"
-            ></v-file-input>
-          </v-col> -->
+            <label>
+              <v-img :src="habit.image" ></v-img>
+              <ImageUploader
+                v-bind="habit"
+                v-model="habit.image"
+                :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
+              ></ImageUploader>
+            </label>
+          </v-col>
 
         </v-row>
       </v-container>
@@ -97,17 +96,20 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import ImageUploader from './ImageUploader'
 
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
 
   export default {
     name: 'HabitForm',
+    components: {
+      ImageUploader,
+    },
     props: {
       formTitle: '',
       buttonName: '',
       habit: {},
-      uploadedImage: '',
       buttonColor: '',
       clickButton: '',
     },
@@ -121,9 +123,6 @@ import { mapGetters, mapActions } from 'vuex';
         descriptionRules: [
           value => value.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',
         ],
-        // fileRules: [
-        //   value => !value || value.size < 2000000 || 'ファイルサイズは2MB以下でお願いします',
-        // ],
       }
     },
     computed: {
@@ -144,33 +143,6 @@ import { mapGetters, mapActions } from 'vuex';
       destroy() {
         this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))
       },
-
-      //これは要る。
-      // onFileChange() {
-      //   let file = event.target.files[0] || event.dataTransfer.files
-      //   let reader = new FileReader()
-      //   reader.onload = () => {
-      //     this.uploadedImage = event.target.result
-      //     this.habit.image = this.uplpadedImage
-      //   }
-      //   reader.readAsDataURL(file)
-      // },
-
-      //これはhabit.jsのaddHabitでいける。
-      // postItem() {
-      //   return new Promise((resolve, _) => {
-      //     axios
-      //       .post('/api/v1/habits', this.habit )
-      //       .then(response => {
-      //         this.habit = {}
-      //         this.uploadedImage = ''
-      //         this.$refs.file.value = ''
-      //         resolve(response)
-      //       }).catch( error => {
-      //         console.error(error)
-      //       })
-      //   })
-      // }
     },
     created() {
       this.setLocations()

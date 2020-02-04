@@ -145,13 +145,17 @@
         .get(`/api/v1/users/${userId}.json`)
         .then(response => (this.user = response.data))
     },
+    destroyed() {
+      this.deleteHabitImage()
+    },
     methods: {
       ...mapActions ([
         'setAllFavorites',
         'setCurrentUserHabits',
         'addLike',
         'deleteLike',
-        'setCurrentHabit'
+        'setCurrentHabit',
+        'deleteHabitImage'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habitDetail.id}

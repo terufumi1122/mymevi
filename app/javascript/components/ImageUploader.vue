@@ -77,7 +77,6 @@ export default {
       const images = e.target.files || e.dataTransfer.files
         this.getBase64(images[0])
           .then(image => {
-            this.setHabitImage(image)
             this.setImage(image)
           })
           .catch(error => this.setError(error, '画像のアップロードに失敗しました。'))
