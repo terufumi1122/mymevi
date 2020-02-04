@@ -9,7 +9,6 @@ export default ({
     allHabits: [],
     pageNumber: 1,
     pageSize: 5,
-    // habitDetail: {},
   },
 
   getters: {
@@ -34,9 +33,6 @@ export default ({
     currentHabit(state) {
       return state.allHabits.find(habit => habit.id === state.currentHabitId )
     },
-    // habitDetail(state) {
-    //   return state.habitDetail
-    // },
 
   },
 
@@ -68,12 +64,6 @@ export default ({
     pageNumberInit(state) {
       state.pageNumber = 1
     },
-    // habitDetail(state, payload) {
-    //   state.habitDetail = payload.habit
-    // },
-    // clearHabitDetail(state) {
-    //   state.habitDetail = null
-    // },
 
     ascTime(state, sortKey) {
       const newHabits = state.allHabits
@@ -124,24 +114,6 @@ export default ({
         })
     },
     
-    //   setHabitDetail(context, habitId) {
-    //     context.commit('currentHabitId', { currentHabitId: habitId })
-    //     axios
-    //       .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
-    //       .then(response => {
-    //         context.commit('habitDetail', { habit: response.data })
-    //         //ここに画像のエンコード処理を書く
-    //         if (response.data.image) {
-    //           context.dispatch('setHabitImage', response.data.image )
-    //         }
-    //         if (response.data.location_id !== null) {
-    //           context.dispatch('setLocations')
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error(error)
-    //       })
-    // },
       setHabitDetail(context, habitId) {
         context.commit('currentHabitId', { currentHabitId: habitId })
         axios
