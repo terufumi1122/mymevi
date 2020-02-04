@@ -3,15 +3,19 @@ import axios from 'axios'
 export default ({
 
   state: {
+    habit: {},
     habits: [],
     currentHabitId: null,
     allHabits: [],
     pageNumber: 1,
     pageSize: 5,
-    habitDetail: {},
+    // habitDetail: {},
   },
 
   getters: {
+    habit(state) {
+      return state.habit
+    },
     habits(state) {
       return state.habits;
     },
@@ -30,13 +34,22 @@ export default ({
     currentHabit(state) {
       return state.allHabits.find(habit => habit.id === state.currentHabitId )
     },
-    habitDetail(state) {
-      return state.habitDetail
-    },
+    // habitDetail(state) {
+    //   return state.habitDetail
+    // },
 
   },
 
   mutations: {
+    habit(state, payload) {
+      state.habit = payload
+    },
+    clearHabit(state) {
+      state.habit = {}
+    },
+    updateHabit(state, { value, keyName }) {
+      state.habit[keyName] = value
+    },
     currentUserHabits(state, payload) {
       state.habits = payload.habits
     },
@@ -55,9 +68,12 @@ export default ({
     pageNumberInit(state) {
       state.pageNumber = 1
     },
-    habitDetail(state, payload) {
-      state.habitDetail = payload.habit
-    },
+    // habitDetail(state, payload) {
+    //   state.habitDetail = payload.habit
+    // },
+    // clearHabitDetail(state) {
+    //   state.habitDetail = null
+    // },
 
     ascTime(state, sortKey) {
       const newHabits = state.allHabits
@@ -90,6 +106,13 @@ export default ({
 
 
   actions: {
+    setHabit(context, habitObj) {
+      context.commit('habit', habitObj )
+    },
+    clearHabit(context) {
+      context.commit('clearHabit')
+    },
+
     setCurrentUserHabits(context, currentUserId) {
       axios
         .get('/api/v1/habits', { params: { user_id: currentUserId } })
@@ -101,16 +124,31 @@ export default ({
         })
     },
     
-      setCurrentHabit(context, habitId) {
+    //   setHabitDetail(context, habitId) {
+    //     context.commit('currentHabitId', { currentHabitId: habitId })
+    //     axios
+    //       .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
+    //       .then(response => {
+    //         context.commit('habitDetail', { habit: response.data })
+    //         //ここに画像のエンコード処理を書く
+    //         if (response.data.image) {
+    //           context.dispatch('setHabitImage', response.data.image )
+    //         }
+    //         if (response.data.location_id !== null) {
+    //           context.dispatch('setLocations')
+    //         }
+    //       })
+    //       .catch(error => {
+    //         console.error(error)
+    //       })
+    // },
+      setHabitDetail(context, habitId) {
         context.commit('currentHabitId', { currentHabitId: habitId })
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
-            context.commit('habitDetail', { habit: response.data })
+            context.commit('habit', response.data )
             //ここに画像のエンコード処理を書く
-            if (response.data.image) {
-              context.dispatch('setHabitImage', response.data.image )
-            }
             if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
@@ -119,7 +157,7 @@ export default ({
             console.error(error)
           })
     },
-      
+   
       setAllHabits(context) {
         axios
         .get('/api/v1/allhabits')
@@ -144,9 +182,9 @@ export default ({
         })
     },
       
-    updateHabit(context, habitParams, routeTo) {
+    updateHabit(context, habit, routeTo) {
       axios
-        .patch(`/api/v1/habits/${habitParams.id}`, habitParams)
+        .patch(`/api/v1/habits/${habit.id}`, habit)
         .then(() => {
           context.commit('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
           return routeTo;

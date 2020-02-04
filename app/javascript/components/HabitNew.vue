@@ -22,11 +22,12 @@ import HabitForm from './HabitForm.vue'
     },
     data() {
       return {
-        habit: {},
+        // habit: {},
       }
     },
     computed: {
       ...mapGetters([
+        'habit',
         'currentUser'
       ])
     },

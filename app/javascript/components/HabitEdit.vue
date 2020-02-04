@@ -1,9 +1,10 @@
 <template>
   <div>
     <HabitForm
+      v-model="habit"
       formTitle="習慣を修正"
       buttonName="上記内容で修正する"
-      :habit="habitDetail"
+      :habit="habit"
       buttonColor="teal"
       @clickButton="editHabit"
     ></HabitForm>
@@ -22,20 +23,27 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'habitDetail',
+      'habit'
     ])
+  },
+  destroyed() {
+    this.clearHabit()
   },
   methods: {
     ...mapActions([
       "updateHabit",
+      'clearHabit',
     ]),
     editHabit() {
       const habitParams = {
-        id: this.habitDetail.id,
-        name: this.habitDetail.name,
-        description: this.habitDetail.description,
-        best: this.habitDetail.best
-      };
+        id: this.habit.id,
+        name: this.habit.name,
+        description: this.habit.description,
+        best: this.habit.best,
+        user_id: this.habit.user_id,
+        location_id: this.habit.location_id,
+        image: this.habit.image
+      }
       this.updateHabit(habitParams, this.routeTo("Top"));
     },
     routeTo(routeName) {
