@@ -106,12 +106,12 @@ export default ({
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
-            context.commit('habitDetail', { habit: response.data[0] })
+            context.commit('habitDetail', { habit: response.data })
             //ここに画像のエンコード処理を書く
-            if (response.data[1]) {
-              context.dispatch('setHabitImage', response.data[1] )
+            if (response.data.image) {
+              context.dispatch('setHabitImage', response.data.image )
             }
-            if (response.data[0].location_id !== null) {
+            if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
           })

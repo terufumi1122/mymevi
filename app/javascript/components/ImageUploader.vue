@@ -36,7 +36,6 @@ export default {
     currentImage: String
   },
   model: {
-    // このcurrentImageは親で指定した(v-model="avatar")と同値。
     prop: 'currentImage',
     event: 'change'
   },

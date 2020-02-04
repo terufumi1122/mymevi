@@ -65,17 +65,20 @@ class Api::V1::HabitsController < ApiController
       users.gender AS user_gender,
       location_id
       ")
+    
+    habit = habit_detail.as_json #アイキャッチ画像がなければここまでのデータを返す
       
-      eyecatch = habit_detail[0].eyecatch
-
+    eyecatch = habit_detail[0].eyecatch
     if eyecatch.present? #アイキャッチ画像があればDBから引っ張る
       encoded_image = Base64.encode64(eyecatch.download) #アイキャッチ画像をBase64でエンコードする
       blob = ActiveStorage::Blob.find(eyecatch[:id]) #アイキャッチ画像のBlobオブジェクト
       habit_image = "data:#{blob[:content_type]};base64,#{encoded_image}" #Vue側で面倒な変換不要で読み込める形式に整形する
-      habit = [habit_detail[0], habit_image ] #renderするデータに追加する
+
+      habit = habit_detail[0].as_json #renderするデータに追加する
+      habit['image'] = habit_image #renderするデータに画像データを追加する
     end
 
-    render json: habit || habit_detail #画像がなければそれ以外のデータをrenderする。
+    render json: habit
   end
 
   def create
