@@ -1,7 +1,6 @@
 <template>
   <v-app id="app">
-    <Loading v-show="loading"/>
-    <div v-show="!loading">
+    <div>
       <Header/>
       <Flash/>
       <router-view
@@ -9,6 +8,8 @@
       ></router-view>
       <Footer/>
     </div>
+    <!-- ローディング画面は一旦なし -->
+    <!-- <Loading/> -->
   </v-app>
 </template>
 
@@ -29,21 +30,12 @@ export default {
     Flash,
     Footer,
   },
-  data() {
-    return {
-      loading: true,
-    }
-  },
   computed: {
     ...mapGetters([
       'currentUser',
     ])
   },
   mounted() {
-    setTimeout(() => {
-      this.loading = false
-    }, 2000);
-
     if (localStorage.currentUser) {
       this.setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
     }
@@ -54,7 +46,7 @@ export default {
   methods: {
     ...mapActions([
       'setCurrentUser',
-      'setHeaders'
+      'setHeaders',
     ])
   }
 }
