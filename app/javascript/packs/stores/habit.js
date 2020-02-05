@@ -46,6 +46,17 @@ export default ({
     deleteHabitImage(state) {
       delete state.habit.image
     },
+    
+    // draggable用
+    habits(state, payload) {
+      state.habits = payload
+    },
+    //並び順に応じてbestの値を変える
+    changeBest(state) {
+      state.habits.forEach((habit, index) => {
+        habit.best = index + 1
+      })
+    },
 
     updateHabit(state, { value, keyName }) {
       state.habit[keyName] = value
@@ -111,6 +122,23 @@ export default ({
       context.commit('deleteHabitImage')
     },
 
+    changeBest(context) {
+      context.commit('changeBest')
+      
+      context.getters.habits.forEach(habit => {
+        axios
+          .patch(`/api/v1/habits/${habit.id}`, habit)
+          .then(() => {
+            context.dispatch('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
+          })
+          .catch(error => {
+            console.error(error);
+            context.dispatch('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
+          })
+      })
+      
+    },
+
     setCurrentUserHabits(context, currentUserId) {
       axios
         .get('/api/v1/habits', { params: { user_id: currentUserId } })
@@ -128,7 +156,6 @@ export default ({
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
             context.commit('habit', response.data )
-            //ここに画像のエンコード処理を書く
             if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
@@ -149,8 +176,8 @@ export default ({
         })
     },
       
-      addHabit(context, habitParams, routeTo) {
-        axios
+    addHabit(context, habitParams, routeTo) {
+      axios
         .post('/api/v1/habits', habitParams)
         .then(() => {
           context.dispatch('createFlash', { type: 'success', message: '新しい習慣を登録しました' });

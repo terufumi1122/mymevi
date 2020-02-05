@@ -32,18 +32,6 @@
         <v-row>
           <v-col>
             <v-select
-              :value="habit.best"
-              @input="updateHabit($event, 'best')"
-              :items=items
-              label="自分の中の習慣ランキング"
-              required
-            ></v-select>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <v-select
               :value="habit.location_id"
               @input="updateHabit($event, 'location_id')"
               :items="myLocations"
