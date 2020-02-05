@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     def configure_permitted_parameters
   #     # devise_parameter_sanitizer.permit(許可したいアクション, keys: [許可したいパラメータ])
     #   devise_parameter_sanitizer.permit(:sign_up, keys: [:age, :gender, :format])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :birthday, :gender, :format])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :birthday, :gender, :format, :avatar])
     end
 
 end

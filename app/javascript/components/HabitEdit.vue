@@ -26,13 +26,9 @@ export default {
       'habit'
     ])
   },
-  destroyed() {
-    this.clearHabit()
-  },
   methods: {
     ...mapActions([
       'updateHabit',
-      'clearHabit',
     ]),
     editHabit() {
       const habitParams = {

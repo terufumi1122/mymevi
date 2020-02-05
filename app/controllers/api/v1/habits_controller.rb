@@ -1,4 +1,6 @@
-class Api::V1::HabitsController < ApiController
+class Api::V1::HabitsController < ApplicationController
+  include Base64Module #Base64にエンコードした画像をデコードするメソッド集
+
 
   def all_habits_show
     all_habits = Habit.order('id DESC').joins(:user)
@@ -67,15 +69,11 @@ class Api::V1::HabitsController < ApiController
       ")
     
     habit = habit_detail[0].as_json #アイキャッチ画像がなければここまでのデータを返す
-      
     eyecatch = habit_detail[0].eyecatch
-    if eyecatch.present? #アイキャッチ画像があればDBから引っ張る
-      encoded_image = Base64.encode64(eyecatch.download) #アイキャッチ画像をBase64でエンコードする
-      blob = ActiveStorage::Blob.find(eyecatch[:id]) #アイキャッチ画像のBlobオブジェクト
-      habit_image = "data:#{blob[:content_type]};base64,#{encoded_image}" #Vue側で面倒な変換不要で読み込める形式に整形する
 
-      habit = habit_detail[0].as_json #renderするデータに追加する
-      habit['image'] = habit_image #renderするデータに画像データを追加する
+    if eyecatch.present?
+      puts habit
+      habit['image'] = encode_base64(eyecatch) #renderするデータに画像データを追加する
     end
 
     render json: habit
@@ -83,24 +81,11 @@ class Api::V1::HabitsController < ApiController
 
   def create
     habit = Habit.new(habit_params)
+
     if habit.save!
-      
-      #Habitモデルに画像を添付する
-      if habit_params[:image].present?
-        image = habit_params[:image]
-        prefix = image[/(image|application)(\/.*)(?=\;)/] #prefixをBase64でエンコードした文字列の中から正規表現で抜き出す
-        type = prefix.sub(/(image|application)(\/)/, '') #画像の拡張子をprefixから正規表現で抜き出す
-        data = Base64.decode64(image.sub(/data:#{prefix};base64,/, '')) #Vue.js側でエンコードした文字列をデコードする
-        filename = "#{Time.zone.now.strftime('%Y%m%d%H%M%S%L')}.#{type}" #現在時刻でファイル名作成
-
-        File.open("#{Rails.root}/tmp/#{filename}", 'wb') do |f| #tmp/ディレクトリにファイルを仮作成
-          f.write(data) #デコードした画像データを作成したファイルに書き込み
-        end
-
-        habit.eyecatch.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)  #habit.eyecatchにデコードした画像データファイルを添付する
-        FileUtils.rm("#{Rails.root}/tmp/#{filename}") #作業用に作成した一時ファイルを削除
-      end
-      
+      binding.pry
+      parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する
+      # habit.parser_base64(eyecatch, habit_params[:image]) #画像を添付する
       render json: habit, status: :created
     else
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
@@ -109,22 +94,8 @@ class Api::V1::HabitsController < ApiController
   
   def update
     habit = Habit.find(habit_params[:id])
-    #Habitモデルに画像を添付する
-    if habit_params[:image].present?
-      image = habit_params[:image]
-      prefix = image[/(image|application)(\/.*)(?=\;)/] #prefixをBase64でエンコードした文字列の中から正規表現で抜き出す
-      type = prefix.sub(/(image|application)(\/)/, '') #画像の拡張子をprefixから正規表現で抜き出す
-      data = Base64.decode64(image.sub(/data:#{prefix};base64,/, '')) #Vue.js側でエンコードした文字列をデコードする
-      filename = "#{Time.zone.now.strftime('%Y%m%d%H%M%S%L')}.#{type}" #現在時刻でファイル名作成
+    parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する #エラー。eyecatchが定義されていないと出る。
   
-      File.open("#{Rails.root}/tmp/#{filename}", 'wb') do |f| #tmp/ディレクトリにファイルを仮作成
-        f.write(data) #デコードした画像データを作成したファイルに書き込み
-      end
-  
-      habit.eyecatch.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)  #habit.eyecatchにデコードした画像データファイルを添付する
-      FileUtils.rm("#{Rails.root}/tmp/#{filename}") #作業用に作成した一時ファイルを削除
-    end
-
     unless habit.update!(habit_params)
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
     end

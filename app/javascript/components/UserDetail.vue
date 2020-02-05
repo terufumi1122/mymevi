@@ -114,8 +114,9 @@ export default {
     ...mapActions([
       'setAllFavorites',
       'setAllHabits',
-      'setCurrentUserHabits'
-    ])
+      'setCurrentUserHabits',
+    ]),
+    
   }
 }
 </script>

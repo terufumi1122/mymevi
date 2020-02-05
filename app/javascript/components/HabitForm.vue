@@ -1,13 +1,10 @@
 <template>
-  <div>
+  <v-container>
     <v-form>
-      <v-container>
-        <h2>{{ formTitle }}</h2>
+      <h2>{{ formTitle }}</h2>
+
         <v-row>
-          <v-col
-            cols="12"
-            md="4"
-          >
+          <v-col>
             <v-text-field
               :value="habit.name"
               @input="updateHabit($event, 'name')"
@@ -17,10 +14,10 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
+        </v-row>
+
+        <v-row>
+          <v-col>
             <v-text-field
               :value="habit.description"
               @input="updateHabit($event, 'description')"
@@ -30,10 +27,10 @@
               required
             ></v-text-field>
           </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
+        </v-row>
+
+        <v-row>
+          <v-col>
             <v-select
               :value="habit.best"
               @input="updateHabit($event, 'best')"
@@ -42,10 +39,10 @@
               required
             ></v-select>
           </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
+        </v-row>
+
+        <v-row>
+          <v-col>
             <v-select
               :value="habit.location_id"
               @input="updateHabit($event, 'location_id')"
@@ -53,52 +50,54 @@
               label="My定番スポットと紐付ける"
             ></v-select>
           </v-col>
-
-          <slot></slot>
-
-          <v-col
-            cols="12"
-            md="4"
-          >
-              <v-img
-                v-show="imageShow"
-                :src="habit.image"
-              ></v-img>
-              <ImageUploader
-                v-bind="habit"
-                :value="habit.image"
-                @change="updateHabit($event, 'image')"
-                :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
-                :deleteShow="habit.image !== null"
-                @deleteClick="deleteHabitImage()"
-              ></ImageUploader>
-          </v-col>
-
         </v-row>
-      </v-container>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn
-          :color="buttonColor"
-          dark
-          @click="$emit('clickButton')"
-        >
-          <v-icon>mdi-plus-box</v-icon>
-          {{ buttonName }}
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="red"
-          dark
-          @click="destroy"
-        >
-          <v-icon>mdi-delete</v-icon>
-          削除する
-        </v-btn>
-        <v-spacer></v-spacer>
-      </v-row>
+
+        <slot></slot>
+
     </v-form>
-  </div>
+
+    <v-row>
+      <v-col>
+        <v-img
+          :src="habit.image"
+        ></v-img>
+        <ImageUploader
+          v-bind="habit"
+          :value="habit.image"
+          @change="updateHabit($event, 'image')"
+          :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
+          :deleteShow="habit.image !== null"
+          @deleteClick="deleteHabitImage()"
+        ></ImageUploader>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-btn
+            :color="buttonColor"
+            dark
+            @click="$emit('clickButton')"
+          >
+            <v-icon>mdi-plus-box</v-icon>
+            {{ buttonName }}
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="red"
+            dark
+            @click="destroy"
+          >
+            <v-icon>mdi-delete</v-icon>
+            削除する
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 
@@ -115,10 +114,10 @@ import ImageUploader from './ImageUploader'
       ImageUploader,
     },
     props: {
-      formTitle: '',
-      buttonName: '',
+      formTitle: String,
+      buttonName: String,
       habit: {},
-      buttonColor: '',
+      buttonColor: String,
       clickButton: '',
     },
     data() {
@@ -143,12 +142,16 @@ import ImageUploader from './ImageUploader'
         })
       }
     },
+    destroyed() {
+      this.clearHabit()
+    },
     methods: {
       ...mapActions([
         'destroyHabit',
         'setLocations',
         'setHabit',
-        'deleteHabitImage'
+        'deleteHabitImage',
+        'clearHabit'
       ]),
 
       updateHabit(event, keyName) {

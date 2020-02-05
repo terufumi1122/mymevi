@@ -46,7 +46,7 @@ export default ({
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', { type: 'error', message: '位置情報の登録に失敗しました'})
+          context.dispatch('createFlash', { type: 'error', message: '位置情報の登録に失敗しました'})
         })
     },
     
@@ -58,7 +58,7 @@ export default ({
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', { type: 'error', message: '登録済の位置情報のセットに失敗しました'})
+          context.dispatch('createFlash', { type: 'error', message: '登録済の位置情報のセットに失敗しました'})
         })
     },
       
@@ -67,11 +67,11 @@ export default ({
         .patch(`/api/v1/locations/${locationParams.id}`, locationParams)
         .then(() => {
           context.commit('locations', { locations: response.data })
-          context.commit('createFlash', { type: 'info', message: '位置情報を習慣に紐付けました'})
+          context.dispatch('createFlash', { type: 'info', message: '位置情報を習慣に紐付けました'})
         })
         .catch(error => {
           console.error(error)
-          context.commit('createFlash', { type: 'error', message: '位置情報を習慣に紐付けることが出来ませんでした'})
+          context.dispatch('createFlash', { type: 'error', message: '位置情報を習慣に紐付けることが出来ませんでした'})
         })
     },
 
@@ -80,11 +80,11 @@ export default ({
         axios
         .delete(`/api/v1/locations/${locationId}`, locationId)
         .then(() => {
-          context.commit('createFlash', { type: 'info', message: 'My定番スポットを削除しました'})
+          context.dispatch('createFlash', { type: 'info', message: 'My定番スポットを削除しました'})
         })
         .catch(error => {
           console.error(error)
-          context.commit('createFlash', { type: 'error', message: '位置情報の削除に失敗しました'})
+          context.dispatch('createFlash', { type: 'error', message: '位置情報の削除に失敗しました'})
         })
     }
   }
