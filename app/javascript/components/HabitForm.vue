@@ -61,7 +61,6 @@
             md="4"
           >
               <v-img
-                v-show="imageShow"
                 :src="habit.image"
               ></v-img>
               <ImageUploader
@@ -115,10 +114,10 @@ import ImageUploader from './ImageUploader'
       ImageUploader,
     },
     props: {
-      formTitle: '',
-      buttonName: '',
+      formTitle: String,
+      buttonName: String,
       habit: {},
-      buttonColor: '',
+      buttonColor: String,
       clickButton: '',
     },
     data() {

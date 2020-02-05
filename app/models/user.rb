@@ -48,5 +48,5 @@ class User < ActiveRecord::Base
   # validates :email, uniqueness: true, case_sensitive: true
   validates :email, uniqueness: true
   has_one_attached :eyecatch
-  attr_accessor :image
+  attr_accessor :avatar
 end
