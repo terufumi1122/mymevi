@@ -29,7 +29,7 @@
 <style>
 .flash-message__position {
   position: fixed;
-  top: 56px;
+  top: 0;
   left: 0;
   z-index: 100;
 }
