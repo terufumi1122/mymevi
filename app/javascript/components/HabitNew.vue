@@ -33,6 +33,7 @@ import HabitForm from './HabitForm.vue'
     computed: {
       ...mapGetters([
         'habit',
+        'habits',
         'currentUser'
       ])
     },
@@ -48,7 +49,7 @@ import HabitForm from './HabitForm.vue'
         const habitParams = {
             name: this.habit.name,
             description: this.habit.description,
-            best: this.habit.best,
+            best: (this.habits.length + 1), //現在のユーザーの習慣数 + 1が自動的に入る。
             user_id: this.currentUser.id,
             location_id: this.habit.location_id,
             image: this.habit.image
