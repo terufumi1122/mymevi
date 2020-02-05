@@ -153,12 +153,12 @@ export default ({
         axios
         .post('/api/v1/habits', habitParams)
         .then(() => {
-          context.commit('createFlash', { type: 'success', message: '新しい習慣を登録しました' });
+          context.dispatch('createFlash', { type: 'success', message: '新しい習慣を登録しました' });
           return routeTo;
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', { type: 'error', message: '新しい習慣の登録に失敗しました' });
+          context.dispatch('createFlash', { type: 'error', message: '新しい習慣の登録に失敗しました' });
         })
     },
       
@@ -166,12 +166,12 @@ export default ({
       axios
         .patch(`/api/v1/habits/${habit.id}`, habit)
         .then(() => {
-          context.commit('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
+          context.dispatch('createFlash', { type: 'success', message: '習慣の修正に成功しました' });
           return routeTo;
         })
         .catch(error => {
           console.error(error);
-          context.commit('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
+          context.dispatch('createFlash', { type: 'error', message: '習慣の修正に失敗しました' });
         })
     },
     
@@ -179,12 +179,12 @@ export default ({
       axios
         .delete(`/api/v1/habits/${habitId}`, { id: habitId })
         .then(() => {
-          context.commit('createFlash', { type: 'info', message: '習慣の削除に成功しました' });
+          context.dispatch('createFlash', { type: 'info', message: '習慣の削除に成功しました' });
           return routeTo;
         })
         .catch(error => {
           console.error(error)
-          context.commit('createFlash', { type: 'error', message: '習慣の削除に失敗しました' });
+          context.dispatch('createFlash', { type: 'error', message: '習慣の削除に失敗しました' });
         })
     },
     

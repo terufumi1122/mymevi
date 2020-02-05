@@ -1,12 +1,22 @@
 <template>
   <div>
     <HabitForm
+      v-model="habit"
       formTitle="新規習慣登録"
-      buttonName="新しい習慣を登録する"
+      buttonName="習慣を登録する"
+      v-bind="habit"
       :habit="habit"
       buttonColor="blue"
       @clickButton="newHabit"
     ></HabitForm>
+    currentUser
+    {{ currentUser }}
+    habit
+    {{ habit }}
+    habit.name
+    {{ habit.name }}
+    habit.image
+    {{ habit.image }}
   </div>
 </template>
 
@@ -43,8 +53,8 @@ import HabitForm from './HabitForm.vue'
             location_id: this.habit.location_id,
             image: this.habit.image
         }
-          this.addHabit(habitParams, this.routeTo('Top'))
-        },
+        this.addHabit(habitParams, this.routeTo('Top'))
+      },
       routeTo(routeName) {
         this.$router.push({ name: routeName })
       },
