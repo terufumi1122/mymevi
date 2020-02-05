@@ -12,14 +12,17 @@ export default {
   name: 'Loading',
   data() {
     return {
-      overlay: true,
+      overlay: false,
     }
+  },
+  created() {
+    this.overlay = true
   },
   watch: {
     overlay (val) {
       val && setTimeout(() => {
         this.overlay = false
-      }, 3000)
+      }, 2000)
     }
   }
 }
