@@ -33,20 +33,22 @@
 
     <div class="vertical-spacer"></div>
 
-    <div v-for="habit in habits" :key="habit.id">
-      <BestItem
-       :avatorColor="avatorColor[habit.best]"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
+    <draggable v-model=habits>
+      <div v-for="habit in habits" :key="habit.id">
+        <BestItem
+         :avatorColor="avatorColor[habit.best]"
+         :habitNumber="habit.best"
+         :habitTitle="habit.name"
+         :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
 
-       :habitId="habit.id"
-       :userId="currentUser.id"
-       :favorites="allFavorites"
-       :isCurrentUser="habit.user_id === currentUser.id"
-       />
-      <div class="vertical-spacer"></div>
-    </div>
+         :habitId="habit.id"
+         :userId="currentUser.id"
+         :favorites="allFavorites"
+         :isCurrentUser="habit.user_id === currentUser.id"
+         />
+        <div class="vertical-spacer"></div>
+      </div>
+    </draggable>
 
     <v-row>
       <v-spacer></v-spacer>
@@ -64,14 +66,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import axios from 'axios';
 import BestItem from './BestItem';
+import draggable from 'vuedraggable'
+
 
 export default {
   name: 'UserDetail',
   components: {
     BestItem,
+    draggable,
   },
   data() {
     return {
@@ -84,11 +89,20 @@ export default {
     }
   },
   computed:{
-    ...mapGetters([
-      'habits',
-      'allFavorites',
-      'currentUser',
-    ]),
+    ...mapGetters({
+      getHabits: 'habits',
+      allFavorites: 'allFavorites',
+      currentUser: 'currentUser',
+    }),
+    habits: {
+      get() {
+        return this.getHabits
+      },
+      set(value) {
+        this.setHabits(value)
+        this.changeBest()
+      }
+    },
     userGender() {
       if(this.currentUser.gender === 1) {
         return '男性'
@@ -111,11 +125,15 @@ export default {
       .then(response => (this.user = response.data))
   },
   methods: {
-    ...mapActions([
-      'setAllFavorites',
-      'setAllHabits',
-      'setCurrentUserHabits',
-    ]),
+    ...mapMutations({
+      setHabits: 'habits',
+    }),
+    ...mapActions({
+      setAllFavorites: 'setAllFavorites',
+      setAllHabits: 'setAllHabits',
+      setCurrentUserHabits: 'setCurrentUserHabits',
+      changeBest: 'changeBest'
+    }),
     
   }
 }

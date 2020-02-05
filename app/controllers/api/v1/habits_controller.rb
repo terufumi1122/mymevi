@@ -39,7 +39,7 @@ class Api::V1::HabitsController < ApplicationController
   # end
 
   def users_habits_show
-    current_user_habits = Habit.where(user_id: params[:user_id]).joins(:user)
+    current_user_habits = Habit.order('best ASC').where(user_id: params[:user_id]).joins(:user)
     .select("
       habits.id,
       habits.name,
@@ -83,9 +83,9 @@ class Api::V1::HabitsController < ApplicationController
     habit = Habit.new(habit_params)
 
     if habit.save!
-      binding.pry
-      parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する
-      # habit.parser_base64(eyecatch, habit_params[:image]) #画像を添付する
+      if habit_params[:image]
+        parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する
+      end
       render json: habit, status: :created
     else
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
@@ -94,8 +94,11 @@ class Api::V1::HabitsController < ApplicationController
   
   def update
     habit = Habit.find(habit_params[:id])
-    parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する #エラー。eyecatchが定義されていないと出る。
-  
+
+    if habit_params[:image]
+      parse_base64(habit.eyecatch, habit_params[:image]) #画像を添付する
+    end
+
     unless habit.update!(habit_params)
       render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity
     end
