@@ -39,7 +39,6 @@ class Api::V1::HabitsController < ApplicationController
   # end
 
   def users_habits_show
-    # current_user_habits = Habit.where(user_id: params[:user_id]).joins(:user)
     current_user_habits = Habit.order('best ASC').where(user_id: params[:user_id]).joins(:user)
     .select("
       habits.id,
