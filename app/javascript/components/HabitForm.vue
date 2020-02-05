@@ -85,6 +85,12 @@
         </v-row>
       </v-col>
     </v-row>
+    <Dialog
+      @clickDialogButton="destroy"
+    >
+      <v-icon>mdi-trash-can</v-icon>
+      習慣を削除する
+    </Dialog>
   </v-container>
 </template>
 
@@ -92,6 +98,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import ImageUploader from './ImageUploader'
+import Dialog from "./Dialog.vue";
 
   const maxHabitAmount= 3;
   const habitAmount = Array.from(Array(maxHabitAmount).keys(), x => x + 1)
@@ -100,6 +107,7 @@ import ImageUploader from './ImageUploader'
     name: 'HabitForm',
     components: {
       ImageUploader,
+      Dialog,
     },
     props: {
       formTitle: String,

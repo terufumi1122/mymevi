@@ -3,7 +3,6 @@
     <div>
       <Header/>
       <Flash/>
-      <DragSample></DragSample>
       <router-view
       class="main__view--margin"
       ></router-view>
@@ -22,7 +21,6 @@ import Header from './components/Header'
 import Flash from './components/Flash'
 import Footer from './components/Footer'
 
-import DragSample from './components/DragSample'
 
 
 export default {
@@ -32,8 +30,6 @@ export default {
     Header,
     Flash,
     Footer,
-
-    DragSample,
   },
   computed: {
     ...mapGetters([
