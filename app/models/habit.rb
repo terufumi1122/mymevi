@@ -13,11 +13,16 @@
 #
 
 class Habit < ApplicationRecord
+  with_options presence: true do
+    validates :name
+    validates :description
+    validates :best
+    validates :user_id
+  end
 
-  belongs_to :user
-  has_many :favorites, dependent: :destroy
+  belongs_to       :user
+  has_many         :favorites, dependent: :destroy
   has_one_attached :eyecatch
 
-  attr_accessor :image
-
+  attr_accessor    :image
 end

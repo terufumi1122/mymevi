@@ -14,12 +14,11 @@
 
 FactoryBot.define do
   factory :habit do
-    sequence(:name) { |n| "Habit#{n}" }
-    sequence(:description) { |n| "Habit#{n}'s describe" }
-    best { rand(1..4) }
-    user_id { 1 }
+    name               { Faker::Lorem.sentence }
+    description        { Faker::Lorem.paragraph }
+    best               { rand(1..4) }
+    sequence(:user_id) { |n| n }
 
     association :user
-
   end
 end

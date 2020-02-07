@@ -1,5 +1,4 @@
 class Api::V1::LocationsController < ApplicationController
-
   def index
     locations = Location.select("
       id,
@@ -51,7 +50,7 @@ class Api::V1::LocationsController < ApplicationController
         ")
       render json: new_locations
     else
-      render json: { errors: location.errors.full_messages }, status: :unprocessable_entity 
+      render json: { errors: location.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

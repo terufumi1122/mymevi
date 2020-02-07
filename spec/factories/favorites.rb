@@ -15,7 +15,7 @@
 
 FactoryBot.define do
   factory :favorite do
-    user_id { 1 }
-    habit_id { 1 }
+    association :habit
+    association :user
   end
 end

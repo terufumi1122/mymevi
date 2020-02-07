@@ -9,14 +9,6 @@
       buttonColor="blue"
       @clickButton="newHabit"
     ></HabitForm>
-    currentUser
-    {{ currentUser }}
-    habit
-    {{ habit }}
-    habit.name
-    {{ habit.name }}
-    habit.image
-    {{ habit.image }}
   </div>
 </template>
 
