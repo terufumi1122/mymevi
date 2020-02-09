@@ -5,6 +5,7 @@
       formTitle="ユーザー情報の変更"
       :errors="errors"
       :user="currentUser"
+      showImageForm="true"
       @clickButton="updateUser1"
     >入力の通りに更新する</UserForm>
     <Dialog

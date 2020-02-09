@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:show]
       get 'allusers', to: 'users#all_users'
+      post 'user/avatar', to: 'users#attach'
+      delete 'user/avatar', to: 'users#dettach'
       
       resources :habits, only: [:show, :create, :update, :destroy]
       get 'habits', to: 'habits#users_habits_show'

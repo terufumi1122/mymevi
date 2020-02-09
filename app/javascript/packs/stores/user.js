@@ -72,8 +72,19 @@ export default ({
     clearUser(context) {
       context.commit('clearUser')
     },
-    deleteUserImage(context) {
-      context.commit('deleteUserImage')
+    deleteUserImage(context, routeTo) {
+      const id = context.state.currentUser.id
+      axios
+        .delete('/api/v1/user/avatar', { params: { id: id } })
+        .then(() => {
+          context.commit('deleteUserImage')
+          context.dispatch('createFlash', { type: 'success', message: 'ユーザー画像の削除に成功しました' });
+          return routeTo
+        })
+        .catch(error => {
+          console.error(error);
+          context.dispatch('createFlash', { type: 'error', message: 'ユーザー画像の削除に失敗しました' });
+        });
     },
 
     signUp(context, userParams, routeTo) {
@@ -168,6 +179,21 @@ export default ({
     },
     setHeaders(context, headersParams) {
       context.commit('headers', headersParams)
+    },
+
+    sendImage(context) {
+      const id = context.state.currentUser.id
+      const image = context.state.user.image
+      axios
+        .post('/api/v1/user/avatar', { id: id, avatar: image })
+        .then(response => {
+          console.log(response)
+          context.dispatch('createFlash', { type: 'success', message: 'ユーザー画像を変更しました' })
+        })
+        .catch(error => {
+          console.error(error)
+          context.dispatch('createFlash', { type: 'error', message: 'ユーザー画像の変更に失敗しました' })
+        })
     }
   },
 

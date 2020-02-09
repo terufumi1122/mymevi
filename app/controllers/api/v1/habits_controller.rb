@@ -96,7 +96,7 @@ class Api::V1::HabitsController < ApplicationController
     if habit_params[:image]
       parse_base64(habit.eyecatch, habit_params[:image]) # 画像を添付する
     end
-
+    
     render json: { errors: habit.errors.full_messages }, status: :unprocessable_entity unless habit.update!(habit_params)
   end
 

@@ -13,7 +13,15 @@
           size="130" 
           color="#990011"
         >
-          <img src="../../assets/images/infinity.svg" width="100" height="100" alt="プロフィール画像">
+          <img
+            v-if="user.image"
+            :src="user.image"
+            width="100" height="100" alt="プロフィール画像"
+          />
+          <img
+            v-else
+            src="../../assets/images/infinity.svg" width="100" height="100" alt="デフォルトプロフィール画像"
+          />
         </v-list-item-avatar>
   
         <v-list-item-content>
@@ -27,7 +35,16 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn text><router-link :to="{ name: 'UserEdit' }">編集する</router-link></v-btn>
+        <v-btn
+          text
+          color="deep-purple accent-4"
+          :to="{ name: 'UserImage' }"
+        >画像を変更する</v-btn>
+        <v-btn
+          text
+          color="deep-purple accent-4"
+          :to="{ name: 'UserEdit' }"
+        >登録情報を編集する</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -85,7 +102,6 @@ export default {
         2: 'grey lighten-2',
         3: 'brown lighten-2'
       },
-      user: {}
     }
   },
   computed:{
@@ -93,6 +109,7 @@ export default {
       getHabits: 'habits',
       allFavorites: 'allFavorites',
       currentUser: 'currentUser',
+      user: 'user'
     }),
     habits: {
       get() {
@@ -114,15 +131,14 @@ export default {
     },
   },
   created() {
-    const userId = this.currentUser.id
-    this.setCurrentUserHabits(userId)
+    this.setCurrentUserHabits(this.currentUser.id)
     this.setAllHabits()
     this.setAllFavorites()
   },
   mounted() {
     axios
       .get(`/api/v1/users/${this.currentUser.id}.json`)
-      .then(response => (this.user = response.data))
+      .then(response => { this.setUser(response.data) })
   },
   methods: {
     ...mapMutations({
@@ -132,7 +148,8 @@ export default {
       setAllFavorites: 'setAllFavorites',
       setAllHabits: 'setAllHabits',
       setCurrentUserHabits: 'setCurrentUserHabits',
-      changeBest: 'changeBest'
+      changeBest: 'changeBest',
+      setUser: 'setUser',
     }),
     
   }

@@ -4,12 +4,12 @@ RSpec.describe 'Users', type: :request do
   let(:current_user) { create(:user) }
   let(:params)       { attributes_for(:user) }
 
-  describe '新規登録のテスト' do
+  describe '新規登録出来る' do
     before do
       post(api_user_registration_path, params: params)
     end
 
-    it '200が返ってくる' do
+    it '200 OKが返ってくる' do
       expect(response.status).to eq(200)
     end
 
@@ -22,7 +22,7 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe '正しいparamsでログイン出来る' do
+  describe '正しいparamsならログイン出来る' do
     before do
       post(api_user_session_path, params: {
              email:    current_user.email,
@@ -30,7 +30,7 @@ RSpec.describe 'Users', type: :request do
            })
     end
 
-    it '200が返ってくる' do
+    it '200 OKが返ってくる' do
       expect(response.status).to eq(200)
     end
 
@@ -55,7 +55,7 @@ RSpec.describe 'Users', type: :request do
            })
     end
 
-    it '401が返ってくる' do
+    it '401 Unauthorizedが返ってくる' do
       expect(response.status).to eq(401)
     end
 
@@ -80,7 +80,7 @@ RSpec.describe 'Users', type: :request do
            })
     end
 
-    it '401が返ってくる' do
+    it '401 Unauthorizedが返ってくる' do
       expect(response.status).to eq(401)
     end
 
@@ -110,7 +110,7 @@ RSpec.describe 'Users', type: :request do
              })
     end
 
-    it '200が返ってくる' do
+    it '200 OKが返ってくる' do
       expect(response.status).to eq(200)
     end
 
