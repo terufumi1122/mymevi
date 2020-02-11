@@ -3,7 +3,7 @@
     <v-row>
       <v-spacer></v-spacer>
       <div>
-        <p id="error" v-show="error">{{ error }}</p>
+        <p id="error" v-if="error">{{ error }}</p>
       </div>
       <v-spacer></v-spacer>
     </v-row>

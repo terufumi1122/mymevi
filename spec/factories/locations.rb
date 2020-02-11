@@ -18,11 +18,11 @@
 
 FactoryBot.define do
   factory :location do
-    name { "MyString" }
-    lat { 1.5 }
-    lng { 1.5 }
-    user_id { 1 }
-    habit_id { 1 }
+    name                { Faker::String.random(length: 1..50) }
+    lat                 { Faker::Address.latitude }
+    lng                 { Faker::Address.longitude }
+    sequence(:user_id)  { |n| n }
+    sequence(:habit_id) { |n| n }
 
     association :user
   end

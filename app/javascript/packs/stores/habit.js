@@ -24,8 +24,11 @@ export default ({
     allHabits(state) {
       return state.allHabits;
     },
-    displayHabits(state) {
-      return state.allHabits.slice(state.pageSize * (state.pageNumber - 1), state.pageSize * (state.pageNumber))
+    bestThreeHabits(state) {
+      return state.allHabits.filter(habit => habit.best < 4)
+    },
+    displayHabits(state, getters) {
+      return getters.bestThreeHabits.slice(state.pageSize * (state.pageNumber - 1), state.pageSize * (state.pageNumber))
     },
     habitsLength(state) {
       return Math.ceil(state.allHabits.length / state.pageSize)

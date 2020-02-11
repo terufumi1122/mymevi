@@ -74,6 +74,7 @@
             v-if="isCurrentUser"
             text
             color="deep-purple accent-4"
+            @click="setHabitDetail(habit.id)"
           >
             編集する
           </v-btn>
@@ -153,7 +154,8 @@
         'setCurrentUserHabits',
         'addLike',
         'deleteLike',
-        'clearHabit'
+        'clearHabit',
+        'setHabitDetail'
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}

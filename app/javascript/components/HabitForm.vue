@@ -47,6 +47,7 @@
     <v-row>
       <v-col>
         <v-img
+          v-model="habit"
           :src="habit.image"
         ></v-img>
         <ImageUploader
@@ -153,7 +154,6 @@ import Dialog from "./Dialog.vue";
       updateHabit(event, keyName) {
         this.$store.commit('updateHabit', { value: event, keyName })
       },
-
 
       destroy() {
         this.destroyHabit(this.habit.id, this.$router.push({name: 'Top'}))

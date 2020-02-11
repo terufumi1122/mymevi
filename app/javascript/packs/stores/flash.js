@@ -27,7 +27,7 @@ export default ({
       context.commit('createFlash', {type: flashParams.type, message: flashParams.message})
       setTimeout(() => {
         context.commit('deleteFlash')
-      }, 3000)
+      }, 2000)
     }
   }
 

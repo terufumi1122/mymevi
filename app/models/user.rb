@@ -34,19 +34,23 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 
-
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
-  has_many :habits, dependent: :destroy
-  has_many :favorites, dependent: :destroy
-  has_many :locations, dependent: :destroy
-  # validates_uniqueness_of :email, case_sensitive: true
-  # validates :email, uniqueness: true, case_sensitive: true
-  validates :email, uniqueness: true
+
+  with_options presence: true do
+    validates :name
+    validates :email
+  end
+
+  validates :email, uniqueness: { case_sensitive: true }
+
+  has_many         :habits,    dependent: :destroy
+  has_many         :favorites, dependent: :destroy
+  has_many         :locations, dependent: :destroy
   has_one_attached :eyecatch
-  attr_accessor :avatar
+  attr_accessor    :avatar
 end

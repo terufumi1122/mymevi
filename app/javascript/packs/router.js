@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import Top from '../components/Top'
 import UserDetail from '../components/UserDetail.vue'
 import UserEdit from '../components/UserEdit.vue'
+import UserImage from '../components/UserImage.vue'
 import NotFound from '../components/NotFound.vue'
 import HabitNew from '../components/HabitNew.vue'
 import HabitDetail from '../components/HabitDetail.vue'
@@ -27,7 +28,6 @@ const router = new VueRouter({
     },
     {
       path: '/user',
-      // path: '/users/:id(\\d+)',
       name: 'UserDetail',
       component: UserDetail
     },
@@ -35,6 +35,11 @@ const router = new VueRouter({
       path: '/user/edit',
       name: 'UserEdit',
       component: UserEdit
+    },
+    {
+      path: '/user/image',
+      name: 'UserImage',
+      component: UserImage
     },
     {
       path: '*',

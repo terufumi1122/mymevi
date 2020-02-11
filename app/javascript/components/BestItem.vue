@@ -4,7 +4,15 @@
     class="mx-auto"
   >
     <v-list-item>
-      <v-list-item-avatar :color="avatorColor">{{ habitNumber }}</v-list-item-avatar>
+      <v-list-item-avatar
+        v-if="habitNumber < 4"
+        :color="avatorColor"
+      >{{ habitNumber }}</v-list-item-avatar>
+      <v-list-item-avatar
+        v-else
+        class="white--text"
+        :color="avatorColor"
+      >{{ habitNumber }}</v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
         <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>

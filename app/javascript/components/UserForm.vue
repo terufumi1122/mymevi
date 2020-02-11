@@ -101,21 +101,6 @@
           </v-row>
         </div>
 
-        <!-- ユーザーのアバターを登録するタイミングでコメントアウト解除 -->
-        <!-- <v-row>
-          <v-img
-            :src="user.image"
-          ></v-img>
-          <ImageUploader
-            v-bind="user"
-            :value="user.image"
-            @change="updateUserParams($event, 'image')"
-            :params="{ limit: 1000, unit: 'kb', allow: 'jpg,png' }"
-            :deleteShow="user.image !== null"
-            @deleteClick="deleteImage()"
-          ></ImageUploader>
-        </v-row> -->
-
         <v-row>
           <v-spacer></v-spacer>
           <v-btn @click="$emit('clickButton')"><slot>初期値だよー。</slot></v-btn>
@@ -127,7 +112,6 @@
 
 <script>
   import { mapActions } from 'vuex'
-  // import ImageUploader from './ImageUploader' //ユーザーのアバター表示する際にコメントアウト解除
 
   const maxAge = 117; //要修正
   const ageRange = [...Array(maxAge).keys()] //要修正
@@ -138,13 +122,11 @@
 
   export default {
     name: 'UserForm',
-    components: {
-      // ImageUploader, //ユーザーのアバター表示する際にコメントアウト解除
-    },
     props: {
       formTitle: String,
       user: Object,
       mode: String,
+      showImageForm: Boolean,
     },
     data() {
       return {

@@ -38,7 +38,7 @@ class Api::V1::FavoritesController < ApiController
         ")
       render json: new_favorites
     else
-      render json: { errors: favorite.errors.full_messages }, status: :unprocessable_entity 
+      render json: { errors: favorite.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
