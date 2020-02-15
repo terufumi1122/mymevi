@@ -72,7 +72,7 @@
         <v-row>
           <v-btn
             class="mx-auto mb-3"
-            color="green darken-3"
+            color="green darken-2"
             dark
             :to="{ name: 'AllBestHabits' }"
           >
@@ -82,7 +82,7 @@
         <v-row>
           <v-btn
             class="mx-auto mb-3"
-            color="green darken-5"
+            color="green darken-4"
             dark
             :to="{ name: 'GoogleMap' }"
           >
