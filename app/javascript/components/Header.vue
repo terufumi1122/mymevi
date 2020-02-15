@@ -4,41 +4,22 @@
       dark
     >
       <v-toolbar-title>
-        <!-- <router-link :to="{ name: 'Top' }"> -->
-          <v-btn
-            :to="{ name: 'Top' }"
-            color="transparent"
-          >
-            <img src="../../assets/images/infinity.svg" alt="ヘッダーロゴ" width="25px" height="25px">
-              <span>
-                MyMevi
-              </span>
-          </v-btn>
-          <!-- <div class="my-4 title white--text inline-flex"> -->
-          <!-- </div> -->
-        <!-- </router-link> -->
+        <v-btn
+          :to="{ name: 'Top' }"
+          color="transparent"
+        >
+          <img src="../../assets/images/infinity.svg" alt="ヘッダーロゴ" width="25px" height="25px">
+            <span>
+              MyMevi
+            </span>
+        </v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <v-btn
-        :to="{ name: 'AllBestHabits' }"
-        icon
-        v-if="logined"
-      >
-          <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn
-        :to="{ name: 'UserDetail' }"
-        icon
-        v-if="logined"
-      >
-          <v-icon>mdi-account-circle</v-icon>
-      </v-btn>
-
       <v-menu>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-icon>mdi-menu</v-icon>
           </v-btn>
         </template>
 
@@ -48,11 +29,13 @@
             :key="setting.id"
             @click="triggerClick(setting.action)"
           >
-            <router-link :to="{ name: setting.link }">
-              <v-list-item-title>
+            <!-- <router-link :to="{ name: setting.link }"> -->
+              <v-list-item-title
+                :to="{ name: setting.link }"
+              >
                 {{ setting.name }}
               </v-list-item-title>
-            </router-link>
+            <!-- </router-link> -->
           </v-list-item>
         </v-list>
       </v-menu>
