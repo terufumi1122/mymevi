@@ -29,13 +29,11 @@
             :key="setting.id"
             @click="triggerClick(setting.action)"
           >
-            <!-- <router-link :to="{ name: setting.link }"> -->
               <v-list-item-title
                 :to="{ name: setting.link }"
               >
                 {{ setting.name }}
               </v-list-item-title>
-            <!-- </router-link> -->
           </v-list-item>
         </v-list>
       </v-menu>
