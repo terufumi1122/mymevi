@@ -1,24 +1,26 @@
-# README
+# 概要
+ご覧頂きありがとうございます。
+マイメビは、自分の習慣を匿名でシェア出来るWebサービスです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 機能
+- ユーザー新規登録
+- ログイン
+- ログアウト
+- ログイン状態保持
+- ユーザー情報編集
+- ユーザー削除
+- プロフィール画像登録
+- プロフィール画像編集
+- プロフィール画像削除
 
-Things you may want to cover:
+- 習慣の投稿
+- 習慣の編集
+- 習慣の削除
+- いいね機能
+- 習慣画像登録
+- 習慣画像編集
+- 習慣画像削除
+- 習慣に位置情報を記録
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- 現在位置の登録
+- 自分以外の位置情報のマッピング
