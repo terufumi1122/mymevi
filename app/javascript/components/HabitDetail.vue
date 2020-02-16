@@ -6,6 +6,7 @@
       max-width="374"
     >
       <v-img
+        transition="false"
         haight="250"
         :src="habit.image"
         alt="登録した習慣の画像"
@@ -72,16 +73,21 @@
           </v-btn>
         </router-link>
       </v-card-actions>
+    <Loading/>
     </v-card>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
   import axios from 'axios'
+  import Loading from './Loading'
 
   export default {
     name: 'HabitDetail',
+    components: {
+      Loading,
+    },
     computed: {
       ...mapGetters ([
         'currentHabitId',
@@ -120,13 +126,12 @@
       },
     },
     created() {
+      this.loadingTrue()
       const userId = this.currentUser.id
       this.setCurrentUserHabits(userId)
       this.setAllFavorites()
     },
     mounted() {
-      this.loading = false
-
       const userId = this.currentUser.id
       axios
         .get(`/api/v1/users/${userId}.json`)
@@ -136,13 +141,16 @@
       this.clearHabit()
     },
     methods: {
+      ...mapMutations([
+        'loadingTrue',
+      ]),
       ...mapActions ([
         'setAllFavorites',
         'setCurrentUserHabits',
         'addLike',
         'deleteLike',
         'clearHabit',
-        'setHabitDetail'
+        'setHabitDetail',
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}

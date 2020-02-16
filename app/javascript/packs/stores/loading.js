@@ -1,7 +1,7 @@
 export default ({
 
   state: {
-    loading: true,
+    loading: false,
   },
 
   getters: {
@@ -11,15 +11,12 @@ export default ({
   },
 
   mutations: {
-    loading(state) {
-      state.loading = !state.loading
+    loadingTrue(state) {
+      state.loading = true
+    },
+    loadingFalse(state) {
+      state.loading = false
     }
-  },
-
-  actions: {
-    loading(context) {
-      context.commit('loading')
-    }
-
   }
+
 })

@@ -158,10 +158,17 @@ export default ({
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
-            context.commit('habit', response.data )
+            if (response.data.image) {
+              context.commit('habit', response.data )
+            } else {
+              const habit = response.data
+              habit['image'] = 'https://source.unsplash.com/400x300/?city,sky'
+              context.commit('habit', habit )
+            }
             if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
+            context.commit('loadingFalse')
           })
           .catch(error => {
             console.error(error)

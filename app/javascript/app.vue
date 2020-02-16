@@ -1,7 +1,6 @@
 <template>
   <v-app id="app" v-cloak>
     <div>
-      <Loading/>
       <Header/>
       <Flash/>
       <router-view
@@ -13,9 +12,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
-import Loading from './components/Loading'
 import Header from './components/Header'
 import Flash from './components/Flash'
 import Footer from './components/Footer'
@@ -25,7 +23,6 @@ import Footer from './components/Footer'
 export default {
   name: 'App',
   components: {
-    Loading,
     Header,
     Flash,
     Footer,

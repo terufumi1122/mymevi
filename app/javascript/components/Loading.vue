@@ -2,6 +2,7 @@
   <div>
     <v-overlay
       :value="loading"
+      absolute
       color="#f0efe2"
       opacity="1.0"
     >
