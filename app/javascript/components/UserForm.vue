@@ -9,7 +9,7 @@
                 @input="updateUserParams($event, 'name')"
                 :rules="nameRules"
                 :counter="20"
-                label="名前"
+                label="ニックネーム"
                 required
               ></v-text-field>
           </v-row>
@@ -139,8 +139,8 @@
         months: monthRange,
         days: dayRange,
         nameRules: [
-          v => !!v || '名前の入力は必須です',
-          v => v.length < 20 || '名前は20文字以内で入力して下さい'
+          v => !!v || 'ニックネームの入力は必須です',
+          v => v.length < 20 || 'ニックネームは20文字以内で入力して下さい'
         ],
         emailRules: [
           v => !!v || 'メールアドレスの入力は必須です',
