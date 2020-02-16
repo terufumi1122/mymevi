@@ -101,12 +101,16 @@
 <script>
   import { mapActions } from 'vuex'
 
-  const maxAge = 117; //要修正
-  const ageRange = [...Array(maxAge).keys()] //要修正
+  const year = new Date().getFullYear()
+  const maxAge = 117 //ギネス世界記録の最高齢
 
-  const yearRange = [...Array(2010).keys()]
-  const monthRange = [...Array(13).keys()]
-  const dayRange = [...Array(32).keys()]
+  const start = year - maxAge
+  const end = year
+
+  const years = [...Array(end - start + 1).keys()].map( i => start + i)
+  const yearRange = years.sort((a,b) => {
+    return (a < b ? 1 : -1)
+  })
 
   export default {
     name: 'UserForm',
@@ -122,10 +126,7 @@
         show1: false,
         show2: false,
         radioGroup: 1,
-        items: ageRange, //要修正
         years: yearRange,
-        months: monthRange,
-        days: dayRange,
         nameRules: [
           v => !!v || 'ニックネームの入力は必須です',
           v => v.length < 20 || 'ニックネームは20文字以内で入力して下さい'
