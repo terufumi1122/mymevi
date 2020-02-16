@@ -23,7 +23,7 @@
         </v-card-title>
 
         <v-card-text>
-          本当にアカウントを削除してもよろしいですか？
+          本当に削除してもよろしいですか？
         </v-card-text>
 
         <v-divider></v-divider>

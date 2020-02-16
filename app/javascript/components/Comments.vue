@@ -16,12 +16,11 @@
         <v-card-actions>
           <v-list-item class="grow">
 
-            <!-- 後でuser.eyecatchを表示する -->
             <v-list-item-avatar color="grey darken-3">
-              <v-img
+              <img
                 class="elevation-6"
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-              ></v-img>
+                :src="avatar(comment.user_id)"
+              />
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -34,6 +33,7 @@
         </v-card-actions>
       </v-card>
     </div>
+
   </div>
 </template>
 
@@ -44,9 +44,11 @@
     name: 'Comments',
     computed: {
       ...mapGetters([
-        'comments'
-      ])
-    }
+        'comments',
+        'avatars',
+        'avatar',
+      ]),
+    },
   }
 </script>
 

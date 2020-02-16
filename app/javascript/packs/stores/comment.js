@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Axios from 'axios'
 
 export default ({
 
@@ -39,6 +40,7 @@ export default ({
       .get(`/api/v1/comments/${habit_id}`, { params: { id: habit_id } })
       .then(response => {
         context.commit('comments', { comments: response.data })
+        context.dispatch('getAvatars')
       })
       .catch(error => {
         console.error(error)
@@ -62,6 +64,23 @@ export default ({
         .catch(error => {
           console.error(error)
           context.dispatch('createFlash', { type: 'error', message: 'コメントの作成に失敗しました' });
+      })
+    },
+
+    getAvatars(context) {
+      const comments = context.getters.comments
+      const userIds = comments.map(comment => comment.user_id)
+      const commentUsers = Array.from(new Set(userIds))
+      
+      axios
+        .post('/api/v1/user/avatars', { users: commentUsers })
+        .then(response => {
+        context.commit('avatars', response.data)
+        console.log('avatarsを取得しました')
+        })
+        .catch(error => {
+          console.error(error)
+          context.dispatch('createFlash', { type: 'error', message: 'アバターの取得に失敗しました'})
       })
     }
   }
