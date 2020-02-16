@@ -67,9 +67,15 @@ Rails.application.routes.draw do
 
   namespace :api, {format: 'json'} do
     namespace :v1 do
+
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        registrations: 'api/v1/auth/registrations'
+      }
+
       resources :users, only: [:show]
       get 'allusers', to: 'users#all_users'
       post 'user/avatar', to: 'users#attach'
+      post 'user/avatars', to: 'users#get_eyecatches'
       delete 'user/avatar', to: 'users#dettach'
 
       resources :habits, only: [:show, :create, :update, :destroy]
@@ -87,12 +93,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api, {format: 'json'} do
-    scope :v1 do
-      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-        registrations: 'api/v1/auth/registrations'
-      }
-    end
-  end
+  get '*path', to: 'home#redirect_to_root'
 
 end
