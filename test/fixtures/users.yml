@@ -4,8 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
-#  birth_day              :integer          not null
-#  birth_month            :integer          not null
 #  birth_year             :integer          not null
 #  current_sign_in_at     :datetime
 #  email                  :string(255)      not null
