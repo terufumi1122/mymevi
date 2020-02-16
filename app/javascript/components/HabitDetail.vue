@@ -1,10 +1,5 @@
 <template>
   <div>
-    <v-btn
-      @click="setComments"
-    >
-      この習慣のコメント取得
-    </v-btn>
 
     <v-card
       class="mx-auto my-12"

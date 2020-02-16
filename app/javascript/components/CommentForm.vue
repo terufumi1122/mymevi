@@ -1,37 +1,39 @@
 <template>
-      <v-card
-        class="mx-auto my-12"
-        max-width="374"
-      >
-        <v-container>
-          <v-form>
-            <v-row
-              class="mx-3"
-            >
-              <v-textarea
-                :value="comment.content"
-                @input="updateCommentParams($event, 'content')"
-                :rules="commentRules"
-                :label="formLabel"
-                required
-                clearable
-              ></v-textarea>
-            </v-row>
+  <div class="mb-3">
+    <v-card
+      class="mx-auto my-12"
+      max-width="374"
+    >
+      <v-container>
+        <v-form>
+          <v-row
+            class="mx-3"
+          >
+            <v-textarea
+              :value="comment.content"
+              @input="updateCommentParams($event, 'content')"
+              :rules="commentRules"
+              :label="formLabel"
+              required
+              clearable
+            ></v-textarea>
+          </v-row>
 
-            <v-row>
-              <v-spacer></v-spacer>
-              <v-btn
-              color="green"
-              dark
-              @click="$emit('clickButton')"
-              >
-                <slot>初期値だよー。</slot>
-              </v-btn>
-              <v-spacer></v-spacer>
-            </v-row>
-          </v-form>
-        </v-container>
-      </v-card>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-btn
+            color="green"
+            dark
+            @click="$emit('clickButton')"
+            >
+              <slot>初期値だよー。</slot>
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-row>
+        </v-form>
+      </v-container>
+    </v-card>
+  </div>
 </template>
 
 <script>
