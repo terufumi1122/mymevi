@@ -168,6 +168,7 @@ export default ({
             if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
+            context.dispatch('setComments')
             context.commit('loadingFalse')
           })
           .catch(error => {

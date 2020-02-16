@@ -73,8 +73,14 @@
           </v-btn>
         </router-link>
       </v-card-actions>
-    <Loading/>
+
+
+      <Loading/>
     </v-card>
+
+    <Comments></Comments>
+    <CommentNew></CommentNew>
+
   </div>
 </template>
 
@@ -82,11 +88,15 @@
   import { mapGetters, mapMutations, mapActions } from 'vuex'
   import axios from 'axios'
   import Loading from './Loading'
+  import Comments from './Comments'
+  import CommentNew from './CommentNew'
 
   export default {
     name: 'HabitDetail',
     components: {
       Loading,
+      Comments,
+      CommentNew,
     },
     computed: {
       ...mapGetters ([
@@ -108,9 +118,6 @@
       },
       isLike() {
         return this.LikedUsers.includes(this.currentUser.id)
-      },
-      favorites() {
-        return this.allFavorites
       },
       currentUserGender() {
         return this.currentUser.gender
@@ -151,6 +158,8 @@
         'deleteLike',
         'clearHabit',
         'setHabitDetail',
+        'setComments',
+        'setComment',
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}

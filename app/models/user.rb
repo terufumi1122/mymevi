@@ -49,6 +49,7 @@ class User < ApplicationRecord
   has_many         :habits,    dependent: :destroy
   has_many         :favorites, dependent: :destroy
   has_many         :locations, dependent: :destroy
+  has_many         :comments, dependent: :destroy
   has_one_attached :eyecatch
   attr_accessor    :avatar
 end
