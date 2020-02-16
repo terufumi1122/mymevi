@@ -3,7 +3,7 @@ import axios from 'axios'
 export default ({
 
   state: {
-    habit: {},
+    habit: { image: 'https://source.unsplash.com/400x300/?city,sky' },
     habits: [],
     currentHabitId: null,
     allHabits: [],
@@ -44,10 +44,10 @@ export default ({
       state.habit = payload
     },
     clearHabit(state) {
-      state.habit = {}
+      state.habit = { image: 'https://source.unsplash.com/400x300/?city,sky' }
     },
     deleteHabitImage(state) {
-      delete state.habit.image
+      state.habit.image = { image: 'https://source.unsplash.com/400x300/?city,sky' }
     },
     
     // draggable用
@@ -158,10 +158,17 @@ export default ({
         axios
           .get('/api/v1/habit_detail', { params: { habit_id: habitId } })
           .then(response => {
-            context.commit('habit', response.data )
+            if (response.data.image) {
+              context.commit('habit', response.data )
+            } else {
+              const habit = response.data
+              habit['image'] = 'https://source.unsplash.com/400x300/?city,sky'
+              context.commit('habit', habit )
+            }
             if (response.data.location_id !== null) {
               context.dispatch('setLocations')
             }
+            context.commit('loadingFalse')
           })
           .catch(error => {
             console.error(error)

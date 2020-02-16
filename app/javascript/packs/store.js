@@ -7,6 +7,7 @@ import habitStore from './stores/habit.js'
 import flashStore from './stores/flash.js'
 import favoriteStore from './stores/favorite.js'
 import locationStore from './stores/location.js'
+import loadingStore from './stores/loading.js'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
     flashStore,
     favoriteStore,
     locationStore,
+    loadingStore,
   },
 
 })
