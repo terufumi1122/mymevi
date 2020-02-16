@@ -11,8 +11,6 @@ class Api::V1::HabitsController < ApplicationController
       user_id,
       users.name AS user_name,
       users.birth_year AS user_birth_year,
-      users.birth_month AS user_birth_month,
-      users.birth_day AS user_birth_day,
       users.gender AS user_gender
       ")
     render json: all_habits
@@ -47,8 +45,6 @@ class Api::V1::HabitsController < ApplicationController
       user_id,
       users.name AS user_name,
       users.birth_year AS user_birth_year,
-      users.birth_month AS user_birth_month,
-      users.birth_day AS user_birth_day,
       users.gender AS user_gender
       ")
     render json: current_user_habits
