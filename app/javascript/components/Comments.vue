@@ -5,12 +5,13 @@
         class="mx-auto my-3"
         max-width="374"
       >
-
-        <v-card-text
-          class="text--black font-weight-bold text-center"
-        >
-          {{ comment.content }}
-        </v-card-text>
+        <div class="balloon">
+          <v-card-text
+            class="text--black font-weight-bold text-center"
+          >
+            {{ comment.content }}
+          </v-card-text>
+        </div>
 
         <v-card-actions>
           <v-list-item class="grow">
@@ -48,3 +49,27 @@
     }
   }
 </script>
+
+<style>
+.balloon {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  width: 354px;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+}
+
+.balloon:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 30px;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0edff;
+}
+
+</style>
