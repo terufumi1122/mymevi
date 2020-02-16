@@ -9,7 +9,7 @@
                 @input="updateUserParams($event, 'name')"
                 :rules="nameRules"
                 :counter="20"
-                label="名前"
+                label="ニックネーム"
                 required
               ></v-text-field>
           </v-row>
@@ -29,26 +29,9 @@
                 :value="user.birth_year"
                 @input="updateUserParams($event, 'birth_year')"
                 :items="years"
-                label="西暦"
+                label="誕生年（西暦）"
               ></v-select>
           </v-row>
-          <v-row>
-              <v-select
-                :value="user.birth_month"
-                @input="updateUserParams($event, 'birth_month')"
-                :items="months"
-                label="月"
-              ></v-select>
-          </v-row>
-          <v-row>
-              <v-select
-                :value="user.birth_day"
-                @input="updateUserParams($event, 'birth_day')"
-                :items="days"
-                label="日"
-              ></v-select>
-          </v-row>
-              <!-- 要修正1      1¡ -->
           <v-row>
             <v-radio-group
               label="性別"
@@ -71,7 +54,6 @@
             </v-radio-group>
           </v-row>
         </div>
-          <!-- 要修正 -->
         <v-row>
              <v-text-field
               :value="user.password"
@@ -103,7 +85,13 @@
 
         <v-row>
           <v-spacer></v-spacer>
-          <v-btn @click="$emit('clickButton')"><slot>初期値だよー。</slot></v-btn>
+          <v-btn
+          color="green"
+          dark
+          @click="$emit('clickButton')"
+          >
+            <slot>初期値だよー。</slot>
+          </v-btn>
           <v-spacer></v-spacer>
         </v-row>
       </v-form>
@@ -139,8 +127,8 @@
         months: monthRange,
         days: dayRange,
         nameRules: [
-          v => !!v || '名前の入力は必須です',
-          v => v.length < 20 || '名前は20文字以内で入力して下さい'
+          v => !!v || 'ニックネームの入力は必須です',
+          v => v.length < 20 || 'ニックネームは20文字以内で入力して下さい'
         ],
         emailRules: [
           v => !!v || 'メールアドレスの入力は必須です',
