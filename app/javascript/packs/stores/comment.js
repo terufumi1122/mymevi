@@ -22,6 +22,12 @@ export default ({
     },
     comment(state, payload) {
       state.comment = payload.comment
+    },
+    updateCommentParams(state, { value, keyName }) {
+      state.comment[keyName] = value
+    },
+    clearComment(state) {
+      state.comment = {}
     }
   },
 
