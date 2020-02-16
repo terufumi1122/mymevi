@@ -1,21 +1,14 @@
 <template>
   <div>
+
     <v-card
-      :loading="loading"
       class="mx-auto my-12"
       max-width="374"
     >
       <v-img
-        v-if="habit.image"
         haight="250"
         :src="habit.image"
         alt="登録した習慣の画像"
-      ></v-img>
-      <v-img
-        v-else
-        height="250"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-        alt="デフォルト画像"
       ></v-img>
 
       <v-card-title>{{ habit.name }}</v-card-title>
@@ -23,7 +16,6 @@
       <v-card-text>
         <div>詳細：{{ habit.description }}</div>
         <div>場所：{{ habitLocation.name }}</div>
-        <div>場所：{{ habit.location_name }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -90,11 +82,6 @@
 
   export default {
     name: 'HabitDetail',
-    date() {
-      return {
-        loading: true,
-      }
-    },
     computed: {
       ...mapGetters ([
         'currentHabitId',

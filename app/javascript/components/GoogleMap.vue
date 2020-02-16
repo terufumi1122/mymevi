@@ -454,11 +454,4 @@ export default {
   bottom: 80px;
   left: 10px;
 }
-/* .slider--fixed {
-  z-index: 1000;
-  position: fixed;
-  bottom: 50px;
-  left: 10px;
-  width: 60%;
-} */
 </style>

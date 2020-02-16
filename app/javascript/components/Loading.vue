@@ -1,30 +1,25 @@
 <template>
   <div>
-    <v-overlay :value="overlay">
+    <v-overlay
+      :value="loading"
+      color="#f0efe2"
+      opacity="1.0"
+    >
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Loading',
-  data() {
-    return {
-      overlay: false,
-    }
+  computed: {
+    ...mapGetters([
+      'loading'
+    ])
   },
-  created() {
-    this.overlay = true
-  },
-  watch: {
-    overlay (val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 2000)
-    }
-  }
 }
 </script>
 

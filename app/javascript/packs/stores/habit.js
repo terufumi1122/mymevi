@@ -3,7 +3,7 @@ import axios from 'axios'
 export default ({
 
   state: {
-    habit: {},
+    habit: { image: 'https://source.unsplash.com/400x300/?city,sky' },
     habits: [],
     currentHabitId: null,
     allHabits: [],
@@ -44,10 +44,10 @@ export default ({
       state.habit = payload
     },
     clearHabit(state) {
-      state.habit = {}
+      state.habit = { image: 'https://source.unsplash.com/400x300/?city,sky' }
     },
     deleteHabitImage(state) {
-      delete state.habit.image
+      state.habit.image = { image: 'https://source.unsplash.com/400x300/?city,sky' }
     },
     
     // draggable用

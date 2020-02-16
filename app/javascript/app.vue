@@ -1,6 +1,7 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" v-cloak>
     <div>
+      <Loading/>
       <Header/>
       <Flash/>
       <router-view
@@ -8,8 +9,6 @@
       ></router-view>
       <Footer/>
     </div>
-    <!-- ローディング画面は一旦なし -->
-    <!-- <Loading/> -->
   </v-app>
 </template>
 
@@ -61,5 +60,8 @@ export default {
 }
 .main__view--margin {
   margin-bottom: 56px;
+}
+[v-cloak] {
+  display: none;
 }
 </style>
