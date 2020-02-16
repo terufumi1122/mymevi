@@ -63,35 +63,27 @@
 #                  rails_direct_uploads POST     /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  
-  namespace :api do
-    namespace :v1 do
-      get 'comments/index'
-      get 'comments/create'
-      get 'comments/update'
-      get 'comments/destroy'
-    end
-  end
   root to: 'home#index'
-  
+
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :users, only: [:show]
       get 'allusers', to: 'users#all_users'
       post 'user/avatar', to: 'users#attach'
       delete 'user/avatar', to: 'users#dettach'
-      
+
       resources :habits, only: [:show, :create, :update, :destroy]
       get 'habits', to: 'habits#users_habits_show'
       get 'allhabits', to: 'habits#all_habits_show'
       get 'habit_detail', to: 'habits#habit_detail'
-      
+
       get 'favorites', to: 'favorites#index'
       get 'user_favorites', to: 'favorites#current_user_index'
       post 'favorite/create', to: 'favorites#create'
       delete 'favorite', to: 'favorites#destroy'
 
       resources :locations, only: [:index, :create, :update, :destroy]
+      resources :comments, only: [:index, :create, :update, :destroy]
     end
   end
 
