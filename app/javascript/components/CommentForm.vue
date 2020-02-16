@@ -1,30 +1,37 @@
 <template>
-    <v-container>
-      <v-form>
-        <h2>{{ formTitle }}</h2>
-        <v-row>
-          <v-text-field
-            :value="comment.content"
-            @input="updateCommentParams($event, 'password')"
-            :rules="passwordRules"
-            label="新規コメント"
-            required
-          ></v-text-field>
-        </v-row>
+      <v-card
+        class="mx-auto my-12"
+        max-width="374"
+      >
+        <v-container>
+          <v-form>
+            <v-row
+              class="mx-3"
+            >
+              <v-textarea
+                :value="comment.content"
+                @input="updateCommentParams($event, 'content')"
+                :rules="commentRules"
+                :label="formLabel"
+                required
+                clearable
+              ></v-textarea>
+            </v-row>
 
-        <v-row>
-          <v-spacer></v-spacer>
-          <v-btn
-          color="green"
-          dark
-          @click="$emit('clickButton')"
-          >
-            <slot>初期値だよー。</slot>
-          </v-btn>
-          <v-spacer></v-spacer>
-        </v-row>
-      </v-form>
-    </v-container>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-btn
+              color="green"
+              dark
+              @click="$emit('clickButton')"
+              >
+                <slot>初期値だよー。</slot>
+              </v-btn>
+              <v-spacer></v-spacer>
+            </v-row>
+          </v-form>
+        </v-container>
+      </v-card>
 </template>
 
 <script>
@@ -33,7 +40,7 @@
   export default {
     name: 'CommentForm',
     props: {
-      formTitle: String,
+      formLabel: String,
       comment: Object,
     },
     data() {
@@ -52,7 +59,6 @@
         'clearComment'
       ]),
       updateCommentParams(event,keyName) {
-        console.log(event)
         this.$store.commit('updateCommentParams', { value: event, keyName })
       }
     }

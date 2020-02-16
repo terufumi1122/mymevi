@@ -78,9 +78,14 @@
           </v-btn>
         </router-link>
       </v-card-actions>
-      <Comments></Comments>
+
+
       <Loading/>
     </v-card>
+
+    <Comments></Comments>
+    <CommentNew></CommentNew>
+
   </div>
 </template>
 
@@ -89,12 +94,14 @@
   import axios from 'axios'
   import Loading from './Loading'
   import Comments from './Comments'
+  import CommentNew from './CommentNew'
 
   export default {
     name: 'HabitDetail',
     components: {
       Loading,
       Comments,
+      CommentNew,
     },
     computed: {
       ...mapGetters ([
@@ -116,9 +123,6 @@
       },
       isLike() {
         return this.LikedUsers.includes(this.currentUser.id)
-      },
-      favorites() {
-        return this.allFavorites
       },
       currentUserGender() {
         return this.currentUser.gender

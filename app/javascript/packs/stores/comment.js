@@ -46,11 +46,17 @@ export default ({
       })
     },
 
-    createComment(context, comment) {
+    createComment(context) {
+      const commentParams = {
+        content: context.state.comment.content,
+        user_id: context.getters.currentUser.id,
+        habit_id: context.getters.currentHabitId,
+      }
       axios
-        .post(`/api/v1/comments`, comment)
+        .post(`/api/v1/comments`, commentParams)
         .then(response => {
           context.commit('comment', { comment: response.data })
+          context.commit('clearComment')
           context.dispatch('createFlash', { type: 'success', message: 'コメントの作成に成功しました' });
         })
         .catch(error => {
