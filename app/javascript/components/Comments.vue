@@ -2,7 +2,7 @@
   <div>
     <div v-for="comment in comments" :key="comment.id">
       <v-card
-        class="mb-3 mx-auto"
+        class="mb-3 mx-3"
         max-width="400"
       >
 
