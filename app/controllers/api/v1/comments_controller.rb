@@ -10,10 +10,11 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def show
-    comments = Comment.where(habit_id: params[:id]).select("
-        id,
+    comments = Comment.order('id DESC').where(habit_id: params[:id]).joins(:user).select("
+        comments.id AS id,
         content,
         user_id,
+        users.name AS user_name,
         habit_id
       ")
     render json: comments
