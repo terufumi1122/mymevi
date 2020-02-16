@@ -3,13 +3,8 @@
     <v-btn
       @click="setComments"
     >
-      全コメント取得
-    </v-btn>
-    <!-- <v-btn
-      @click="setComment"
-    >
       この習慣のコメント取得
-    </v-btn> -->
+    </v-btn>
 
     <v-card
       class="mx-auto my-12"
@@ -83,7 +78,8 @@
           </v-btn>
         </router-link>
       </v-card-actions>
-    <Loading/>
+      <Comments></Comments>
+      <Loading/>
     </v-card>
   </div>
 </template>
@@ -92,11 +88,13 @@
   import { mapGetters, mapMutations, mapActions } from 'vuex'
   import axios from 'axios'
   import Loading from './Loading'
+  import Comments from './Comments'
 
   export default {
     name: 'HabitDetail',
     components: {
       Loading,
+      Comments,
     },
     computed: {
       ...mapGetters ([
