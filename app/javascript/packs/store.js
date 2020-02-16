@@ -8,6 +8,7 @@ import flashStore from './stores/flash.js'
 import favoriteStore from './stores/favorite.js'
 import locationStore from './stores/location.js'
 import loadingStore from './stores/loading.js'
+import commentStore from './stores/comment.js'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     favoriteStore,
     locationStore,
     loadingStore,
+    commentStore,
   },
 
 })

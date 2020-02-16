@@ -108,15 +108,11 @@ export default ({
           context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
           context.dispatch('createFlash', { type: 'success', message: 'ログインしました' });
-          console.log('routeToの上です')
-          console.log(routeTo)
           return routeTo;
         })
         .catch(error => {
           console.error(error);
-          console.log('createFlashの上です')
           context.dispatch('createFlash', {type: 'error', message: 'ログインに失敗しました'})
-          console.log('createFlashの下です')
         });
       },
       signOut(context, routeTo) {
@@ -187,7 +183,6 @@ export default ({
       axios
         .post('/api/v1/user/avatar', { id: id, avatar: image })
         .then(response => {
-          console.log(response)
           context.dispatch('createFlash', { type: 'success', message: 'ユーザー画像を変更しました' })
         })
         .catch(error => {

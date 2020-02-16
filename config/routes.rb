@@ -83,7 +83,7 @@ Rails.application.routes.draw do
       delete 'favorite', to: 'favorites#destroy'
 
       resources :locations, only: [:index, :create, :update, :destroy]
-      resources :comments, only: [:index, :create, :update, :destroy]
+      resources :comments, only: [:index, :show, :create, :update, :destroy]
     end
   end
 

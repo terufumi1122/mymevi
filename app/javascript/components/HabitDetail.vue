@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-btn
+      @click="setComments"
+    >
+      全コメント取得
+    </v-btn>
+    <!-- <v-btn
+      @click="setComment"
+    >
+      この習慣のコメント取得
+    </v-btn> -->
 
     <v-card
       class="mx-auto my-12"
@@ -151,6 +161,8 @@
         'deleteLike',
         'clearHabit',
         'setHabitDetail',
+        'setComments',
+        'setComment',
       ]),
       toggleLike() {
         let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
