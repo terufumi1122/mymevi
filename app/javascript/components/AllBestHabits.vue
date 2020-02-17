@@ -37,12 +37,7 @@
     <div v-for="habit in displayHabits" :key="habit.id">
       <BestItem
        :avatorColor="avatorColor[habit.best]"
-       :habitNumber="habit.best"
-       :habitTitle="habit.name"
-       :userName="habit.user_name + 'さんのベスト' + habit.best + '位の習慣です！'"
-
-       :habitId="habit.id"
-       :userId="currentUser.id"
+       :habit="habit"
        :favorites="allFavorites"
        :isCurrentUser="habit.user_id === currentUser.id"
        >

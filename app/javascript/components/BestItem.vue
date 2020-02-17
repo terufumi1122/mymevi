@@ -5,17 +5,29 @@
   >
     <v-list-item>
       <v-list-item-avatar
-        v-if="habitNumber < 4"
+        v-if="habit.best < 4"
         :color="avatorColor"
-      >{{ habitNumber }}</v-list-item-avatar>
+      >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-avatar
         v-else
         class="white--text"
         :color="avatorColor"
-      >{{ habitNumber }}</v-list-item-avatar>
+      >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">{{ habitTitle }}</v-list-item-title>
-        <v-list-item-subtitle>{{ userName }}</v-list-item-subtitle>
+        <v-list-item-title class="headline">
+          {{ habit.name }}
+        </v-list-item-title>
+        <v-list-item-subtitle>
+          <v-avatar
+            color="#990011"
+            size="20"
+          >
+            <img
+              :src="avatar(habit.user_id)"
+            >
+          </v-avatar>
+          {{ habit.user_name }}さん
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -70,39 +82,39 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'BestItem',
     props: {
-      habitNumber: '',
-      habitTitle: '',
-      userName: '',
+      habit: Object,
       avatorColor: '',
-      habitId: '',
-      userId: '',
       favorites: '',
       isCurrentUser: '',
     },
     computed: {
+      ...mapGetters([
+        'avatar',
+        'currentUser'
+      ]),
       likesCount(){
-        return this.favorites.filter(favorite => favorite.habit_id === this.habitId).length
+        return this.favorites.filter(favorite => favorite.habit_id === this.habit.id).length
       },
       LikedUsers() {
-        return this.favorites.filter( favorite => favorite.habit_id === this.habitId ).map( f => f.user_id )
+        return this.favorites.filter( favorite => favorite.habit_id === this.habit.id ).map( f => f.user_id )
       },
       isLike() {
-        return this.LikedUsers.includes(this.userId)
+        return this.LikedUsers.includes(this.currentUser.id)
       },
     },
     methods: {
       ...mapActions([
         'addLike',
         'deleteLike',
-        'setHabitDetail'
+        'setHabitDetail',
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.userId, habit_id: this.habitId}
+        let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
         if (this.isLike === false) {
           this.addLike(likeParams)
           console.log('いいねをつけました')
