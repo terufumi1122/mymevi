@@ -7,21 +7,20 @@
     >コメントを修正する</CommentForm>
 
     <v-container class="mx-auto text-center">
-      <v-btn
-        dark
-        color="red"
-        @click="destroyComment($router.push({ name: 'HabitDetail' }))"
+      <Dialog
+        @clickDialogButton="destroyComment($router.push({ name: 'HabitDetail' }))"
       >
-        <v-icon>mdi-trash</v-icon>
-        削除する
-      </v-btn>
+        <v-icon>mdi-trash-can</v-icon>
+        コメントを削除する
+      </Dialog>
 
       <v-btn
+        class="mt-3"
         dark
         color="gray"
         :to="{ name: 'HabitDetail'}"
       >
-        キャンセル
+        戻る
       </v-btn>
     </v-container>
 
@@ -31,11 +30,13 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentForm from './CommentForm'
+  import Dialog from './Dialog'
 
   export default {
     name: 'CommentEdit',
     components: {
       CommentForm,
+      Dialog,
     },
     computed: {
       ...mapGetters([
