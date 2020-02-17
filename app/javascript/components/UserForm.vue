@@ -150,7 +150,6 @@
         'clearUser'
       ]),
       updateUserParams(event,keyName) {
-        console.log(event)
         this.$store.commit('updateUserParams', { value: event, keyName })
       }
     }

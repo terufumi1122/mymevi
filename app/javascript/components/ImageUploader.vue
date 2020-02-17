@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mx-auto text-center">
     <v-row>
       <v-spacer></v-spacer>
       <div>
@@ -8,9 +8,10 @@
       <v-spacer></v-spacer>
     </v-row>
     <v-row>
-      <v-spacer></v-spacer>
+      <v-col>
         <div>
           <v-btn
+            class="mb-3"
             color="green"
             dark
             @click="btnClick"
@@ -27,7 +28,6 @@
             @change="onImageChange"
           />
         </div>
-        <v-spacer></v-spacer>
         <div v-if="deleteShow" >
           <v-btn
             color="red"
@@ -38,7 +38,7 @@
             画像を削除する
           </v-btn>
         </div>
-      <v-spacer></v-spacer>
+      </v-col>
     </v-row>
   </v-container>
 </template>
