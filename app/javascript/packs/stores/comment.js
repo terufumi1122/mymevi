@@ -45,7 +45,7 @@ export default ({
       .get(`/api/v1/comments/${habit_id}`, { params: { id: habit_id } })
       .then(response => {
         context.commit('comments', { comments: response.data })
-        context.dispatch('getAvatars')
+        context.dispatch('getCommentAvatars')
       })
       .catch(error => {
         console.error(error)
@@ -114,7 +114,7 @@ export default ({
       })
     },
 
-    getAvatars(context) {
+    getCommentAvatars(context) {
       const comments = context.getters.comments
       const userIds = comments.map(comment => comment.user_id)
       const commentUsers = Array.from(new Set(userIds))
