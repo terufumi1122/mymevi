@@ -53,14 +53,13 @@
 
       </v-row>
       <v-card-actions>
-        <router-link :to="{ name: 'AllBestHabits' }">
           <v-btn
             color="deep-purple accent-4"
             text
+            :to="{ name: 'AllBestHabits' }"
           >
             みんなの習慣一覧に戻る
           </v-btn>
-        </router-link>
         <v-spacer></v-spacer>
         <router-link :to="{ name: 'HabitEdit' }">
           <v-btn

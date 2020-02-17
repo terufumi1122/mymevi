@@ -15,6 +15,20 @@ class Api::V1::UsersController < ApiController
     render json: @user
   end
 
+  def get_eyecatches
+    users = params[:users]
+    eyecatches = []
+
+    users.each do |u|
+      user = User.find(u)
+      if user.eyecatch.present?
+        eyecatches << { id: user.id, image: encode_base64(user.eyecatch) }
+      end
+    end
+
+    render json: eyecatches
+  end
+
   def all_users
     all_users = User.select(:id, :name, :birth_year, :gender)
     render json: all_users

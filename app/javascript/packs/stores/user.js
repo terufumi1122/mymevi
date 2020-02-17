@@ -4,6 +4,7 @@ export default ({
 
   state: {
     user: {},
+    avatars: [],
     currentUser: null,
     headers: [],
     sampleLogined: false,
@@ -13,7 +14,16 @@ export default ({
     user(state) {
       return state.user
     },
-
+    avatars(state) {
+      return state.avatars
+    },
+    avatar: (state) => (userId) => {
+      if (state.avatars.some(a => a.id === userId)) {
+        return state.avatars.find(avatar => avatar.id === userId).image
+      } else {
+        return 'https://avataaars.io/?avatarStyle=Transparent&topType=NoHair&accessoriesType=Blank&hairColor=Blank&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+      }
+    },
     currentUser(state) {
       return state.currentUser;
     },
@@ -26,6 +36,9 @@ export default ({
   mutations: {
     user(state, payload) {
       state.user = payload
+    },
+    avatars(state, payload) {
+      state.avatars = payload
     },
     clearUser(state) {
       state.user = {}
