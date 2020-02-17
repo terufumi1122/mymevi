@@ -37,10 +37,12 @@
           <v-icon v-else>mdi-heart</v-icon>
         </v-badge>
       </v-btn>
-      <v-btn icon>
+
+        <!-- ここを押すとTwitterでシェアしたり出来るようにしたい -->
+      <!-- <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
-        <!-- ここを押すとTwitterでシェアしたり出来る -->
-      </v-btn>
+      </!--> -->
+
       <div v-if="isCurrentUser">
         <v-spacer></v-spacer>
         <router-link :to="{ name: 'HabitEdit' }">
