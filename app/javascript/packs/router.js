@@ -4,18 +4,19 @@ import VueRouter from 'vue-router'
 
 // Components for router
 import Top from '../components/Top'
-import UserDetail from '../components/UserDetail.vue'
-import UserEdit from '../components/UserEdit.vue'
-import UserImage from '../components/UserImage.vue'
-import NotFound from '../components/NotFound.vue'
-import HabitNew from '../components/HabitNew.vue'
-import HabitDetail from '../components/HabitDetail.vue'
-import HabitEdit from '../components/HabitEdit.vue'
-import AllBestHabits from '../components/AllBestHabits.vue'
-import GoogleMap from '../components/GoogleMap.vue'
+import UserDetail from '../components/UserDetail'
+import UserEdit from '../components/UserEdit'
+import UserImage from '../components/UserImage'
+import NotFound from '../components/NotFound'
+import HabitNew from '../components/HabitNew'
+import HabitDetail from '../components/HabitDetail'
+import HabitEdit from '../components/HabitEdit'
+import AllBestHabits from '../components/AllBestHabits'
+import GoogleMap from '../components/GoogleMap'
+import CommentEdit from '../components/CommentEdit'
 
-import LoginForm from '../components/LoginForm.vue'
-import SignUpForm from '../components/SignUpForm.vue'
+import LoginForm from '../components/LoginForm'
+import SignUpForm from '../components/SignUpForm'
 
 // Routing
 const router = new VueRouter({
@@ -47,7 +48,7 @@ const router = new VueRouter({
       component: NotFound
     },
     {
-      path: '/newhabit',
+      path: '/habit/new',
       name: 'HabitNew',
       component: HabitNew
     },
@@ -57,9 +58,14 @@ const router = new VueRouter({
       component: HabitEdit
     },
     {
-      path: '/habitdetail',
+      path: '/habit/detail',
       name: 'HabitDetail',
       component: HabitDetail
+    },
+    {
+      path: '/comment/edit',
+      name: 'CommentEdit',
+      component: CommentEdit
     },
     {
       path: '/login',
@@ -72,7 +78,7 @@ const router = new VueRouter({
       component: SignUpForm
     },
     {
-      path: '/allhabits',
+      path: '/habits/all',
       name: 'AllBestHabits',
       component: AllBestHabits
     },

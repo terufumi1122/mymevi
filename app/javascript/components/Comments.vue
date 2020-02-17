@@ -29,6 +29,16 @@
               </v-list-item-subtitle>
             </v-list-item-content>
 
+            <div
+              @click="setComment(comment)"
+            >
+              <v-btn
+                text
+                color="deep-purple accent-4"
+                :to="{ name: 'CommentEdit'}"
+              >編集</v-btn>
+            </div>
+
           </v-list-item>
         </v-card-actions>
       </v-card>
@@ -38,7 +48,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex' 
+  import { mapGetters, mapActions } from 'vuex' 
 
   export default {
     name: 'Comments',
@@ -49,6 +59,11 @@
         'avatar',
       ]),
     },
+    methods: {
+      ...mapActions([
+        'setComment'
+      ])
+    }
   }
 </script>
 
