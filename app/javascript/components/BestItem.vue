@@ -41,7 +41,7 @@
         <!-- ここを押すとTwitterでシェアしたり出来るようにしたい -->
       <!-- <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
-      </!--> -->
+      </!-->
 
       <div v-if="isCurrentUser">
         <v-spacer></v-spacer>
