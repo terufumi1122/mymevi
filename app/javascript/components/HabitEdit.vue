@@ -3,7 +3,7 @@
     <HabitForm
       v-model="habit"
       formTitle="習慣を修正"
-      buttonName="上記内容で修正する"
+      buttonName="この内容で修正する"
       :habit="habit"
       buttonColor="teal"
       @clickButton="editHabit"

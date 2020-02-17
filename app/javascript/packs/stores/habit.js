@@ -3,7 +3,8 @@ import axios from 'axios'
 export default ({
 
   state: {
-    habit: { image: 'https://source.unsplash.com/400x300/?beautiful,nature' },
+    habit: {},
+    // habit: { image: 'https://source.unsplash.com/400x300/?beautiful,nature' },
     habits: [],
     currentHabitId: null,
     allHabits: [],
@@ -44,10 +45,12 @@ export default ({
       state.habit = payload
     },
     clearHabit(state) {
-      state.habit = { image: 'https://source.unsplash.com/400x300/?beautiful,nature' }
+      state.habit = {}
+      // state.habit = { image: 'https://source.unsplash.com/400x300/?beautiful,nature' }
     },
     deleteHabitImage(state) {
-      state.habit.image = { image: 'https://source.unsplash.com/400x300/?beautiful,nature' }
+      state.habit.image = {}
+      // state.habit.image = { image: 'https://source.unsplash.com/400x300/?beautiful,nature' }
     },
     
     // draggable用
@@ -162,7 +165,7 @@ export default ({
               context.commit('habit', response.data )
             } else {
               const habit = response.data
-              habit['image'] = 'https://source.unsplash.com/400x300/?beautiful,nature'
+              // habit['image'] = 'https://source.unsplash.com/400x300/?beautiful,nature'
               context.commit('habit', habit )
             }
             if (response.data.location_id !== null) {

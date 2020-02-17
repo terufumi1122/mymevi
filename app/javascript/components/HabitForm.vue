@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mx-auto text-center">
     <v-form>
       <h2>{{ formTitle }}</h2>
 
@@ -63,9 +63,9 @@
 
     <v-row>
       <v-col>
-        <v-row>
-          <v-spacer></v-spacer>
+        <div>
           <v-btn
+            class="mb-3"
             :color="buttonColor"
             dark
             @click="$emit('clickButton')"
@@ -73,17 +73,7 @@
             <v-icon>mdi-plus-box</v-icon>
             {{ buttonName }}
           </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="red"
-            dark
-            @click="destroy"
-          >
-            <v-icon>mdi-delete</v-icon>
-            削除する
-          </v-btn>
-          <v-spacer></v-spacer>
-        </v-row>
+        </div>
       </v-col>
     </v-row>
     <Dialog
