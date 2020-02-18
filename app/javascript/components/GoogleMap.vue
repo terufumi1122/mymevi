@@ -208,15 +208,7 @@ export default {
         let isCurrentUser = location.user_id === this.currentUser.id
 
         //アイコンの色をログイン中のユーザーかどうかで変更
-        // this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
-        this.icon = {
-            fillColor: "#0f4c81",
-            fillOpacity: 0.7,
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 16,
-            strokeColor: "#fff",
-            strokeWeight: 1.0
-        }
+        this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
         this.label = {
           text: 'Others',
           color: '#fff',
@@ -225,15 +217,7 @@ export default {
 
         if (this.currentUser !== null ){
           if (isCurrentUser) {
-            // this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
-            this.icon = {
-                fillColor: "#990011",
-                fillOpacity: 0.7,
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 16,
-                strokeColor: "#fff",
-                strokeWeight: 1.0
-            }
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
             this.label = {
               text: 'Yours',
               color: '#fff',
