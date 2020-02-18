@@ -41,14 +41,6 @@
       class="input__button--fixed"
     ></SearchBox>
 
-    <Slider
-      :dialog="dialog"
-      @close-dialog="dialog = false"
-      title="検索範囲を変更 半径(m)を選んで下さい"
-      :max="max"
-      :min="min"
-      @end="slider"
-    ></Slider>
   </div>
 </template>
 
@@ -57,7 +49,6 @@ import { mapGetters, mapActions } from "vuex";
 import SpeedDial from "./SpeedDial";
 import InfoWindow from "./InfoWindow";
 import SearchBox from "./SearchBox";
-import Slider from "./Slider"
 
 export default {
   name: "GoogleMap",
@@ -65,14 +56,10 @@ export default {
     SpeedDial,
     InfoWindow,
     SearchBox,
-    Slider,
   },
   data() {
     return {
-      radius: 500,
-      dialog: false,
-      max: 5000,
-      min: 500,
+      radius: 10000,
       buttons: [
         {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地を保存"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
