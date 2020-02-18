@@ -7,8 +7,8 @@
 #   gem 'mysql2'
 #
 # And be sure to use new-style password hashing:
-#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
-#
+  #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+  #
 default: &default
   adapter: mysql2
   encoding: utf8mb4
@@ -16,6 +16,7 @@ default: &default
   username: <%= ENV['DATABASE_USERNAME_DEVELOPMENT'] %>
   password: <%= ENV['DATABASE_PASSWORD_DEVELOPMENT'] %>
   host: <%= ENV['DATABASE_HOST_DEVELOPMENT'] %>
+  socket: '/var/run/mysqld/mysqld.sock'
 
 development:
   <<: *default

@@ -61,7 +61,7 @@
           <v-btn
             text
             color="deep-purple accent-4"
-            @click="setHabitDetail(habitId)"
+            @click="setHabitDetail(habit.id)"
           >
             編集する
           </v-btn>
@@ -72,7 +72,7 @@
         <v-btn
           text
           color="deep-purple accent-4"
-          @click="setHabitDetail(habitId)"
+          @click="setHabitDetail(habit.id)"
         >
           詳細を見る
         </v-btn>

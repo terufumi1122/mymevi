@@ -62,7 +62,6 @@ class Api::V1::HabitsController < ApplicationController
       users.gender AS user_gender,
       location_id
       ")
-
     habit = habit_detail[0].as_json # アイキャッチ画像がなければここまでのデータを返す
     eyecatch = habit_detail[0].eyecatch
 
