@@ -162,6 +162,7 @@ export default {
 
     setHabitDetail(context, habitId) {
       context.commit("currentHabitId", { currentHabitId: habitId });
+      console.log(habitId)
       axios
         .get("/api/v1/habit_detail", { params: { habit_id: habitId } })
         .then(response => {

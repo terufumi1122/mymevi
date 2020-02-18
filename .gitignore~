@@ -37,6 +37,3 @@ yarn-debug.log*
 
 ### 検証用ファイル
 playland/
-
-### 環境変数
-.env*
