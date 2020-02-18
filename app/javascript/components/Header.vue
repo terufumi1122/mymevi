@@ -15,6 +15,15 @@
         </v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-avatar
+        v-if="currentUser"
+        circle
+        color="#aaa"
+        size="30"
+      >
+        ddd
+      </v-avatar>
       
       <v-menu>
         <template v-slot:activator="{ on }">

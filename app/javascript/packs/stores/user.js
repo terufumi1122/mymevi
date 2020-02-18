@@ -106,6 +106,7 @@ export default ({
         .then(response => {
           context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
+          context.dispatch('getAvatar')
           context.dispatch('createFlash', { type: 'success', message: '新規登録・ログインに成功しました' });
           return routeTo;
         })
@@ -120,6 +121,7 @@ export default ({
         .then(response => {
           context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
+          context.dispatch('getAvatar')
           context.dispatch('createFlash', { type: 'success', message: 'ログインしました' });
           return routeTo;
         })
@@ -147,6 +149,7 @@ export default ({
         .then(response => {
           context.commit('currentUser', { user: response.data.data });
           context.commit('headers', response.headers);
+          context.dispatch('getAvatar')
           context.dispatch('createFlash', { type: 'success', message: 'ユーザー情報を更新しました' });
           return routeTo;
         })
@@ -173,6 +176,7 @@ export default ({
       .post('/api/v1/auth/sign_in', {email: "guest@sample.com", password: "password"})
       .then(response => {
           context.commit('currentUser', { user: response.data.data });
+          context.dispatch('getAvatar')
           context.commit('headers', response.headers);
         context.dispatch('createFlash', { type: 'success', message: 'ゲストユーザーとしてログインしました' });
         return routeTo;
@@ -202,6 +206,23 @@ export default ({
           console.error(error)
           context.dispatch('createFlash', { type: 'error', message: 'ユーザー画像の変更に失敗しました' })
         })
+    },
+
+    getAvatar(context) {
+      axios
+        .post("/api/v1/user/avatars", { users: [context.state.currentUser.id] })
+        .then(response => {
+          context.commit("avatars", response.data);
+          console.log(response.data)
+          console.log("avatarsを取得しました");
+        })
+        .catch(error => {
+          console.error(error);
+          context.dispatch("createFlash", {
+            type: "error",
+            message: "アバターの取得に失敗しました"
+          });
+        });
     }
   },
 
