@@ -15,22 +15,17 @@
       <v-card-title>{{ habit.name }}</v-card-title>
 
       <v-card-text>
-        <div>詳細：{{ habit.description }}</div>
-        <div>場所：{{ habitLocation.name }}</div>
+        <p>{{ habit.description }}</p>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card-title>こんな人がオススメしています！</v-card-title>
+      <v-card-text class="grey--text">
+        <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のイチオシ習慣です！</p>
+        <p>{{ habitLocation.name }}</p>
+      </v-card-text>
 
-      <div class="my-4 subtitle-1 grey--text">
-        {{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！
-      </div>
-
-      <v-row
-        align="center"
-        class="mx-0"
-      >
+      <v-card-actions>
         <v-btn
           @click="toggleLike"
           icon
@@ -50,9 +45,6 @@
             >mdi-heart</v-icon>
           </v-badge>
         </v-btn>
-
-      </v-row>
-      <v-card-actions>
           <v-btn
             color="deep-purple accent-4"
             text
@@ -72,7 +64,6 @@
           </v-btn>
         </router-link>
       </v-card-actions>
-
 
       <Loading/>
     </v-card>
