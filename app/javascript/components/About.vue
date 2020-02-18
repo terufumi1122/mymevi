@@ -63,7 +63,7 @@
           dark
           :to="{ name: 'UserDetail' }"
         >
-          <v-icon>mdi-account-circle</v-icon>:自分のプロフィール・習慣
+          <v-icon>mdi-account-circle</v-icon>:あなたのプロフィール
         </v-btn>
       </v-row>
       <v-row>

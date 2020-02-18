@@ -4,7 +4,7 @@
         v-if="currentUser"
         :to="{ name: 'UserDetail' }"
       >
-        <span>自分の習慣</span>
+        <span>あなたの習慣</span>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
 
