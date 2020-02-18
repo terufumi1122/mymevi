@@ -121,10 +121,6 @@ export default {
         this.sortAscTime()
       } else if ( method === "sortDescTime" ) {
         this.sortDescTime()
-      } else if ( method === "sortAscLikes" ) {
-        this.sortAscLikes()
-      } else if ( method === "sortDescLikes" ) {
-        this.sortDescLikes()
       }
     },
     sortAscTime() {
@@ -133,12 +129,6 @@ export default {
     sortDescTime() {
       this.descTime('id')
     },
-    sortAscLikes() {
-      this.ascLikes()
-    },
-    sortDescLikes() {
-      this.descLikes()
-    }
   }
 }
 </script>
