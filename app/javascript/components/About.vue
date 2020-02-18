@@ -25,14 +25,13 @@
       <v-container v-if="currentUser === null">
         <v-row>
           <v-spacer></v-spacer>
-          <router-link :to="{ name: 'LoginForm' }">
             <v-btn
               color="#0f4c81"
               dark
+              :to="{ name: 'LoginForm' }"
             >
               ログイン
             </v-btn>
-          </router-link>
           <v-spacer></v-spacer>
             <v-btn
               color="#278040"
@@ -42,14 +41,13 @@
               簡単ログイン
             </v-btn>
             <v-spacer></v-spacer>
-          <router-link :to="{ name: 'SignUpForm' }">
             <v-btn
               color="#990011"
               dark
+              :to="{ name: 'SignUpForm' }"
             >
               新規登録
             </v-btn>
-          </router-link>
           <v-spacer></v-spacer>
         </v-row>
       </v-container>
