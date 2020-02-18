@@ -16,19 +16,6 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn
-        icon
-        @click="$emit('gps')"
-      >
-        <v-icon>mdi-crosshairs-gps</v-icon>
-      </v-btn>
-
-      <v-btn
-        icon
-        @click="$emit('change-radius')"
-      >
-        <v-icon>mdi-radius</v-icon>
-      </v-btn>
     </v-toolbar>
 </template>
 

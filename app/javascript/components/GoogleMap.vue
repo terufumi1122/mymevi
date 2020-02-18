@@ -38,8 +38,6 @@
 
     <SearchBox
       @search="searchPoint"
-      @gps="gps"
-      @change-radius="dialog = true"
       class="input__button--fixed"
     ></SearchBox>
 
