@@ -19,10 +19,13 @@
       <v-avatar
         v-if="currentUser"
         circle
-        color="#aaa"
+        color="#990011"
         size="30"
       >
-        ddd
+        <img
+          class="elevation-6"
+          :src="avatar(currentUser.id)"
+        />
       </v-avatar>
       
       <v-menu>
@@ -66,7 +69,8 @@
     },
     computed: {
       ...mapGetters([
-        'currentUser'
+        'currentUser',
+        'avatar'
       ]),
       logined(){
         return this.currentUser !== null
