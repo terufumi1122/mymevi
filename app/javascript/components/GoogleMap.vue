@@ -295,52 +295,6 @@ export default {
       });
     },
 
-    setCurrentLocation() {
-      //Geolocationが使えないブラウザであればアラートを出す。
-      if (!navigator.geolocation) {
-        alert("Geolocation not supported!");
-        return;
-      }
-      console.log('setCurrentLocation()を開始します。') //後で消す
-      //現在位置の取得を行う
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          //Vueコンポーネントのcenterに現在位置を代入
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          console.log(this.center); //後で消す
-
-          this.map.panTo(this.center) //現在位置にmapの表示位置を移動させる
-          new google.maps.Marker({
-            position: this.center,
-            map: this.map,
-            title: "現在位置",
-            animation: google.maps.Animation.DROP
-          });
-
-          //ログイン後は位置情報を記録する
-          if (this.currentUser) {
-            //位置情報を記録するために変数を宣言
-            let locationParams = {
-              name: this.address,
-              lat: this.center.lat,
-              lng: this.center.lng,
-              user_id: this.currentUser.id,
-              habit_id: 30 //サンプル
-            };
-            //location.jsで定義したactionsを呼び出す。
-            this.addLocation(locationParams);
-          }
-        },
-        function() {
-          alert("Geolocation failed!");
-          return;
-        }
-      );
-    },
-
     //以下、長くなるので切り出した関数
 
     getAddress(e) {
