@@ -209,20 +209,10 @@ export default {
 
         //アイコンの色をログイン中のユーザーかどうかで変更
         this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
-        this.label = {
-          text: 'Others',
-          color: '#fff',
-          fontSize: '8px'
-        }
 
         if (this.currentUser !== null ){
           if (isCurrentUser) {
             this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
-            this.label = {
-              text: 'Yours',
-              color: '#fff',
-              fontSize: '8px'
-            }
           }
         }
 
@@ -312,19 +302,19 @@ export default {
           map: this.map,
           title: this.address,
           animation: google.maps.Animation.DROP,
-          icon: {
-            fillColor: "#990011",
-            fillOpacity: 1.0,
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 16,
-            strokeColor: "#fff",
-            strokeWeight: 1.0
-          },
-          label: {
-            text: 'New',
-            color: '#fff',
-            fontSize: '10px'
-          }
+          // icon: {
+          //   fillColor: "#990011",
+          //   fillOpacity: 1.0,
+          //   path: google.maps.SymbolPath.CIRCLE,
+          //   scale: 16,
+          //   strokeColor: "#fff",
+          //   strokeWeight: 1.0
+          // },
+          // label: {
+          //   text: 'New',
+          //   color: '#fff',
+          //   fontSize: '10px'
+          // }
         });
         console.log(marker)
         this.markers.push(marker)
