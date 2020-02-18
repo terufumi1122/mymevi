@@ -14,7 +14,7 @@
         :color="avatorColor"
       >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="headline">
+        <v-list-item-title class="title mb-5">
           {{ habit.name }}
         </v-list-item-title>
         <v-list-item-subtitle>
@@ -31,7 +31,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-card-actions>
+    <v-card-actions class="d-flex justify-space-between">
       <v-btn
         @click="toggleLike"
         icon
@@ -56,18 +56,16 @@
       </!-->
 
       <div v-if="isCurrentUser">
-        <v-spacer></v-spacer>
         <router-link :to="{ name: 'HabitEdit' }">
           <v-btn
             text
             color="deep-purple accent-4"
             @click="setHabitDetail(habit.id)"
           >
-            編集する
+            編集する 
           </v-btn>
         </router-link>
       </div>
-      <v-spacer></v-spacer>
       <router-link :to="{ name: 'HabitDetail' }">
         <v-btn
           text
