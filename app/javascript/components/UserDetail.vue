@@ -26,7 +26,7 @@
   
         <v-list-item-content>
           <div class="overline mb-4">About Me!</div>
-          <v-list-item-title class="headline mb-1">{{ user.name }}</v-list-item-title>
+          <v-list-item-title class="title mb-1">{{ user.name }}</v-list-item-title>
           <v-list-item-subtitle>E-mail: {{ user.email }}</v-list-item-subtitle>
           <v-list-item-subtitle>{{ user.birth_year }}年生まれ</v-list-item-subtitle>
           <v-list-item-subtitle>{{ userGender }}</v-list-item-subtitle>

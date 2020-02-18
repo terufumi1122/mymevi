@@ -133,12 +133,7 @@ export default {
       context.getters.habits.forEach(habit => {
         axios
           .patch(`/api/v1/habits/${habit.id}`, habit)
-          .then(() => {
-            context.dispatch("createFlash", {
-              type: "success",
-              message: "習慣の修正に成功しました"
-            });
-          })
+          .then()
           .catch(error => {
             console.error(error);
             context.dispatch("createFlash", {

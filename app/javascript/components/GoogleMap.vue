@@ -38,19 +38,9 @@
 
     <SearchBox
       @search="searchPoint"
-      @gps="gps"
-      @change-radius="dialog = true"
       class="input__button--fixed"
     ></SearchBox>
 
-    <Slider
-      :dialog="dialog"
-      @close-dialog="dialog = false"
-      title="検索範囲を変更 半径(m)を選んで下さい"
-      :max="max"
-      :min="min"
-      @end="slider"
-    ></Slider>
   </div>
 </template>
 
@@ -59,7 +49,6 @@ import { mapGetters, mapActions } from "vuex";
 import SpeedDial from "./SpeedDial";
 import InfoWindow from "./InfoWindow";
 import SearchBox from "./SearchBox";
-import Slider from "./Slider"
 
 export default {
   name: "GoogleMap",
@@ -67,18 +56,13 @@ export default {
     SpeedDial,
     InfoWindow,
     SearchBox,
-    Slider,
   },
   data() {
     return {
-      radius: 500,
-      dialog: false,
-      max: 5000,
-      min: 500,
+      radius: 10000,
       buttons: [
-        {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地を保存"},
+        {id: 1, rouded: true, fab: false, color: "blue", click: "gps", icon: "mdi-map-marker-radius", text: "現在地に移動"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
-        {id: 3, rouded: true, fab: false, color: "red", click: "deletePoint", icon: "mdi-delete", text: "登録地点を削除"},
       ],
       user_id: null,
       map: null,
@@ -224,37 +208,11 @@ export default {
         let isCurrentUser = location.user_id === this.currentUser.id
 
         //アイコンの色をログイン中のユーザーかどうかで変更
-        // this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
-        this.icon = {
-            fillColor: "#0f4c81",
-            fillOpacity: 0.7,
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 16,
-            strokeColor: "#fff",
-            strokeWeight: 1.0
-        }
-        this.label = {
-          text: 'Others',
-          color: '#fff',
-          fontSize: '8px'
-        }
+        this.icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' //自分以外は青
 
         if (this.currentUser !== null ){
           if (isCurrentUser) {
-            // this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
-            this.icon = {
-                fillColor: "#990011",
-                fillOpacity: 0.7,
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 16,
-                strokeColor: "#fff",
-                strokeWeight: 1.0
-            }
-            this.label = {
-              text: 'Yours',
-              color: '#fff',
-              fontSize: '8px'
-            }
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' //currentUserは赤
           }
         }
 
@@ -311,52 +269,6 @@ export default {
       });
     },
 
-    setCurrentLocation() {
-      //Geolocationが使えないブラウザであればアラートを出す。
-      if (!navigator.geolocation) {
-        alert("Geolocation not supported!");
-        return;
-      }
-      console.log('setCurrentLocation()を開始します。') //後で消す
-      //現在位置の取得を行う
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          //Vueコンポーネントのcenterに現在位置を代入
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          console.log(this.center); //後で消す
-
-          this.map.panTo(this.center) //現在位置にmapの表示位置を移動させる
-          new google.maps.Marker({
-            position: this.center,
-            map: this.map,
-            title: "現在位置",
-            animation: google.maps.Animation.DROP
-          });
-
-          //ログイン後は位置情報を記録する
-          if (this.currentUser) {
-            //位置情報を記録するために変数を宣言
-            let locationParams = {
-              name: this.address,
-              lat: this.center.lat,
-              lng: this.center.lng,
-              user_id: this.currentUser.id,
-              habit_id: 30 //サンプル
-            };
-            //location.jsで定義したactionsを呼び出す。
-            this.addLocation(locationParams);
-          }
-        },
-        function() {
-          alert("Geolocation failed!");
-          return;
-        }
-      );
-    },
-
     //以下、長くなるので切り出した関数
 
     getAddress(e) {
@@ -390,19 +302,19 @@ export default {
           map: this.map,
           title: this.address,
           animation: google.maps.Animation.DROP,
-          icon: {
-            fillColor: "#990011",
-            fillOpacity: 1.0,
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 16,
-            strokeColor: "#fff",
-            strokeWeight: 1.0
-          },
-          label: {
-            text: 'New',
-            color: '#fff',
-            fontSize: '10px'
-          }
+          // icon: {
+          //   fillColor: "#990011",
+          //   fillOpacity: 1.0,
+          //   path: google.maps.SymbolPath.CIRCLE,
+          //   scale: 16,
+          //   strokeColor: "#fff",
+          //   strokeWeight: 1.0
+          // },
+          // label: {
+          //   text: 'New',
+          //   color: '#fff',
+          //   fontSize: '10px'
+          // }
         });
         console.log(marker)
         this.markers.push(marker)
