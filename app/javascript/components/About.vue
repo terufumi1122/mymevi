@@ -18,7 +18,7 @@
     </v-row>
     <v-row>
       <v-spacer></v-spacer>
-      <p><strong>マイメビ</strong>は、自分の<strong>イチオシ習慣</strong>を<strong>匿名</strong>でシェアできるサービスです。</p>
+      <p><strong>マイメビ</strong>は、自分の<strong>オススメ習慣</strong>を<strong>匿名</strong>でシェアできるサービスです。</p>
       <v-spacer></v-spacer>
     </v-row>
     <v-container v-if="currentUser === null">

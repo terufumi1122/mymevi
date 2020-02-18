@@ -21,7 +21,7 @@
       <v-divider class="mx-4"></v-divider>
 
       <v-card-text class="grey--text">
-        <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のイチオシ習慣です！</p>
+        <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！</p>
         <p>{{ habitLocation.name }}</p>
       </v-card-text>
 
