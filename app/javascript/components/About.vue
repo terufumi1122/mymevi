@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container class="mx-auto about__wrapper">
+    <v-container class="mx-auto text-center">
       <v-row>
         <v-spacer></v-spacer>
         <img
@@ -134,6 +134,5 @@
   .main__logo--after {
     height: 40vh;
     max-width: 60vw;
-    margin-bottom: 20px;
   }
 </style>
