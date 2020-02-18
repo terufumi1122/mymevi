@@ -14,6 +14,9 @@ export default ({
     currentLocation(state) {
       return state.currentLocation;
     },
+    currentUserLocations(state, getters) {
+      return state.locations.filter(l => l.user_id === getters.currentUser.id)
+    },
     habitLocation(state, getters) {
       if (getters.habit.location_id) {
         return state.locations.find( location => location.id === getters.habit.location_id)

@@ -35,6 +35,7 @@ export default {
   mounted() {
     if (localStorage.currentUser) {
       this.setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
+      this.getAvatar()
     }
     if (localStorage.headers) {
       this.setHeaders(JSON.parse(localStorage.getItem('headers')));
@@ -44,6 +45,7 @@ export default {
     ...mapActions([
       'setCurrentUser',
       'setHeaders',
+      'getAvatar'
     ])
   }
 }

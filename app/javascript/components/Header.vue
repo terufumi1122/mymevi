@@ -15,6 +15,23 @@
         </v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-btn
+        icon
+        :to="{ name: 'UserDetail' }"
+      >
+        <v-avatar
+          v-if="currentUser"
+          circle
+          color="#990011"
+          size="30"
+        >
+          <img
+            class="elevation-6"
+            :src="avatar(currentUser.id)"
+          />
+        </v-avatar>
+      </v-btn>
       
       <v-menu>
         <template v-slot:activator="{ on }">
@@ -57,7 +74,8 @@
     },
     computed: {
       ...mapGetters([
-        'currentUser'
+        'currentUser',
+        'avatar'
       ]),
       logined(){
         return this.currentUser !== null

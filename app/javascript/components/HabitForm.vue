@@ -121,11 +121,11 @@ import Dialog from "./Dialog.vue";
     },
     computed: {
       ...mapGetters([
-        'locations'
+        'currentUserLocations'
       ]),
       myLocations() {
-        return this.locations.map( location => {
-          return { value: location.id, text: location.name }
+        return this.currentUserLocations.map( l => {
+          return { value: l.id, text: l.name }
         })
       }
     },
