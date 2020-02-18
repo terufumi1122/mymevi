@@ -61,9 +61,8 @@ export default {
     return {
       radius: 10000,
       buttons: [
-        {id: 1, rouded: true, fab: false, color: "blue", click: "setCurrentLocation", icon: "mdi-map-marker-radius", text: "現在地を保存"},
+        {id: 1, rouded: true, fab: false, color: "blue", click: "gps", icon: "mdi-map-marker-radius", text: "現在地に移動"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
-        {id: 3, rouded: true, fab: false, color: "red", click: "deletePoint", icon: "mdi-delete", text: "登録地点を削除"},
       ],
       user_id: null,
       map: null,
