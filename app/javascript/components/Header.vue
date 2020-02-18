@@ -16,17 +16,22 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-avatar
-        v-if="currentUser"
-        circle
-        color="#990011"
-        size="30"
+      <v-btn
+        icon
+        :to="{ name: 'UserDetail' }"
       >
-        <img
-          class="elevation-6"
-          :src="avatar(currentUser.id)"
-        />
-      </v-avatar>
+        <v-avatar
+          v-if="currentUser"
+          circle
+          color="#990011"
+          size="30"
+        >
+          <img
+            class="elevation-6"
+            :src="avatar(currentUser.id)"
+          />
+        </v-avatar>
+      </v-btn>
       
       <v-menu>
         <template v-slot:activator="{ on }">

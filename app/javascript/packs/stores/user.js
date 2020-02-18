@@ -213,8 +213,6 @@ export default ({
         .post("/api/v1/user/avatars", { users: [context.state.currentUser.id] })
         .then(response => {
           context.commit("avatars", response.data);
-          console.log(response.data)
-          console.log("avatarsを取得しました");
         })
         .catch(error => {
           console.error(error);
