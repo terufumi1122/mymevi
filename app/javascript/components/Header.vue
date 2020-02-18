@@ -46,11 +46,13 @@
             :key="setting.id"
             @click="triggerClick(setting.action)"
           >
-              <v-list-item-title
-                :to="{ name: setting.link }"
-              >
-                {{ setting.name }}
-              </v-list-item-title>
+            <v-btn
+              class="text-center"
+              block
+              :to="{ name: setting.link }"
+            >
+              {{ setting.name }}
+            </v-btn>
           </v-list-item>
         </v-list>
       </v-menu>
