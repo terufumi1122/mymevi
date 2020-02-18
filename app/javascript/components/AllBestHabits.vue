@@ -75,8 +75,6 @@ export default {
       sortList: [
         {id: 1, name: '新着（昇順）', method: 'sortAscTime'},
         {id: 2, name: '新着（降順）', method: 'sortDescTime'},
-        {id: 3, name: 'いいね数（昇順）', method: 'sortAscLikes'},
-        {id: 4, name: 'いいね数（降順）', method: 'sortDescLikes'},
       ],
       avatorColor: {
         1: 'yellow',
