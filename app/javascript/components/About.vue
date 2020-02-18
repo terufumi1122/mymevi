@@ -66,7 +66,7 @@
             dark
             :to="{ name: 'UserDetail' }"
           >
-            <v-icon>mdi-account-circle</v-icon>:自分のプロフィール・習慣の確認・習慣の投稿
+            <v-icon>mdi-account-circle</v-icon>:自分のプロフィール・習慣
           </v-btn>
         </v-row>
         <v-row>
@@ -76,7 +76,7 @@
             dark
             :to="{ name: 'AllBestHabits' }"
           >
-            <v-icon>mdi-heart</v-icon>:みんなのオススメ習慣を見る
+            <v-icon>mdi-heart</v-icon>:みんなのオススメ習慣
           </v-btn>
         </v-row>
         <v-row>
@@ -86,7 +86,7 @@
             dark
             :to="{ name: 'GoogleMap' }"
           >
-            <v-icon>mdi-map-marker</v-icon>:みんなのオススメスポットを見る
+            <v-icon>mdi-map-marker</v-icon>:みんなの定番スポット
           </v-btn>
         </v-row>
       </v-container>
@@ -127,12 +127,12 @@
     text-align: center;
   }
   .main__logo {
-    width: 80%;
+    height: 50vh;
     max-width: 500px;
     margin-bottom: 20px;
   }
   .main__logo--after {
-    width: 30%;
+    height: 40vh;
     max-width: 200px;
     margin-bottom: 20px;
   }
