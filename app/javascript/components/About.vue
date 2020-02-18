@@ -127,13 +127,13 @@
     text-align: center;
   }
   .main__logo {
-    height: 50vh;
-    max-width: 500px;
+    height: 45vh;
+    max-width: 80vw;
     margin-bottom: 20px;
   }
   .main__logo--after {
     height: 40vh;
-    max-width: 200px;
+    max-width: 60vw;
     margin-bottom: 20px;
   }
 </style>
