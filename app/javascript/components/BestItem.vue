@@ -56,25 +56,25 @@
       </!-->
 
       <div v-if="isCurrentUser">
-        <router-link :to="{ name: 'HabitEdit' }">
+        <div @click="setHabitDetail(habit.id)">
           <v-btn
             text
+            :to="{ name: 'HabitEdit' }"
             color="deep-purple accent-4"
-            @click="setHabitDetail(habit.id)"
           >
             編集する 
           </v-btn>
-        </router-link>
+        </div>
       </div>
-      <router-link :to="{ name: 'HabitDetail' }">
-        <v-btn
-          text
-          color="deep-purple accent-4"
-          @click="setHabitDetail(habit.id)"
-        >
-          詳細を見る
-        </v-btn>
-      </router-link>
+        <div @click="setHabitDetail(habit.id)">
+          <v-btn
+            :to="{ name: 'HabitDetail' }"
+            text
+            color="deep-purple accent-4"
+          >
+            詳細を見る
+          </v-btn>
+        </div>
     </v-card-actions>
   </v-card>
 </template>
