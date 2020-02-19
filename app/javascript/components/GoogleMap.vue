@@ -172,25 +172,15 @@ export default {
           name: keyword
         }, (results, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
+            
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' //currentUserは赤
             results.forEach( result => {
               console.log(result)
               new google.maps.Marker({
                 map: this.map,
                 position: result.geometry.location,
                 title: result.name,
-                icon: {
-                  fillColor: "#990011",
-                  fillOpacity: 0.7,
-                  path: google.maps.SymbolPath.CIRCLE,
-                  scale: 16,
-                  strokeColor: "#fff",
-                  strokeWeight: 1.0
-                },
-                label: {
-                  text: 'New',
-                  color: '#fff',
-                  fontSize: '10px'
-                }
+                icon: this.icon
               })
             })
           } else if (status === "ZERO_RESULTS") {
