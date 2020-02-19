@@ -6,28 +6,6 @@
         :style="{width: mapWidth + 'px', height: mapHeight + 'px'}"
         ></v-card>
 
-    <div v-for="marker in markers" :key="marker.id">
-      <InfoWindow
-        :id="marker.id"
-
-        :isCurrentUser="marker.currentUser"
-        title="あなたが登録した場所です！"
-        :address="marker.title"
-
-        color1="blue"
-        icon1="mdi-link-variant"
-        routeTo1=""
-        routeToText1="自分の習慣を紐付ける"
-        @clickButton1="sampleAlert"
-
-        color2="red"
-        icon2='mdi-delete'
-        routeTo2=""
-        routeToText2="削除する"
-        @clickButton2="deletePoint"
-      ></InfoWindow>
-    </div>
-
     <SpeedDial
       mainIcon="mdi-google-maps"
       :buttons="buttons"
@@ -47,14 +25,12 @@
 import { mapGetters, mapActions } from "vuex";
 
 import SpeedDial from "./SpeedDial";
-import InfoWindow from "./InfoWindow";
 import SearchBox from "./SearchBox";
 
 export default {
   name: "GoogleMap",
   components: {
     SpeedDial,
-    InfoWindow,
     SearchBox,
   },
   data() {
