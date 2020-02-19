@@ -7,6 +7,7 @@
       <v-list-item-avatar
         v-if="habit.best < 4"
         :color="avatorColor"
+        class="best__avatar"
       >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-avatar
         v-else
@@ -128,5 +129,17 @@
 <style>
  h1 {
    font-size: 5rem;
+ }
+
+ .best__avatar {
+   position: relative;
+ }
+
+ .best__avatar:before {
+   content: "ベスト";
+   font-size: 7px;
+   position: absolute;
+   top: -5px;
+   left: 10px;
  }
 </style>
