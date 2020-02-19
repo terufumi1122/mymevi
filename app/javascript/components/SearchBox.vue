@@ -2,6 +2,8 @@
     <v-toolbar
       dense
       floating
+      max-width="maxWidth"
+      class="mx-1"
     >
       <v-text-field
         v-model="keyword"
@@ -27,5 +29,10 @@
         keyword: '',
       }
     },
+    computed: {
+      maxWidth() {
+        return window.innerWidth - 120
+      }
+    }
   }
 </script>

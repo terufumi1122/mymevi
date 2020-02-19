@@ -31,10 +31,10 @@
       class="zzz"
     ></SpeedDial>
 
-    <div class="input__button--fixed">
+    <!-- <div class="input__button--fixed">
       <input type="text" id="keyword">
       <button id='search'>検索する</button>
-    </div>
+    </div> -->
 
     <SearchBox
       @search="searchPoint"
@@ -364,6 +364,6 @@ export default {
   z-index: 1000;
   position: fixed;
   bottom: 80px;
-  left: 10px;
+  right: 120px;
 }
 </style>
