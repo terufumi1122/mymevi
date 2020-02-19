@@ -1,6 +1,10 @@
 <template>
   <div>
-      <v-card id="target" :style="{width: mapWidth + 'px', height: mapHeight + 'px'}"></v-card>
+      <v-card
+        fixed
+        id="target"
+        :style="{width: mapWidth + 'px', height: mapHeight + 'px'}"
+        ></v-card>
 
     <div v-for="marker in markers" :key="marker.id">
       <InfoWindow
@@ -31,14 +35,9 @@
       class="zzz"
     ></SpeedDial>
 
-    <!-- <div class="input__button--fixed">
-      <input type="text" id="keyword">
-      <button id='search'>検索する</button>
-    </div> -->
-
     <SearchBox
       @search="searchPoint"
-      class="input__button--fixed"
+      class="search__box"
     ></SearchBox>
 
   </div>
@@ -46,6 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 import SpeedDial from "./SpeedDial";
 import InfoWindow from "./InfoWindow";
 import SearchBox from "./SearchBox";
@@ -360,7 +360,7 @@ export default {
 .zzz {
   z-index: 1000;
 }
-.input__button--fixed {
+.search__box {
   z-index: 1000;
   position: fixed;
   bottom: 80px;
