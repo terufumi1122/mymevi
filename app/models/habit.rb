@@ -17,6 +17,7 @@ class Habit < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :description
+    validates :merit
     validates :best
     validates :user_id
   end
