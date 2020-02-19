@@ -31,6 +31,19 @@
 
         <v-row>
           <v-col>
+            <v-text-field
+              :value="habit.merit"
+              @input="updateHabit($event, 'merit')"
+              :rules="meritRules"
+              :counter="100"
+              label="実感した（したい）メリット"
+              required
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
             <v-select
               :value="habit.location_id"
               @input="updateHabit($event, 'location_id')"
@@ -113,6 +126,10 @@ import Dialog from "./Dialog.vue";
         nameRules: [
           value => !!value || '習慣名の入力は必須です',
           value => value.length <= 20 || '習慣名は20文字以内で入力して下さい'
+        ],
+        meritRules: [
+          value => !!value || '実感した（したい）メリットの入力は必須です',
+          value => value.length <= 100 || '実感した（したい）メリットは100文字以内で入力して下さい'
         ],
         descriptionRules: [
           value => value.length <= 140 || '習慣の詳細は140文字以下で入力して下さい',

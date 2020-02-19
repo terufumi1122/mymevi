@@ -24,7 +24,7 @@
       <v-container v-if="currentUser === null">
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="#0f4c81"
             dark
             :to="{ name: 'LoginForm' }"
@@ -34,7 +34,7 @@
         </v-row>
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="#278040"
             dark
             @click="guestLogin"
@@ -44,7 +44,7 @@
         </v-row>
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="#990011"
             dark
             :to="{ name: 'SignUpForm' }"
@@ -61,7 +61,7 @@
         </v-row>
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="green"
             dark
             :to="{ name: 'UserDetail' }"
@@ -71,7 +71,7 @@
         </v-row>
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="green darken-2"
             dark
             :to="{ name: 'AllBestHabits' }"
@@ -81,7 +81,7 @@
         </v-row>
         <v-row>
           <v-btn
-            class="mx-auto mb-3"
+            class="mx-auto mb-1"
             color="green darken-4"
             dark
             :to="{ name: 'GoogleMap' }"
@@ -125,7 +125,7 @@
   .main__logo {
     height: 45vh;
     max-width: 80vw;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .main__logo--after {
     height: 40vh;

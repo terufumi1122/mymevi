@@ -5,6 +5,7 @@
 #  id          :bigint           not null, primary key
 #  best        :integer          not null
 #  description :text(65535)      not null
+#  merit       :string(191)      not null
 #  name        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -38,6 +39,11 @@ RSpec.describe Habit, type: :model do
 
     it 'descriptionがないと無効であること' do
       habit = build(:habit, description: nil)
+      expect(habit).to_not be_valid
+    end
+
+    it 'meritがないと無効であること' do
+      habit = build(:habit, merit: nil)
       expect(habit).to_not be_valid
     end
 

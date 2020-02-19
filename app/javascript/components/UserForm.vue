@@ -5,6 +5,7 @@
         <div v-if="mode === 'full'">
           <v-row>
               <v-text-field
+                class="mx-3"
                 :value="user.name"
                 @input="updateUserParams($event, 'name')"
                 :rules="nameRules"
@@ -16,6 +17,7 @@
         </div>
         <v-row>
             <v-text-field
+              class="mx-3"
               :value="user.email"
               @input="updateUserParams($event, 'email')"
               :rules="emailRules"
@@ -26,6 +28,7 @@
         <div v-if="mode === 'full'">
           <v-row>
               <v-select
+                class="mx-3"
                 :value="user.birth_year"
                 @input="updateUserParams($event, 'birth_year')"
                 :items="years"
@@ -34,6 +37,7 @@
           </v-row>
           <v-row>
             <v-radio-group
+              class="mx-3"
               label="性別"
               :value="user.gender"
               @change="updateUserParams($event, 'gender')"
@@ -55,7 +59,8 @@
           </v-row>
         </div>
         <v-row>
-             <v-text-field
+            <v-text-field
+              class="mx-3"
               :value="user.password"
               @input="updateUserParams($event, 'password')"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -70,6 +75,7 @@
         <div v-if="mode === 'full'">
           <v-row>
               <v-text-field
+                class="mx-3"
                 :value="user.password_confirmation"
                 @input="updateUserParams($event, 'password_confirmation')"
                 :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"

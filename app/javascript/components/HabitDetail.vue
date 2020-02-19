@@ -14,6 +14,24 @@
 
       <v-card-title>{{ habit.name }}</v-card-title>
 
+      <div class="balloon">
+        <v-card-text>
+          {{ habit.merit }}
+        </v-card-text>
+      </div>
+      <div class="avatar-container">
+        <v-avatar
+          color="#990011"
+          size="30"
+          class="balloon-avatar"
+        >
+          <img
+            :src="avatar(habit.user_id)"
+          >
+        </v-avatar>
+
+      </div>
+
       <v-card-text>
         <p>{{ habit.description }}</p>
       </v-card-text>
@@ -22,7 +40,7 @@
 
       <v-card-text class="grey--text">
         <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！</p>
-        <p>{{ habitLocation.name }}</p>
+        <p>定番スポット： {{ habitLocation.name }}</p>
       </v-card-text>
 
       <v-card-actions>
@@ -95,6 +113,7 @@
         'currentUser',
         'habit',
         'habitLocation',
+        'avatar',
       ]),
 
       isCurrentUser() {
@@ -165,3 +184,37 @@
     }
   }
 </script>
+
+<style>
+.balloon {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  width: 354px;
+  color: #555;
+  font-size: 16px;
+  background: #e0fffa;
+}
+
+.balloon:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 33px;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0fffa;
+}
+
+.avatar-container {
+  position: relative;
+  height: 30px;
+}
+
+.balloon-avatar {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+}
+</style>

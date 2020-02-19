@@ -5,6 +5,7 @@
 #  id          :bigint           not null, primary key
 #  best        :integer          not null
 #  description :text(65535)      not null
+#  merit       :string(191)      not null
 #  name        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -16,6 +17,7 @@ FactoryBot.define do
   factory :habit do
     name               { Faker::Lorem.sentence }
     description        { Faker::Lorem.paragraph }
+    merit              { Faker::Lorem.sentence }
     best               { rand(1..4) }
     sequence(:user_id) { |n| n }
 

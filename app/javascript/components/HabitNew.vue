@@ -40,6 +40,7 @@ import HabitForm from './HabitForm.vue'
         }
         const habitParams = {
             name: this.habit.name,
+            merit: this.habit.merit,
             description: this.habit.description,
             best: (this.habits.length + 1), //現在のユーザーの習慣数 + 1が自動的に入る。
             user_id: this.currentUser.id,

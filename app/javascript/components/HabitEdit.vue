@@ -34,17 +34,15 @@ export default {
       const habitParams = {
         id: this.habit.id,
         name: this.habit.name,
+        merit: this.habit.merit,
         description: this.habit.description,
         best: this.habit.best,
         user_id: this.habit.user_id,
         location_id: this.habit.location_id,
         image: this.habit.image
       }
-      this.updateHabit(habitParams, this.routeTo("Top"));
+      this.updateHabit(habitParams, this.$router.push({ name: 'Top' }));
     },
-    routeTo(routeName) {
-      this.$router.push({ name: routeName });
-    }
   }
 };
 </script>

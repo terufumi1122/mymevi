@@ -7,6 +7,7 @@
       <v-list-item-avatar
         v-if="habit.best < 4"
         :color="avatorColor"
+        class="best__avatar"
       >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-avatar
         v-else
@@ -56,25 +57,25 @@
       </!-->
 
       <div v-if="isCurrentUser">
-        <router-link :to="{ name: 'HabitEdit' }">
+        <div @click="setHabitDetail(habit.id)">
           <v-btn
             text
+            :to="{ name: 'HabitEdit' }"
             color="deep-purple accent-4"
-            @click="setHabitDetail(habit.id)"
           >
             編集する 
           </v-btn>
-        </router-link>
+        </div>
       </div>
-      <router-link :to="{ name: 'HabitDetail' }">
-        <v-btn
-          text
-          color="deep-purple accent-4"
-          @click="setHabitDetail(habit.id)"
-        >
-          詳細を見る
-        </v-btn>
-      </router-link>
+        <div @click="setHabitDetail(habit.id)">
+          <v-btn
+            :to="{ name: 'HabitDetail' }"
+            text
+            color="deep-purple accent-4"
+          >
+            詳細を見る
+          </v-btn>
+        </div>
     </v-card-actions>
   </v-card>
 </template>
@@ -128,5 +129,17 @@
 <style>
  h1 {
    font-size: 5rem;
+ }
+
+ .best__avatar {
+   position: relative;
+ }
+
+ .best__avatar:before {
+   content: "ベスト";
+   font-size: 7px;
+   position: absolute;
+   top: -5px;
+   left: 10px;
  }
 </style>

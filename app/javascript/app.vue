@@ -3,9 +3,7 @@
     <div>
       <Header/>
       <Flash/>
-      <router-view
-      class="main__view--margin"
-      ></router-view>
+      <router-view></router-view>
       <Footer/>
     </div>
   </v-app>
@@ -54,9 +52,6 @@ export default {
   background: #f0efe2;
   height: 100vh;
   overflow-y: scroll;
-}
-.main__view--margin {
-  margin-bottom: 56px;
 }
 [v-cloak] {
   display: none;

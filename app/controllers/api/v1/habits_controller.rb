@@ -7,6 +7,7 @@ class Api::V1::HabitsController < ApplicationController
       habits.id,
       habits.name,
       description,
+      merit,
       best,
       user_id,
       users.name AS user_name,
@@ -41,6 +42,7 @@ class Api::V1::HabitsController < ApplicationController
       habits.id,
       habits.name,
       description,
+      merit,
       best,
       user_id,
       users.name AS user_name,
@@ -56,6 +58,7 @@ class Api::V1::HabitsController < ApplicationController
       habits.id,
       habits.name,
       description,
+      merit,
       best,
       habits.user_id,
       users.name AS user_name,
@@ -103,6 +106,6 @@ class Api::V1::HabitsController < ApplicationController
   private
 
   def habit_params
-    params.permit(:id, :name, :description, :best, :user_id, :location_id, :image)
+    params.permit(:id, :name, :description, :merit, :best, :user_id, :location_id, :image)
   end
 end
