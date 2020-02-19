@@ -64,6 +64,7 @@ export default {
       buttons: [
         {id: 1, rouded: true, fab: false, color: "blue", click: "gps", icon: "mdi-map-marker-radius", text: "現在地に移動"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
+        {id: 3, rouded: true, fab: false, color: "red", click: "clearMarkers", icon: "mdi-map-marker-remove", text: "マーカー一括削除"},
       ],
       user_id: null,
       map: null,
@@ -116,8 +117,8 @@ export default {
         this.setCurrentLocation()
       } else if ( action === "setMarker" ) {
         this.setMarker()
-      } else if ( action === "deletePoint" ) {
-        this.deletePoint()
+      } else if ( action === "clearMarkers" ) {
+        this.clearMarkers()
       }
     },
 
@@ -132,6 +133,11 @@ export default {
     deletePoint() {
       console.log('delete it!!')
       // this.deleteLocation(locationId)
+    },
+    clearMarkers() {
+      console.log('clearMarkers()発動')
+      this.markers.forEach(m => m.setMap(null))
+      console.log('clearMarkers()終了')
     },
 
     //現在位置に移動するメソッド
@@ -172,16 +178,17 @@ export default {
           name: keyword
         }, (results, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            
+
             this.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' //currentUserは赤
             results.forEach( result => {
               console.log(result)
-              new google.maps.Marker({
+              let marker = new google.maps.Marker({
                 map: this.map,
                 position: result.geometry.location,
                 title: result.name,
                 icon: this.icon
               })
+              this.markers.push(marker)
             })
           } else if (status === "ZERO_RESULTS") {
             alert('検索結果が見つかりませんでした')
@@ -251,6 +258,7 @@ export default {
       this.map.addListener('zoom_changed', () => {
         this.zoom = this.map.getZoom()
         })
+      this.markers = new google.maps.MVCArray()
     },
 
     //以下、長くなるので切り出した関数
