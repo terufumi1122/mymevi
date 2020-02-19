@@ -257,7 +257,9 @@ export default {
 
       //描画するためのmapを新規作成
       this.map = new google.maps.Map(target, mapOptions);
-
+      this.map.addListener('center_changed', () => {
+        this.center = this.map.getCenter()
+        })
     },
 
     //以下、長くなるので切り出した関数
