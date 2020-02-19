@@ -34,6 +34,7 @@ export default {
       const habitParams = {
         id: this.habit.id,
         name: this.habit.name,
+        merit: this.habit.merit,
         description: this.habit.description,
         best: this.habit.best,
         user_id: this.habit.user_id,
