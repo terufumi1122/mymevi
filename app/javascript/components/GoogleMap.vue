@@ -59,10 +59,12 @@ export default {
   },
   data() {
     return {
-      radius: 10000,
+      zoom: 12,
+      radiusPattern: [0,0,0,0,0,0,0,0,85000, 43000, 21600, 12300, 5500, 2800, 1300, 650, 340, 160, 90, 50],
       buttons: [
         {id: 1, rouded: true, fab: false, color: "blue", click: "gps", icon: "mdi-map-marker-radius", text: "現在地に移動"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
+        {id: 3, rouded: true, fab: false, color: "red", click: "clearMarkers", icon: "mdi-map-marker-remove", text: "マーカー一括削除"},
       ],
       user_id: null,
       map: null,
@@ -74,7 +76,6 @@ export default {
         lat: 35.65823,
         lng: 139.701642
       },
-      zoom: 12,
     };
   },
   computed: {
@@ -90,6 +91,9 @@ export default {
       return this.locations.filter(
         location => location.user_id === this.currentUser.id
       );
+    },
+    radius() {
+      return this.radiusPattern[this.zoom]
     }
   },
   created() {
@@ -113,8 +117,8 @@ export default {
         this.setCurrentLocation()
       } else if ( action === "setMarker" ) {
         this.setMarker()
-      } else if ( action === "deletePoint" ) {
-        this.deletePoint()
+      } else if ( action === "clearMarkers" ) {
+        this.clearMarkers()
       }
     },
 
@@ -129,6 +133,11 @@ export default {
     deletePoint() {
       console.log('delete it!!')
       // this.deleteLocation(locationId)
+    },
+    clearMarkers() {
+      console.log('clearMarkers()発動')
+      this.markers.forEach(m => m.setMap(null))
+      console.log('clearMarkers()終了')
     },
 
     //現在位置に移動するメソッド
@@ -153,13 +162,8 @@ export default {
       );
     },
 
-    slider(value) {
-      console.log(`sliderから${value}を受け取りました`) //後で消す
-      this.radius = value
-      console.log(this.radius) //後で消す
-    },
-
     searchPoint(keyword) {
+      console.log(`半径${this.radius}mの範囲で検索します`)//後で消す
       console.log('検索します')//後で消す
       console.log(keyword)//後で消す
 
@@ -174,26 +178,17 @@ export default {
           name: keyword
         }, (results, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+            this.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' //currentUserは赤
             results.forEach( result => {
               console.log(result)
-              new google.maps.Marker({
+              let marker = new google.maps.Marker({
                 map: this.map,
                 position: result.geometry.location,
                 title: result.name,
-                icon: {
-                  fillColor: "#990011",
-                  fillOpacity: 0.7,
-                  path: google.maps.SymbolPath.CIRCLE,
-                  scale: 16,
-                  strokeColor: "#fff",
-                  strokeWeight: 1.0
-                },
-                label: {
-                  text: 'New',
-                  color: '#fff',
-                  fontSize: '10px'
-                }
+                icon: this.icon
               })
+              this.markers.push(marker)
             })
           } else if (status === "ZERO_RESULTS") {
             alert('検索結果が見つかりませんでした')
@@ -242,7 +237,7 @@ export default {
           });
         },1000)
       })
-      this.createFlash({ type: "success", message: "みんなのMy定番スポットをマッピングしています..." })
+      this.createFlash({ type: "success", message: "みんなの定番スポットを表示しました！" })
     },
 
     createMap() {
@@ -257,17 +252,13 @@ export default {
 
       //描画するためのmapを新規作成
       this.map = new google.maps.Map(target, mapOptions);
-
-      // クリックしたらマーカーを配置し、位置情報をDB記録
-
-      //mapをクリックしたときの動作を定義
-      this.map.addListener("click", e => {
-          this.getAddress(e) //緯度経度から文字列の住所に変換して情報を取得する
-          setTimeout(() => {
-            this.addMarker(e) //マーカーを追加する
-            this.setLocationParams(e) //DBに位置情報を保存する
-          }, 500) //500msで動作支障なし ※要変更
-      });
+      this.map.addListener('center_changed', () => {
+        this.center = this.map.getCenter()
+        })
+      this.map.addListener('zoom_changed', () => {
+        this.zoom = this.map.getZoom()
+        })
+      this.markers = new google.maps.MVCArray()
     },
 
     //以下、長くなるので切り出した関数
@@ -303,19 +294,6 @@ export default {
           map: this.map,
           title: this.address,
           animation: google.maps.Animation.DROP,
-          // icon: {
-          //   fillColor: "#990011",
-          //   fillOpacity: 1.0,
-          //   path: google.maps.SymbolPath.CIRCLE,
-          //   scale: 16,
-          //   strokeColor: "#fff",
-          //   strokeWeight: 1.0
-          // },
-          // label: {
-          //   text: 'New',
-          //   color: '#fff',
-          //   fontSize: '10px'
-          // }
         });
         console.log(marker)
         this.markers.push(marker)
