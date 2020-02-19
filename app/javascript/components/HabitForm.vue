@@ -18,14 +18,14 @@
 
         <v-row>
           <v-col>
-            <v-text-field
+            <v-textarea
               :value="habit.description"
               @input="updateHabit($event, 'description')"
               :rules="descriptionRules"
               :counter="140"
               label="習慣詳細"
               required
-            ></v-text-field>
+            ></v-textarea>
           </v-col>
         </v-row>
 

@@ -17,11 +17,11 @@
       <v-spacer></v-spacer>
 
       <v-btn
+        v-if="currentUser"
         icon
         :to="{ name: 'UserDetail' }"
       >
         <v-avatar
-          v-if="currentUser"
           circle
           color="#990011"
           size="30"
