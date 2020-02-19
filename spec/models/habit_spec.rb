@@ -42,6 +42,11 @@ RSpec.describe Habit, type: :model do
       expect(habit).to_not be_valid
     end
 
+    it 'meritがないと無効であること' do
+      habit = build(:habit, merit: nil)
+      expect(habit).to_not be_valid
+    end
+
     it 'bestがないと無効であること' do
       habit = build(:habit, best: nil)
       expect(habit).to_not be_valid
