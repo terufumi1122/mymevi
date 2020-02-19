@@ -18,8 +18,6 @@ import Header from './components/Header'
 import Flash from './components/Flash'
 import Footer from './components/Footer'
 
-
-
 export default {
   name: 'App',
   components: {
