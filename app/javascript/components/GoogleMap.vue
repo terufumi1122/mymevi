@@ -258,16 +258,6 @@ export default {
       //描画するためのmapを新規作成
       this.map = new google.maps.Map(target, mapOptions);
 
-      // クリックしたらマーカーを配置し、位置情報をDB記録
-
-      //mapをクリックしたときの動作を定義
-      this.map.addListener("click", e => {
-          this.getAddress(e) //緯度経度から文字列の住所に変換して情報を取得する
-          setTimeout(() => {
-            this.addMarker(e) //マーカーを追加する
-            this.setLocationParams(e) //DBに位置情報を保存する
-          }, 500) //500msで動作支障なし ※要変更
-      });
     },
 
     //以下、長くなるので切り出した関数
