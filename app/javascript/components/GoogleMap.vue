@@ -248,6 +248,7 @@ export default {
     createMap() {
       const target = document.getElementById("target");
       const mapOptions = {
+        gestureHandling: 'greedy',
         center: this.center,
         zoom: this.zoom,
         disableDefaultUI: true,
