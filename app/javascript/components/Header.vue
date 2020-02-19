@@ -2,6 +2,7 @@
     <v-app-bar
       color="#0f4c81"
       dark
+      draggable="false"
     >
       <v-toolbar-title>
         <v-btn
