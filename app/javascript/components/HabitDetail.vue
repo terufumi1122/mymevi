@@ -13,6 +13,7 @@
       ></v-img>
 
       <v-card-title>{{ habit.name }}</v-card-title>
+      <v-card-sub-title>{{ habit.merit }}</v-card-sub-title>
 
       <v-card-text>
         <p>{{ habit.description }}</p>

@@ -41,11 +41,8 @@ export default {
         location_id: this.habit.location_id,
         image: this.habit.image
       }
-      this.updateHabit(habitParams, this.routeTo("Top"));
+      this.updateHabit(habitParams, this.$router.push({ name: 'Top' }));
     },
-    routeTo(routeName) {
-      this.$router.push({ name: routeName });
-    }
   }
 };
 </script>

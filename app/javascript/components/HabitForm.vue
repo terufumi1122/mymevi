@@ -35,7 +35,7 @@
               :value="habit.merit"
               @input="updateHabit($event, 'merit')"
               :rules="meritRules"
-              :counter="20"
+              :counter="100"
               label="実感した（したい）メリット"
               required
             ></v-text-field>
