@@ -59,7 +59,8 @@ export default {
   },
   data() {
     return {
-      radius: 10000,
+      zoom: 12,
+      radiusPattern: [0,0,0,0,0,0,0,0,85000, 43000, 21600, 12300, 5500, 2800, 1300, 650, 340, 160, 90, 50],
       buttons: [
         {id: 1, rouded: true, fab: false, color: "blue", click: "gps", icon: "mdi-map-marker-radius", text: "現在地に移動"},
         {id: 2, rouded: true, fab: false, color: "teal", click: "setMarker", icon: "mdi-map-marker-multiple", text: "みんなの場所を表示"},
@@ -74,7 +75,6 @@ export default {
         lat: 35.65823,
         lng: 139.701642
       },
-      zoom: 12,
     };
   },
   computed: {
@@ -90,6 +90,9 @@ export default {
       return this.locations.filter(
         location => location.user_id === this.currentUser.id
       );
+    },
+    radius() {
+      return this.radiusPattern[this.zoom]
     }
   },
   created() {
@@ -153,13 +156,8 @@ export default {
       );
     },
 
-    slider(value) {
-      console.log(`sliderから${value}を受け取りました`) //後で消す
-      this.radius = value
-      console.log(this.radius) //後で消す
-    },
-
     searchPoint(keyword) {
+      console.log(`半径${this.radius}mの範囲で検索します`)//後で消す
       console.log('検索します')//後で消す
       console.log(keyword)//後で消す
 
@@ -259,6 +257,9 @@ export default {
       this.map = new google.maps.Map(target, mapOptions);
       this.map.addListener('center_changed', () => {
         this.center = this.map.getCenter()
+        })
+      this.map.addListener('zoom_changed', () => {
+        this.zoom = this.map.getZoom()
         })
     },
 
