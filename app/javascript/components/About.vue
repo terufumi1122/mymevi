@@ -23,31 +23,34 @@
     </v-row>
     <v-container v-if="currentUser === null">
       <v-row>
-        <v-spacer></v-spacer>
-          <v-btn
-            color="#0f4c81"
-            dark
-            :to="{ name: 'LoginForm' }"
-          >
-            ログイン
-          </v-btn>
-        <v-spacer></v-spacer>
-          <v-btn
-            color="#278040"
-            dark
-            @click="guestLogin"
-          >
-            簡単ログイン
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="#990011"
-            dark
-            :to="{ name: 'SignUpForm' }"
-          >
-            新規登録
-          </v-btn>
-        <v-spacer></v-spacer>
+        <v-btn
+          class="mx-auto mb-3"
+          color="#0f4c81"
+          dark
+          :to="{ name: 'LoginForm' }"
+        >
+          ログイン
+        </v-btn>
+      </v-row>
+      <v-row>
+        <v-btn
+          class="mx-auto mb-3"
+          color="#278040"
+          dark
+          @click="guestLogin"
+        >
+          簡単ログイン
+        </v-btn>
+      </v-row>
+      <v-row>
+        <v-btn
+          class="mx-auto mb-3"
+          color="#990011"
+          dark
+          :to="{ name: 'SignUpForm' }"
+        >
+          新規登録
+        </v-btn>
       </v-row>
     </v-container>
     <v-container v-else>

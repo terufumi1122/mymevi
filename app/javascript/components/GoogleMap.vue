@@ -242,7 +242,7 @@ export default {
           });
         },1000)
       })
-      this.createFlash({ type: "success", message: "みんなのMy定番スポットをマッピングしています..." })
+      this.createFlash({ type: "success", message: "みんなの定番スポットを表示しました！" })
     },
 
     createMap() {
@@ -293,19 +293,6 @@ export default {
           map: this.map,
           title: this.address,
           animation: google.maps.Animation.DROP,
-          // icon: {
-          //   fillColor: "#990011",
-          //   fillOpacity: 1.0,
-          //   path: google.maps.SymbolPath.CIRCLE,
-          //   scale: 16,
-          //   strokeColor: "#fff",
-          //   strokeWeight: 1.0
-          // },
-          // label: {
-          //   text: 'New',
-          //   color: '#fff',
-          //   fontSize: '10px'
-          // }
         });
         console.log(marker)
         this.markers.push(marker)
