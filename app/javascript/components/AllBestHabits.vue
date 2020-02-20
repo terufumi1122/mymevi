@@ -34,16 +34,33 @@
     >
     </v-pagination>
     <div class="vertical-spacer"></div>
-    <div v-for="habit in displayHabits" :key="habit.id">
-      <BestItem
-       :avatorColor="avatorColor[habit.best]"
-       :habit="habit"
-       :favorites="allFavorites"
-       :isCurrentUser="habit.user_id === currentUser.id"
-       >
-      </BestItem>
-      <div class="vertical-spacer"></div>
+
+    <div v-if="currentUser !== null">
+      <div v-for="habit in displayHabits" :key="habit.id">
+        <BestItem
+         :avatorColor="avatorColor[habit.best]"
+         :habit="habit"
+         :favorites="allFavorites"
+         :isCurrentUser="habit.user_id === currentUser.id"
+         >
+        </BestItem>
+        <div class="vertical-spacer"></div>
+      </div>
     </div>
+
+    <div v-else>
+      <div v-for="habit in displayHabits" :key="habit.id">
+        <BestItem
+         :avatorColor="avatorColor[habit.best]"
+         :habit="habit"
+         :favorites="allFavorites"
+         :isCurrentUser="false"
+         >
+        </BestItem>
+        <div class="vertical-spacer"></div>
+      </div>
+    </div>
+
     <div class="vertical-spacer"></div>
     <v-pagination
       v-model="pageNumber"

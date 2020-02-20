@@ -103,7 +103,11 @@
         return this.favorites.filter( favorite => favorite.habit_id === this.habit.id ).map( f => f.user_id )
       },
       isLike() {
-        return this.LikedUsers.includes(this.currentUser.id)
+        if (this.currentUser) {
+          return this.LikedUsers.includes(this.currentUser.id)
+        } else {
+          return false
+        }
       },
     },
     methods: {
@@ -113,13 +117,17 @@
         'setHabitDetail',
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
-        if (this.isLike === false) {
-          this.addLike(likeParams)
-          console.log('いいねをつけました')
+        if (this.currentUser) {
+          let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
+          if (this.isLike === false) {
+            this.addLike(likeParams)
+            console.log('いいねをつけました')
+          } else {
+            this.deleteLike(likeParams)
+            console.log('いいねを外しました')
+          }
         } else {
-          this.deleteLike(likeParams)
-          console.log('いいねを外しました')
+          alert('ログインしてから「いいね！」してみよう♪')
         }
       },
     }
