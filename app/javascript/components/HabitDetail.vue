@@ -1,94 +1,95 @@
 <template>
   <div>
+    <v-container>
 
-    <v-card
-      class="mx-auto my-12"
-      max-width="374"
-    >
-      <v-img
-        transition="false"
-        haight="250"
-        :src="habit.image"
-        alt="登録した習慣の画像"
-      ></v-img>
+      <v-card
+        class="mx-auto my-12"
+        max-width="374"
+      >
+        <v-img
+          transition="false"
+          haight="250"
+          :src="habit.image"
+          alt="登録した習慣の画像"
+        ></v-img>
 
-      <v-card-title>{{ habit.name }}</v-card-title>
+        <v-card-title>{{ habit.name }}</v-card-title>
 
-      <div class="balloon">
+        <div class="balloon">
+          <v-card-text>
+            {{ habit.merit }}
+          </v-card-text>
+        </div>
+        <div class="avatar-container">
+          <v-avatar
+            color="#990011"
+            size="30"
+            class="balloon-avatar"
+          >
+            <img
+              :src="avatar(habit.user_id)"
+            >
+          </v-avatar>
+
+        </div>
+
         <v-card-text>
-          {{ habit.merit }}
+          <p>{{ habit.description }}</p>
         </v-card-text>
-      </div>
-      <div class="avatar-container">
-        <v-avatar
-          color="#990011"
-          size="30"
-          class="balloon-avatar"
-        >
-          <img
-            :src="avatar(habit.user_id)"
-          >
-        </v-avatar>
 
-      </div>
+        <v-divider class="mx-4"></v-divider>
 
-      <v-card-text>
-        <p>{{ habit.description }}</p>
-      </v-card-text>
+        <v-card-text class="grey--text">
+          <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！</p>
+          <p>定番スポット： {{ habitLocation.name }}</p>
+        </v-card-text>
 
-      <v-divider class="mx-4"></v-divider>
-
-      <v-card-text class="grey--text">
-        <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！</p>
-        <p>定番スポット： {{ habitLocation.name }}</p>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn
-          @click="toggleLike"
-          icon
-          :disabled="isCurrentUser"
-        >
-          <v-badge
-            color="pink"
-            :value="likesCount"
-            :content="likesCount"
-          >
-            <v-icon
-              v-if="isLike === true"
-              color="red"
-            >mdi-heart</v-icon>
-            <v-icon
-              v-else
-            >mdi-heart</v-icon>
-          </v-badge>
-        </v-btn>
+        <v-card-actions>
           <v-btn
-            color="deep-purple accent-4"
-            text
-            :to="{ name: 'AllBestHabits' }"
+            @click="toggleLike"
+            icon
+            :disabled="isCurrentUser"
           >
-            みんなの習慣一覧に戻る
+            <v-badge
+              color="pink"
+              :value="likesCount"
+              :content="likesCount"
+            >
+              <v-icon
+                v-if="isLike === true"
+                color="red"
+              >mdi-heart</v-icon>
+              <v-icon
+                v-else
+              >mdi-heart</v-icon>
+            </v-badge>
           </v-btn>
-        <v-spacer></v-spacer>
-        <router-link :to="{ name: 'HabitEdit' }">
-          <v-btn
-            v-if="isCurrentUser"
-            text
-            color="deep-purple accent-4"
-            @click="setHabitDetail(habit.id)"
-          >
-            編集する
-          </v-btn>
-        </router-link>
-      </v-card-actions>
+            <v-btn
+              color="deep-purple accent-4"
+              text
+              :to="{ name: 'AllBestHabits' }"
+            >
+              みんなの習慣一覧に戻る
+            </v-btn>
+          <v-spacer></v-spacer>
+          <router-link :to="{ name: 'HabitEdit' }">
+            <v-btn
+              v-if="isCurrentUser"
+              text
+              color="deep-purple accent-4"
+              @click="setHabitDetail(habit.id)"
+            >
+              編集する
+            </v-btn>
+          </router-link>
+        </v-card-actions>
 
-      <Loading/>
-    </v-card>
+        <Loading/>
+      </v-card>
 
-    <Comments></Comments>
-    <CommentNew></CommentNew>
-
+      <Comments></Comments>
+      <CommentNew></CommentNew>
+    </v-container>
   </div>
 </template>
 
@@ -117,7 +118,11 @@
       ]),
 
       isCurrentUser() {
-        return this.habit.user_id === this.currentUser.id
+        if (this.currentUser) {
+          return this.habit.user_id === this.currentUser.id
+        } else {
+          return false
+        }
       },
       likesCount() {
         return this.allFavorites.filter( favorite => favorite.habit_id === this.habit.id ).length
@@ -126,10 +131,11 @@
         return this.allFavorites.filter( favorite => favorite.habit_id === this.habit.id).map( f => f.user_id )
       },
       isLike() {
-        return this.LikedUsers.includes(this.currentUser.id)
-      },
-      currentUserGender() {
-        return this.currentUser.gender
+        if (this.currentUser) {
+          return this.LikedUsers.includes(this.currentUser.id)
+        } else {
+          return false
+        }
       },
       userGender() {
         if(this.habit.user_gender === 1) {
@@ -143,15 +149,19 @@
     },
     created() {
       this.loadingTrue()
-      const userId = this.currentUser.id
-      this.setCurrentUserHabits(userId)
+      if (this.currentUser) {
+        const userId = this.currentUser.id
+        this.setCurrentUserHabits(userId)
+      }
       this.setAllFavorites()
     },
     mounted() {
-      const userId = this.currentUser.id
-      axios
-        .get(`/api/v1/users/${userId}.json`)
-        .then(response => (this.user = response.data))
+      if (this.currentUser) {
+        const userId = this.currentUser.id
+        axios
+          .get(`/api/v1/users/${userId}.json`)
+          .then(response => (this.user = response.data))
+      }
     },
     destroyed() {
       this.clearHabit()
@@ -171,13 +181,17 @@
         'setComment',
       ]),
       toggleLike() {
-        let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
-        if (this.isLike === false) {
-          this.addLike(likeParams)
-          console.log('いいねをつけました')
+        if (this.currentUser) {
+          let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
+          if (this.isLike === false) {
+            this.addLike(likeParams)
+            console.log('いいねをつけました')
+          } else {
+            this.deleteLike(likeParams)
+            console.log('いいねを外しました')
+          }
         } else {
-          this.deleteLike(likeParams)
-          console.log('いいねを外しました')
+          alert('ログインしてから「いいね！」してみよう♪')
         }
       },
 
