@@ -1,5 +1,9 @@
 <template>
-  <v-bottom-navigation background-color="#990011" dark fixed>
+  <v-bottom-navigation
+    background-color="#990011"
+    dark
+    fixed
+  >
       <v-btn
         v-if="currentUser"
         :to="{ name: 'UserDetail' }"

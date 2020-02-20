@@ -3,7 +3,9 @@
     <div>
       <Header/>
       <Flash/>
-      <router-view></router-view>
+      <router-view
+        class="router__view--margin"
+      ></router-view>
       <Footer/>
     </div>
   </v-app>
@@ -55,5 +57,9 @@ export default {
 }
 [v-cloak] {
   display: none;
+}
+.router__view--margin {
+  margin-top: 56px;
+  margin-bottom: 56px;
 }
 </style>

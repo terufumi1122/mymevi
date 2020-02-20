@@ -18,7 +18,7 @@ User.find_or_create_by!(email: 'admin@sample.com') do |user|
 end
 
 User.find_or_create_by!(email: 'guest@sample.com') do |user|
-  user.name = 'ゲストユーザー'
+  user.name = 'めびめび'
   user.email = 'guest@sample.com'
   user.password = 'password'
   user.password_confirmation = 'password'
@@ -29,10 +29,38 @@ User.find_or_create_by!(email: 'guest@sample.com') do |user|
 end
 
 Habit.find_or_create_by!(id: 1) do |habit|
-  habit.name = 'サンプル'
-  habit.description = 'サンプル(詳細)'
+  habit.name = '毎朝4kmラン'
+  habit.description = '朝走るだけで一日が充実する気がします。非常に気持いいですし、気軽に始められるのでどなたにもオススメです。'
+  habit.merit = '頭スッキリ！気分爽快です！'
   habit.best = 1
-  habit.user_id = 37
+  habit.user_id = 2
+  habit.location_id = 1
+end
+
+Habit.find_or_create_by!(id: 2) do |habit|
+  habit.name = '15時のコーヒー'
+  habit.description = 'コーヒーは一日２杯。特に午後のコーヒーを飲まないと後半ダレますね。'
+  habit.merit = '仕事の集中力が保てます'
+  habit.best = 2
+  habit.user_id = 2
+  habit.location_id = 1
+end
+
+Habit.find_or_create_by!(id: 3) do |habit|
+  habit.name = '寝る前のホットミルク'
+  habit.description = '寝る前に軽くストレッチして、温かいミルクを飲んで寝れば朝までほとんど熟睡できます。'
+  habit.merit = '爆睡！爪がよく伸びるようになった気がします'
+  habit.best = 3
+  habit.user_id = 2
+  habit.location_id = 1
+end
+
+Habit.find_or_create_by!(id: 4) do |habit|
+  habit.name = '図書館で勉強'
+  habit.description = '都立中央図書館は電源付きの広い個別スペースもあって使いやすいです。'
+  habit.merit = 'これから試すのでまだ効果は実感できていません'
+  habit.best = 3
+  habit.user_id = 2
   habit.location_id = 1
 end
 
