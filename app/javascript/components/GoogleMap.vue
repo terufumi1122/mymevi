@@ -76,6 +76,7 @@ export default {
     this.mapWidth = window.innerWidth;
     this.mapHeight = window.innerHeight - 112;
     this.setLocations();
+    this.createFlash({type: "info", message: "現在β版です（ユーザーレビュー反映中）"})
   },
   mounted() {
     this.createMap();
