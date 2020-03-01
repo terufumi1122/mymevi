@@ -41,7 +41,7 @@
 
         <v-card-text class="grey--text">
           <p>{{ habit.user_name }}{{ userGender }}さんの{{ habit.best }}番目のオススメ習慣です！</p>
-          <p>定番スポット： {{ habitLocation.name }}</p>
+          <!-- <p>定番スポット： {{ habitLocation.name }}</p> -->
         </v-card-text>
 
         <v-card-actions>

@@ -15,7 +15,7 @@ module AppName
       g.template_engine false 
       g.assets false
       g.helper false
-      g.test_flamework :rspec,
+      g.test_framework :rspec,
                         fixtures: false,
                         view_specs: false,
                         helper_specs: false,
