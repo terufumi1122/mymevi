@@ -42,7 +42,7 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <!-- <v-row>
           <v-col>
             <v-select
               :value="habit.location_id"
@@ -51,7 +51,7 @@
               label="My定番スポットと紐付ける"
             ></v-select>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <slot></slot>
 
