@@ -12,20 +12,27 @@ User.find_or_create_by!(email: 'admin@sample.com') do |user|
   user.password = 'password'
   user.password_confirmation = 'password'
   user.birth_year = 2000
-  user.birth_month = 10
-  user.birth_day = 10
   user.gender = 2
 end
 
 User.find_or_create_by!(email: 'guest@sample.com') do |user|
-  user.name = 'めびめび'
+  user.name = 'ゲストユーザー'
   user.email = 'guest@sample.com'
   user.password = 'password'
   user.password_confirmation = 'password'
   user.birth_year = 1995
-  user.birth_month = 1
-  user.birth_day = 1
   user.gender = 1
+end
+
+20.times do |n|
+  User.find_or_crete_by!(id: n + 2) do |user|
+    user.name = Faker::Japanese::Name.first_name
+    user.email = Faker::Internet.free_email
+    user.password = 'password'
+    user.password_confirmation = 'password'
+    user.birth_year = rand(1930..2010)
+    user.gender = rand(1..4)
+  end
 end
 
 Habit.find_or_create_by!(id: 1) do |habit|
@@ -59,7 +66,7 @@ Habit.find_or_create_by!(id: 4) do |habit|
   habit.name = '図書館で勉強'
   habit.description = '都立中央図書館は電源付きの広い個別スペースもあって使いやすいです。'
   habit.merit = 'これから試すのでまだ効果は実感できていません'
-  habit.best = 3
+  habit.best = 4
   habit.user_id = 2
   habit.location_id = 1
 end
@@ -68,6 +75,6 @@ Location.find_or_create_by!(id: 1) do |location|
   location.name = '名もなき場所'
   location.lat = 35.65823
   location.lng = 139.701642
-  location.user_id = 37
-  location.habit_id = 30
+  location.user_id = 2
+  location.habit_id = 1
 end
