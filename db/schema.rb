@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2020_02_19_101217) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "record_type", limit: 255, null: false
+    t.string "name", null: false
+    t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 2020_02_19_101217) do
   end
 
   create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "key", limit: 255, null: false
-    t.string "filename", limit: 255, null: false
-    t.string "content_type", limit: 255
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", limit: 255, null: false
+    t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_101217) do
   end
 
   create_table "habits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+    t.string "name", null: false
     t.text "description", null: false
     t.integer "best", null: false
     t.integer "user_id", null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_101217) do
   end
 
   create_table "locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+    t.string "name", null: false
     t.float "lat", limit: 53, null: false
     t.float "lng", limit: 53, null: false
     t.integer "user_id", null: false
@@ -74,24 +74,21 @@ ActiveRecord::Schema.define(version: 2020_02_19_101217) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "provider", limit: 255, default: "email", null: false
-    t.string "uid", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
-    t.string "reset_password_token", limit: 255
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.string "name", limit: 255, null: false
-    t.string "nickname", limit: 255
-    t.string "image", limit: 255
-    t.string "email", limit: 255, null: false
+    t.string "name", null: false
+    t.string "nickname"
+    t.string "image"
+    t.string "email", null: false
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "gender", null: false
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
     t.integer "birth_year", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
