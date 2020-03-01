@@ -57,6 +57,7 @@ group :development do
   gem 'binding_of_caller', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate'
 end
 
 group :test do
