@@ -41,7 +41,6 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 
-  gem 'annotate'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
