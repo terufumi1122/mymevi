@@ -146,8 +146,9 @@
  .best__avatar:before {
    content: "ベスト";
    font-size: 7px;
+   width: 100%;
    position: absolute;
-   top: -5px;
-   left: 10px;
+   text-align: center;
+   top: -11px;
  }
 </style>

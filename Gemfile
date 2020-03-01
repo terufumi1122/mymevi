@@ -41,7 +41,6 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 
-  gem 'annotate'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
@@ -58,6 +57,7 @@ group :development do
   gem 'binding_of_caller', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate'
 end
 
 group :test do
