@@ -157,7 +157,7 @@ export default {
 
     setHabitDetail(context, habitId) {
       context.commit("currentHabitId", { currentHabitId: habitId });
-      console.log(habitId)
+      
       axios
         .get("/api/v1/habit_detail", { params: { habit_id: habitId } })
         .then(response => {
@@ -266,16 +266,12 @@ export default {
 
     getHabitAvatars(context) {
       const habits = context.getters.allHabits;
-      console.log(habits)
       const userIds = habits.map(habit => habit.user_id);
       const habitUsers = Array.from(new Set(userIds));
-
       axios
         .post("/api/v1/user/avatars", { users: habitUsers })
         .then(response => {
           context.commit("avatars", response.data);
-          console.log(response.data)
-          console.log("avatarsを取得しました");
         })
         .catch(error => {
           console.error(error);

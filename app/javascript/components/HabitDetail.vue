@@ -185,10 +185,8 @@
           let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
           if (this.isLike === false) {
             this.addLike(likeParams)
-            console.log('いいねをつけました')
           } else {
             this.deleteLike(likeParams)
-            console.log('いいねを外しました')
           }
         } else {
           alert('ログインしてから「いいね！」してみよう♪')
