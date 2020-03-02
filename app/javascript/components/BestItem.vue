@@ -16,7 +16,9 @@
       >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="title mb-5">
-          {{ habit.name }}
+          <router-link :to="{ name: 'HabitDetail' }">
+            {{ habit.name }}
+          </router-link>
         </v-list-item-title>
         <v-list-item-subtitle>
           <v-avatar
@@ -132,7 +134,12 @@
   }
 </script>
 
-<style>
+<style scoped>
+.v-application a {
+  color: inherit;
+  text-decoration: none;
+}
+
  h1 {
    font-size: 5rem;
  }
