@@ -112,9 +112,7 @@ export default {
       // this.deleteLocation(locationId)
     },
     clearMarkers() {
-      console.log('clearMarkers()発動')
       this.markers.forEach(m => m.setMap(null))
-      console.log('clearMarkers()終了')
     },
 
     //現在位置に移動するメソッド
@@ -124,7 +122,6 @@ export default {
         alert("Geolocation not supported!");
         return;
       }
-      console.log('gps()を開始します。') //後で消す
       //現在位置の取得を行う
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -133,16 +130,12 @@ export default {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          console.log(this.center); //後で消す
           this.map.panTo(this.center) //現在位置にmapの表示位置を移動させる
         }
       );
     },
 
     searchPoint(keyword) {
-      console.log(`半径${this.radius}mの範囲で検索します`)//後で消す
-      console.log('検索します')//後で消す
-      console.log(keyword)//後で消す
 
       if (keyword === '') {
         alert('住所やキーワードを入力して下さい')
@@ -158,7 +151,6 @@ export default {
 
             this.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' //currentUserは赤
             results.forEach( result => {
-              console.log(result)
               let marker = new google.maps.Marker({
                 map: this.map,
                 position: result.geometry.location,
@@ -262,7 +254,6 @@ export default {
 
     //自分がクリック or タップしたらマーカーを表示し、DBに位置情報を保存する
     addMarker(e) {
-      console.log('addMarkerを開始します')
         //マーカーを定義する
         let marker = new google.maps.Marker({
           currentUser: true,
@@ -272,7 +263,6 @@ export default {
           title: this.address,
           animation: google.maps.Animation.DROP,
         });
-        console.log(marker)
         this.markers.push(marker)
         // コンポーネント内dataのmarkersに上記を加える
         // 時間差がないとうまく反映されなかったためやむなくsetTimeoutで調整
@@ -288,7 +278,6 @@ export default {
         }, 2000)
     },
     setLocationParams(e) {
-      console.log('setLocationParamsを開始します')
         if (this.currentUser) {
           //位置情報を記録するために変数を宣言
         let locationParams = {

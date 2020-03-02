@@ -123,7 +123,6 @@ export default ({
         .post('/api/v1/user/avatars', { users: commentUsers })
         .then(response => {
         context.commit('avatars', response.data)
-        console.log('avatarsを取得しました')
         })
         .catch(error => {
           console.error(error)

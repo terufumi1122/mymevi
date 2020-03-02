@@ -80,7 +80,6 @@ export default {
       this.$emit('change', currentImage)
     },
     onImageChange (e) {
-      console.log(e)
       const images = e.target.files || e.dataTransfer.files
         this.getBase64(images[0])
           .then(image => {

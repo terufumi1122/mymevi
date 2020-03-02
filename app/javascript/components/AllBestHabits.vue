@@ -131,7 +131,6 @@ export default {
       this.changePageSize(this.pageSize)
     },
     toggleSort(method) {
-      console.log(method)
       if (method === "sortAscTime") {
         this.sortAscTime()
       } else if ( method === "sortDescTime" ) {

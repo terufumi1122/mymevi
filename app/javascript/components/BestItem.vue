@@ -16,7 +16,9 @@
       >{{ habit.best }}</v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="title mb-5">
-          {{ habit.name }}
+          <router-link :to="{ name: 'HabitDetail' }">
+            {{ habit.name }}
+          </router-link>
         </v-list-item-title>
         <v-list-item-subtitle>
           <v-avatar
@@ -121,10 +123,8 @@
           let likeParams = {user_id: this.currentUser.id, habit_id: this.habit.id}
           if (this.isLike === false) {
             this.addLike(likeParams)
-            console.log('いいねをつけました')
           } else {
             this.deleteLike(likeParams)
-            console.log('いいねを外しました')
           }
         } else {
           alert('ログインしてから「いいね！」してみよう♪')
@@ -134,7 +134,12 @@
   }
 </script>
 
-<style>
+<style scoped>
+.v-application a {
+  color: inherit;
+  text-decoration: none;
+}
+
  h1 {
    font-size: 5rem;
  }
